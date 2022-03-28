@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../core/navigation/bottom_navigation_bar.dart';
+import '../core/styles/styles.dart';
 import 'home/screens/home_screen.dart';
 import 'profile/screens/profile_screen.dart';
 
@@ -18,9 +20,6 @@ class _MainScreenState extends State<MainScreen> {
     ProfileScreen(),
   ];
 
-  final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomeScreen(); // Our first view in viewport
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,7 +27,8 @@ class _MainScreenState extends State<MainScreen> {
         extendBody: true,
         body: screens[currentIndex],
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
+          backgroundColor: S.colors.primary,
+          child: const Icon(FontAwesomeIcons.plus),
           onPressed: () {},
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

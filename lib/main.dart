@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
 
 void main() {
-  runApp(const Toydee());
+  runApp(const ProviderScope(child: Toydee()));
 }
 
 class Toydee extends StatelessWidget {
@@ -14,10 +15,10 @@ class Toydee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       navigatorKey: NavigationService.navigationKey,
+      navigatorKey: NavigationService.navigationKey,
       debugShowCheckedModeBanner: false,
-        initialRoute: RoutePaths.mainScreen,
-        onGenerateRoute: AppRouter.generateRoute,
+      initialRoute: RoutePaths.mainScreen,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 

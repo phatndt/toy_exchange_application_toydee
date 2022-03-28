@@ -2,34 +2,37 @@ import 'package:flutter/material.dart';
 
 import '../styles/styles.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({
+class CustomTextOuntlineButton extends StatelessWidget {
+  const CustomTextOuntlineButton({
     Key? key,
+    this.width = double.infinity,
     required this.text,
     required this.onPressed,
-    required this.color,
-    required this.textColor,
   }) : super(key: key);
 
+  final double width;
   final String text;
   final VoidCallback onPressed;
-  final Color color;
-  final Color textColor;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
       child: SizedBox(
         height: 50,
-        child: ElevatedButton(
+        width: width,
+        child: OutlinedButton(
           onPressed: onPressed,
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(S.dimens.defaultBorderRadius),
               ),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(color),
+            side: BorderSide(
+              width: 2.0,
+              color: S.colors.primary,
+            ),
+            primary: S.colors.gray_2,
           ),
           child: Center(
             child: Text(

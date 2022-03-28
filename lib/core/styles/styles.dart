@@ -72,6 +72,20 @@ class _TextStyles {
     fontWeight: FontWeight.w500,
     color: S.colors.textColor_1,
   );
+
+  final nav = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: S.colors.gray_3,
+  );
+
+  final navSelected = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: S.colors.primary,
+  );
 }
 
 class _Dimens {
