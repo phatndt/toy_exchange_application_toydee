@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
+import 'core/styles/styles.dart';
 
 void main() {
   runApp(const ProviderScope(child: Toydee()));
@@ -15,6 +16,11 @@ class Toydee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: S.colors.primary,
+        ),
+      ),
       navigatorKey: NavigationService.navigationKey,
       debugShowCheckedModeBanner: false,
       initialRoute: RoutePaths.login,

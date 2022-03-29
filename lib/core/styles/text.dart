@@ -21,7 +21,16 @@ class T {
   static const wcOrConnectWith = "Or connect with:";
   static const wcCreateAccount = "Create Account";
   static const wcLogin = "Login";
-  
+
   static const wcTerm_1 = "By singing up, you argee to Toydee’s";
   static const wcTerm_2 = "Terms and Conditions & Privacy Policy";
+
+  //login
+  static const loginTitle_1 = "Login to your account";
+  static const loginTitle_2 =
+      "Good to see you again, please enter your details below";
+  static const loginForgotPassword = "Forgot password?";
+  static const login = "Login";
+  static const loginNotMember = "Not a member?";
+  static const loginSignUp = " Sign up";
 }

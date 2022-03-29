@@ -4,6 +4,7 @@ class S {
   static final colors = _Colors();
   static final textStyles = _TextStyles();
   static final dimens = _Dimens();
+  static final inputBorders = _InputBorders();
 
   static final TextStyle h2 = TextStyle(
     fontFamily: 'Lato',
@@ -63,8 +64,9 @@ class _TextStyles {
   final titleHeavy = TextStyle(
     fontFamily: 'Lato',
     fontSize: 18,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
+    letterSpacing: 1.2,
   );
   final titleLight = TextStyle(
     fontFamily: 'Lato',
@@ -72,6 +74,7 @@ class _TextStyles {
     fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
     letterSpacing: 1.2,
+    textBaseline: TextBaseline.alphabetic,
   );
 
   final nav = TextStyle(
@@ -95,6 +98,14 @@ class _TextStyles {
     color: S.colors.primary,
     letterSpacing: 1.2,
   );
+
+  final titleHeavyPrimary = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: S.colors.primary,
+    letterSpacing: 1.2,
+  );
 }
 
 class _Dimens {
@@ -112,4 +123,30 @@ class _Dimens {
   final defaultPadding_256 = 256.0;
 
   final defaultBorderRadius = 8.0;
+}
+
+class _InputBorders {
+  final inputBorderStyle = OutlineInputBorder(
+    borderRadius:
+        BorderRadius.all(Radius.circular(S.dimens.defaultBorderRadius)),
+    borderSide: BorderSide.none,
+  );
+
+  final inputFocusedBorderStyle = OutlineInputBorder(
+    borderRadius:
+        BorderRadius.all(Radius.circular(S.dimens.defaultBorderRadius)),
+    borderSide: BorderSide(color: S.colors.primary, width: 2),
+  );
+
+  final inputFocusedErrorBorderStyle = OutlineInputBorder(
+    borderRadius:
+        BorderRadius.all(Radius.circular(S.dimens.defaultBorderRadius)),
+    borderSide: BorderSide(color: Colors.red[400]!, width: 2),
+  );
+
+  final inputErrorBorderStyle = OutlineInputBorder(
+    borderRadius:
+        BorderRadius.all(Radius.circular(S.dimens.defaultBorderRadius)),
+    borderSide: BorderSide.none,
+  );
 }
