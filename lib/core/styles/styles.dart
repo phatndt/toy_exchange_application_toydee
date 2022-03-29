@@ -69,8 +69,9 @@ class _TextStyles {
   final titleLight = TextStyle(
     fontFamily: 'Lato',
     fontSize: 16,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
+    letterSpacing: 1.2,
   );
 
   final nav = TextStyle(
@@ -86,15 +87,29 @@ class _TextStyles {
     fontWeight: FontWeight.bold,
     color: S.colors.primary,
   );
+
+  final titleLightPrimary = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: S.colors.primary,
+    letterSpacing: 1.2,
+  );
 }
 
 class _Dimens {
+  final defaultPadding_4 = 4.0;
   final defaultPadding_8 = 8.0;
   final defaultPadding_16 = 16.0;
   final defaultPadding_24 = 24.0;
   final defaultPadding_32 = 32.0;
   final defaultPadding_40 = 40.0;
+  final defaultPadding_48 = 48.0;
   final defaultPadding_64 = 64.0;
+  final defaultPadding_80 = 80.0;
+  final defaultPadding_100 = 96.0;
+  final defaultPadding_128 = 128.0;
+  final defaultPadding_256 = 256.0;
 
   final defaultBorderRadius = 8.0;
 }

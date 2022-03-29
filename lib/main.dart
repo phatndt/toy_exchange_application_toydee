@@ -17,7 +17,7 @@ class Toydee extends StatelessWidget {
     return MaterialApp(
       navigatorKey: NavigationService.navigationKey,
       debugShowCheckedModeBanner: false,
-      initialRoute: RoutePaths.mainScreen,
+      initialRoute: RoutePaths.login,
       onGenerateRoute: AppRouter.generateRoute,
     );
   }

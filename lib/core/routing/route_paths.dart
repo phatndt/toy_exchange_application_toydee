@@ -8,4 +8,5 @@ class RoutePaths {
   static const settingsLanguage = '/settings/language';
   static const map = '/map';
   static const mainScreen = '/mainScreen';
+  static const login = '/login';
 }

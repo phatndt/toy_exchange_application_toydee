@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_transitions.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
 
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
@@ -47,7 +48,6 @@ class AppRouter {
       //     settings: settings,
       //   );
 
-
       //Home
       case RoutePaths.mainScreen:
         return NavigationFadeTransition(
@@ -66,6 +66,12 @@ class AppRouter {
       case RoutePaths.profile:
         return MaterialPageRoute(
           builder: (_) => const ProfileScreen(),
+          settings: settings,
+        );
+
+      case RoutePaths.login:
+        return MaterialPageRoute(
+          builder: (_) => const LoginScreen(),
           settings: settings,
         );
 
