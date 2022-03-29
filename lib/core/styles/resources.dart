@@ -12,5 +12,15 @@ class _Icons {
 
 class _Image {
   static const path = 'assets/icons';
-  final logo = '$path/';
+  //final logo = '$path/';
+
+  static const logoPath = 'assets/images/logo';
+  final logoText = '$logoPath/logo_text.png';
+  final logo = '$logoPath/logo.png';
+
+  static const loginPath = 'assets/images/login';
+
+  final fbLogin = '$loginPath/logos_facebook.png';
+  final ggLogin = '$loginPath/flat-color-icons_google.png';
+  final appleLogin = '$loginPath/ant-design_apple-filled.png';
 }
