@@ -7,6 +7,7 @@ import 'package:toy_exchange_application_toydee/modules/authentication/screens/l
 import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
+import 'core/styles/styles.dart';
 
 // int? initScreen;
 
@@ -28,6 +29,11 @@ class Toydee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: S.colors.primary,
+        ),
+      ),
       navigatorKey: NavigationService.navigationKey,
       debugShowCheckedModeBanner: false,
       initialRoute: RoutePaths.onboardingpage,

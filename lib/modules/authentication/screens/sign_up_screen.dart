@@ -1,73 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
-import 'package:toy_exchange_application_toydee/core/widgets/custom_shape.dart';
-import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
-import 'package:toy_exchange_application_toydee/core/widgets/custom_text_outline_button.dart';
-import 'package:toy_exchange_application_toydee/modules/authentication/components/another_login_button.dart';
 
+import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
+import '../../../core/widgets/custom_text_elevated_button.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
+import '../components/another_login_button.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-    static final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final phoneNumber = FocusNode();
+    final email = FocusNode();
     final passwordFocus = FocusNode();
+    final passwordRepeatFocus = FocusNode();
     TextEditingController e = TextEditingController();
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                color: S.colors.background_1,
-                child: ClipPath(
-                  clipper: CustomShape(),
-                  child: Container(
-                    height: 120,
-                    width: MediaQuery.of(context).size.width,
-                    color: S.colors.background_2,
-                    child: Center(
-                      child: SizedBox(
-                          height: 40,
-                          width: 160,
-                          child: Image.asset(R.images.logoText)),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: S.dimens.defaultPadding_32,
-                ),
-                child: Column(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: S.dimens.defaultPadding_32,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: S.dimens.defaultPadding_64,
+                      height: S.dimens.defaultPadding_32,
                     ),
                     Text(
-                      T.loginTitle_1,
+                      T.signUpTitle_1,
                       style: S.textStyles.h3,
                     ),
                     ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 300),
+                      constraints: const BoxConstraints(maxWidth: 400),
                       child: Text(
-                        T.loginTitle_2,
+                        T.signUpTitle_2,
                         style: S.textStyles.titleHeavy,
                       ),
                     ),
                     SizedBox(
-                      height: S.dimens.defaultPadding_48,
+                      height: S.dimens.defaultPadding_32,
+                    ),
+                    CustomTextFormField(
+                      hintText: "Full name",
+                      prefixIconData: const Icon(FontAwesomeIcons.addressCard),
+                      suffixIconData: GestureDetector(
+                        onTap: () {},
+                        child: const Icon(FontAwesomeIcons.xmark),
+                      ),
+                      obscureText: true,
+                      onFieldSubmitted: (value) {
+                        phoneNumber.requestFocus();
+                      },
+                      inputType: TextInputType.emailAddress,
+                      controller: e,
+                    ),
+                    SizedBox(
+                      height: S.dimens.defaultPadding_24,
+                    ),
+                    CustomTextFormField(
+                      hintText: "Phone Number",
+                      prefixIconData: const Icon(FontAwesomeIcons.phone),
+                      suffixIconData: GestureDetector(
+                        onTap: () {},
+                        child: const Icon(FontAwesomeIcons.xmark),
+                      ),
+                      obscureText: true,
+                      onChanged: (value) {},
+                      validator: (value) {},
+                      onFieldSubmitted: (value) {
+                        email.requestFocus();
+                      },
+                      inputType: TextInputType.emailAddress,
+                      controller: e,
+                      focusNode: phoneNumber,
+                    ),
+                    SizedBox(
+                      height: S.dimens.defaultPadding_24,
                     ),
                     CustomTextFormField(
                       hintText: "Email",
@@ -78,13 +97,16 @@ class LoginScreen extends StatelessWidget {
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
                       obscureText: true,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        print("");
+                      },
                       validator: (value) {},
                       onFieldSubmitted: (value) {
                         passwordFocus.requestFocus();
                       },
                       inputType: TextInputType.emailAddress,
                       controller: e,
+                      focusNode: email,
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_24,
@@ -93,9 +115,7 @@ class LoginScreen extends StatelessWidget {
                       hintText: "Password",
                       prefixIconData: const Icon(FontAwesomeIcons.key),
                       suffixIconData: GestureDetector(
-                        onTap: () {
-
-                        },
+                        onTap: () {},
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
                       obscureText: true,
@@ -103,23 +123,37 @@ class LoginScreen extends StatelessWidget {
                         print("");
                       },
                       validator: (value) {},
-                      onFieldSubmitted: (value) {},
+                      onFieldSubmitted: (value) {
+                        passwordRepeatFocus.requestFocus();
+                      },
                       inputType: TextInputType.emailAddress,
                       controller: e,
                       focusNode: passwordFocus,
                     ),
                     SizedBox(
-                      height: S.dimens.defaultPadding_8,
-                    ),
-                    Text(
-                      T.loginForgotPassword,
-                      style: S.textStyles.titleHeavy,
-                    ),
-                    SizedBox(
                       height: S.dimens.defaultPadding_24,
                     ),
+                    CustomTextFormField(
+                      hintText: "Repeat password",
+                      prefixIconData: const Icon(FontAwesomeIcons.key),
+                      suffixIconData: GestureDetector(
+                        onTap: () {},
+                        child: const Icon(FontAwesomeIcons.xmark),
+                      ),
+                      obscureText: true,
+                      onChanged: (value) {
+                        print("");
+                      },
+                      validator: (value) {},
+                      inputType: TextInputType.emailAddress,
+                      controller: e,
+                      focusNode: passwordRepeatFocus,
+                    ),
+                    SizedBox(
+                      height: S.dimens.defaultPadding_32,
+                    ),
                     CustomButton(
-                      text: T.login,
+                      text: T.signUpTextButton,
                       onPressed: () {},
                       width: MediaQuery.of(context).size.width,
                     ),
@@ -165,23 +199,23 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(T.loginNotMember, style: S.textStyles.titleHeavy),
+                        Text(T.signUpAlreadyAMember,
+                            style: S.textStyles.titleHeavy),
                         InkWell(
                           onTap: () {
-                            NavigationService.push(
-                                isNamed: true, page: RoutePaths.signUp);
-                          },
+                      NavigationService.push(
+                          isNamed: true, page: RoutePaths.login);},
                           child: Text(
-                            T.loginSignUp,
+                            T.signUpLogin,
                             style: S.textStyles.titleHeavyPrimary,
                           ),
                         )
                       ],
                     ),
                   ],
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

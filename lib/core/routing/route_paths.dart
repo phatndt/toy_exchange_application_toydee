@@ -13,4 +13,6 @@ class RoutePaths {
   static const onboarding3 = '/onboarding3';
   static const onboardingpage = '/onboarding_page';
   static const login = '/login';
+  static const welcome = '/welcome';
+  static const signUp = '/signUp';
 }

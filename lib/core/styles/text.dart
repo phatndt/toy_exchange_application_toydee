@@ -25,4 +25,22 @@ class T {
 
   static const wcTerm_1 = "By singing up, you argee to Toydee’s";
   static const wcTerm_2 = "Terms and Conditions & Privacy Policy";
+
+  //login
+  static const loginTitle_1 = "Login to your account";
+  static const loginTitle_2 =
+      "Good to see you again, please enter your details below";
+  static const loginForgotPassword = "Forgot password?";
+  static const login = "Login";
+  static const loginNotMember = "Not a member?";
+  static const loginSignUp = " Sign up";
+
+  
+  //signUp
+  static const signUpTitle_1 = "Create an account";
+  static const signUpTitle_2 =
+      "Welcome friend, enter your details and let’s start sharing";
+  static const signUpTextButton = "Create Account";
+  static const signUpAlreadyAMember = "Already a member? ";
+  static const signUpLogin = "Login";
 }
