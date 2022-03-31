@@ -45,7 +45,7 @@ class _TextStyles {
   final h2 = TextStyle(
     fontFamily: 'Lato',
     fontSize: 36,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
   );
   final h3 = TextStyle(
@@ -60,11 +60,18 @@ class _TextStyles {
     fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
   );
+  final TextStyle h5 = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 36,
+    fontWeight: FontWeight.w900,
+    color: S.colors.primary,
+  );
   final titleHeavy = TextStyle(
     fontFamily: 'Lato',
     fontSize: 18,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
+    letterSpacing: 1.2,
   );
   final titleLight = TextStyle(
     fontFamily: 'Lato',

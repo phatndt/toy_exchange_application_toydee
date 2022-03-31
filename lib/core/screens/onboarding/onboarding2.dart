@@ -16,27 +16,29 @@ class OnBoarding2 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 50.0,
+            ),
+            Image.asset(
+              T.onb2Image,
+              scale: 1.45,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: S.dimens.defaultPadding_32,
-                  vertical: S.dimens.defaultPadding_32),
-              child: Image.asset(T.onb2_image),
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
+                  vertical: S.dimens.defaultPadding_16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: S.dimens.defaultPadding_32),
+                  SizedBox(height: S.dimens.defaultPadding_8),
                   Text(
-                    T.onb2_title,
-                    style: S.textStyles.h2,
+                    T.onb2Title,
+                    style: S.textStyles.h5,
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 10.0),
                   Text(
-                    T.onb2_content,
+                    T.onb2Content,
                     style: S.textStyles.titleHeavy,
                     textAlign: TextAlign.left,
                   )
@@ -44,7 +46,7 @@ class OnBoarding2 extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 70.0,
+              height: 40.0,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -57,16 +59,19 @@ class OnBoarding2 extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         primary: S.colors.textColor_1,
                         textStyle: S.textStyles.h4),
-                    onPressed: () {},
+                    onPressed: () {
+                      NavigationService.push(
+                          isNamed: true, page: RoutePaths.login);
+                    },
                     child: const Text(
-                      T.onb_skip,
+                      T.onbSkip,
                       textAlign: TextAlign.start,
                     ),
                   ),
                   CustomButton(
-                    text: T.onb_next,
+                    text: T.onbNext,
                     onPressed: () {
-                      NavigationService.pushReplacement(
+                      NavigationService.push(
                           isNamed: true, page: RoutePaths.onboarding3);
                     },
                     width: 120.0,
