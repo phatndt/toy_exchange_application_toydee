@@ -41,6 +41,9 @@ dependencies:
   flutter_riverpod: ^1.0.3
   riverpod: ^1.0.3
   provider: ^6.0.2
+  shared_preferences: ^2.0.13
+  introduction_screen: ^3.0.1
+
 
   ##Utils
   freezed_annotation: ^1.1.0

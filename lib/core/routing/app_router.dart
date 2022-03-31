@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_transitions.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding1.dart';
+import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding_page.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
@@ -89,6 +90,11 @@ class AppRouter {
       case RoutePaths.onboarding3:
         return MaterialPageRoute(
           builder: (_) => const OnBoarding3(),
+          settings: settings,
+        );
+      case RoutePaths.onboardingpage:
+        return MaterialPageRoute(
+          builder: (_) => OnBoardingPage(),
           settings: settings,
         );
 
