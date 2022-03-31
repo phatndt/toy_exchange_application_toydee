@@ -76,7 +76,7 @@ class OnBoardingPage extends StatelessWidget {
         dotsDecorator: buildDotsShape(),
         isProgressTap: false,
         freeze: false,
-        animationDuration: 550,
+        animationDuration: 400,
       ),
     );
   }
