@@ -10,7 +10,7 @@ class T {
       'You want a special toy or have one that your child no longer plays with? Let’s get started with the swap!';
   static const onbNext = 'Next';
   static const onbSkip = 'Skip';
-  static const onbDone = 'Login';
+  static const onbDone = 'Start';
 
   static const onb1Image = 'assets/images/onboarding/onboarding1.png';
   static const onb2Image = 'assets/images/onboarding/onboarding2.png';

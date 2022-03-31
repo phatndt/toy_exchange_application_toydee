@@ -66,12 +66,17 @@ class OnBoardingPage extends StatelessWidget {
           NavigationService.pushReplacement(
               isNamed: true, page: RoutePaths.login);
         },
+        controlsMargin:
+            EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_32),
+        controlsPosition: Position(bottom: 0, left: -10, right: 0),
+        controlsPadding: EdgeInsets.only(right: 30),
         showDoneButton: true,
         showNextButton: true,
         showSkipButton: true,
         dotsDecorator: buildDotsShape(),
         isProgressTap: false,
         freeze: false,
+        animationDuration: 550,
       ),
     );
   }
@@ -80,7 +85,7 @@ class OnBoardingPage extends StatelessWidget {
     return Center(
       child: Image.asset(
         path,
-        width: 350,
+        scale: 1,
       ),
     );
   }
@@ -91,11 +96,22 @@ class OnBoardingPage extends StatelessWidget {
       // imageAlignment: Alignment.center,
       // titleTextStyle: S.textStyles.h5,
       // bodyTextStyle: S.textStyles.titleHeavy,
-      titlePadding:
-          EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
-      imagePadding:
-          EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
-      bodyPadding: EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
+      titlePadding: EdgeInsets.all(
+        S.dimens.defaultPadding_32,
+      ),
+      bodyPadding: EdgeInsets.symmetric(
+        horizontal: S.dimens.defaultPadding_32,
+      ),
+      imagePadding: EdgeInsets.zero,
+      contentMargin: EdgeInsets.zero,
+      footerPadding: EdgeInsets.zero,
+      imageFlex: 1,
+
+      //imageAlignment: Alignment.centerRight
+      //    EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
+      // bodyPadding: EdgeInsets.symmetric(
+      //     horizontal: S.dimens.defaultPadding_32,
+      //     vertical: S.dimens.defaultPadding_32),
     );
   }
 
@@ -104,7 +120,7 @@ class OnBoardingPage extends StatelessWidget {
         color: S.colors.gray_1,
         activeColor: S.colors.primary,
         size: const Size(10, 10),
-        activeSize: const Size(20, 10),
+        activeSize: const Size(22, 10),
         activeShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)));
   }
