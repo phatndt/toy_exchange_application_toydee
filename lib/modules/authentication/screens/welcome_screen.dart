@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_shape.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_outline_button.dart';
@@ -67,7 +68,10 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   CustomButton(
                     text: T.wcCreateAccount,
-                    onPressed: () {},
+                    onPressed: () {
+                      NavigationService.push(
+                          isNamed: true, page: RoutePaths.signUp);
+                    },
                     width: MediaQuery.of(context).size.width,
                   ),
                   SizedBox(
@@ -82,7 +86,10 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   CustomTextOuntlineButton(
                     text: T.wcLogin,
-                    onPressed: () {},
+                    onPressed: () {
+                      NavigationService.push(
+                          isNamed: true, page: RoutePaths.login);
+                    },
                     width: MediaQuery.of(context).size.width,
                   ),
                   SizedBox(

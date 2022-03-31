@@ -33,4 +33,13 @@ class T {
   static const login = "Login";
   static const loginNotMember = "Not a member?";
   static const loginSignUp = " Sign up";
+
+  
+  //signUp
+  static const signUpTitle_1 = "Create an account";
+  static const signUpTitle_2 =
+      "Welcome friend, enter your details and let’s start sharing";
+  static const signUpTextButton = "Create Account";
+  static const signUpAlreadyAMember = "Already a member? ";
+  static const signUpLogin = "Login";
 }

@@ -23,7 +23,7 @@ class Toydee extends StatelessWidget {
       ),
       navigatorKey: NavigationService.navigationKey,
       debugShowCheckedModeBanner: false,
-      initialRoute: RoutePaths.login,
+      initialRoute: RoutePaths.welcome,
       onGenerateRoute: AppRouter.generateRoute,
     );
   }

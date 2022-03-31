@@ -3,6 +3,7 @@ import 'package:toy_exchange_application_toydee/core/routing/navigation_transiti
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding1.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
 
 import '../../modules/home/screens/home_screen.dart';
@@ -94,6 +95,12 @@ class AppRouter {
       case RoutePaths.login:
         return MaterialPageRoute(
           builder: (_) => const LoginScreen(),
+          settings: settings,
+        );
+
+      case RoutePaths.signUp:
+        return MaterialPageRoute(
+          builder: (_) => const SignUpScreen(),
           settings: settings,
         );
 
