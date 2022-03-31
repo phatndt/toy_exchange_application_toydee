@@ -42,6 +42,9 @@ dependencies:
   riverpod: ^1.0.3
   provider: ^6.0.2
 
+  introduction_screen: ^3.0.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
