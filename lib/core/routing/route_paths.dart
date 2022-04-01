@@ -15,4 +15,5 @@ class RoutePaths {
   static const login = '/login';
   static const welcome = '/welcome';
   static const signUp = '/signUp';
+  static const homefilter = '/home_filter_screen';
 }
