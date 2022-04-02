@@ -7,6 +7,7 @@ import 'package:toy_exchange_application_toydee/modules/authentication/screens/l
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
 
+import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
 import '../../modules/profile/screens/profile_screen.dart';
@@ -95,6 +96,11 @@ class AppRouter {
       case RoutePaths.onboardingpage:
         return MaterialPageRoute(
           builder: (_) => OnBoardingPage(),
+          settings: settings,
+        );
+      case RoutePaths.homefilter:
+        return MaterialPageRoute(
+          builder: (_) => HomeFilterScreen(),
           settings: settings,
         );
 

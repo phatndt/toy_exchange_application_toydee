@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 
 import '../../routing/navigation_service.dart';
 import '../../styles/styles.dart';
 import '../../styles/text.dart';
-import '../../widgets/custom_text_elevated_button.dart';
 
 class OnBoardingPage extends StatelessWidget {
+  const OnBoardingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,30 +33,35 @@ class OnBoardingPage extends StatelessWidget {
             decoration: buildDecoration(),
           ),
         ],
-        done: Text(
-          T.onbDone,
-          style: S.textStyles.h4,
+        done: Center(
+          child: Text(
+            T.onbDone,
+            style: S.textStyles.h4,
+          ),
         ),
         onDone: () {
           NavigationService.push(isNamed: true, page: RoutePaths.login);
         },
         nextStyle: TextButton.styleFrom(
-          // textStyle: S.textStyles.h4, ///////////// Error
           backgroundColor: S.colors.primary,
+          minimumSize: const Size(100, 50.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
         doneStyle: TextButton.styleFrom(
-          //textStyle: S.textStyles.h4, ///////////// Error
           backgroundColor: S.colors.primary,
+          minimumSize: const Size(100, 50.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        next: Text(
-          T.onbNext,
-          style: S.textStyles.h4,
+        next: Center(
+          child: Text(
+            T.onbNext,
+            style: S.textStyles.h4,
+            textAlign: TextAlign.center,
+          ),
         ),
         skip: Text(
           T.onbSkip,
@@ -68,8 +73,8 @@ class OnBoardingPage extends StatelessWidget {
         },
         controlsMargin:
             EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_32),
-        controlsPosition: Position(bottom: 0, left: -10, right: 0),
-        controlsPadding: EdgeInsets.only(right: 30),
+        controlsPosition: const Position(bottom: 0, left: -10, right: 0),
+        controlsPadding: const EdgeInsets.only(right: 30),
         showDoneButton: true,
         showNextButton: true,
         showSkipButton: true,
@@ -92,10 +97,6 @@ class OnBoardingPage extends StatelessWidget {
 
   buildDecoration() {
     return PageDecoration(
-      // bodyAlignment: Alignment.centerLeft,
-      // imageAlignment: Alignment.center,
-      // titleTextStyle: S.textStyles.h5,
-      // bodyTextStyle: S.textStyles.titleHeavy,
       titlePadding: EdgeInsets.all(
         S.dimens.defaultPadding_32,
       ),
@@ -106,12 +107,6 @@ class OnBoardingPage extends StatelessWidget {
       contentMargin: EdgeInsets.zero,
       footerPadding: EdgeInsets.zero,
       imageFlex: 1,
-
-      //imageAlignment: Alignment.centerRight
-      //    EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
-      // bodyPadding: EdgeInsets.symmetric(
-      //     horizontal: S.dimens.defaultPadding_32,
-      //     vertical: S.dimens.defaultPadding_32),
     );
   }
 

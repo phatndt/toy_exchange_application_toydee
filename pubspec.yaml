@@ -43,6 +43,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.13
   introduction_screen: ^3.0.1
+  group_button: ^4.8.0
 
 
   ##Utils
