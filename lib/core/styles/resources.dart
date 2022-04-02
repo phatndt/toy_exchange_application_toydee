@@ -23,4 +23,11 @@ class _Image {
   final fbLogin = '$loginPath/logos_facebook.png';
   final ggLogin = '$loginPath/flat-color-icons_google.png';
   final appleLogin = '$loginPath/ant-design_apple-filled.png';
+
+  
+  static const homePath = 'assets/images/home';
+
+  final homeSwiper_1 = '$homePath/swiper_1.png';
+  final homeSwiper_2 = '$homePath/swiper_2.png';
+  final homeSwiper_3 = '$homePath/swiper_3.png';
 }

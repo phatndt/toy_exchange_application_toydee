@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_shape.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_outline_button.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/components/another_login_button.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/viewmodels/login_view_model.dart';
 
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
+import '../viewmodels/tesst.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
-    static final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    final passwordFocus = FocusNode();
-    TextEditingController e = TextEditingController();
+  Widget build(BuildContext context, WidgetRef ref) {
+    print("object");
+    //final isVisible = ref.watch(loginSettingNotifierProvider).isVisible;
+
+    //final loginSetting = ref.watch(loginSettingNotifierProvider.notifier);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
@@ -34,7 +40,6 @@ class LoginScreen extends StatelessWidget {
                   clipper: CustomShape(),
                   child: Container(
                     height: 120,
-                    width: MediaQuery.of(context).size.width,
                     color: S.colors.background_2,
                     child: Center(
                       child: SizedBox(
@@ -77,14 +82,14 @@ class LoginScreen extends StatelessWidget {
                         onTap: () {},
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
-                      obscureText: true,
+                      obscureText: false,
                       onChanged: (value) {},
                       validator: (value) {},
                       onFieldSubmitted: (value) {
-                        passwordFocus.requestFocus();
+                        // passwordFocus.requestFocus();
                       },
                       inputType: TextInputType.emailAddress,
-                      controller: e,
+                      controller: Tesst.e,
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_24,
@@ -94,19 +99,24 @@ class LoginScreen extends StatelessWidget {
                       prefixIconData: const Icon(FontAwesomeIcons.key),
                       suffixIconData: GestureDetector(
                         onTap: () {
-
+                          ref
+                              .watch(loginSettingNotifierProvider.notifier)
+                              .updatePasswordVisible();
                         },
-                        child: const Icon(FontAwesomeIcons.xmark),
+                        child: ref.watch(loginSettingNotifierProvider).isVisible
+                            ? const Icon(FontAwesomeIcons.eyeSlash)
+                            : const Icon(FontAwesomeIcons.eye),
                       ),
-                      obscureText: true,
+                      obscureText:
+                          ref.watch(loginSettingNotifierProvider).isVisible,
                       onChanged: (value) {
                         print("");
                       },
                       validator: (value) {},
                       onFieldSubmitted: (value) {},
                       inputType: TextInputType.emailAddress,
-                      controller: e,
-                      focusNode: passwordFocus,
+                      controller: Tesst.f,
+                      focusNode: Tesst.passwordFocus,
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_8,
@@ -120,8 +130,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     CustomButton(
                       text: T.login,
-                      onPressed: () {},
-                      width: MediaQuery.of(context).size.width,
+                      onPressed: () {
+                        NavigationService.push(isNamed: true,page: RoutePaths.mainScreen);
+                      },
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_24,

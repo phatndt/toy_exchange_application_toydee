@@ -22,6 +22,10 @@ class _Colors {
   final accent_2 = const Color(0xFFFF936B); // Atomic Tangerine
   final accent_3 = const Color(0xFFFFB3B3); // Meion
   final accent_4 = const Color(0xFFFFDD66); // Dandelion
+  final accent_5 = const Color(0xFFF9DBD0);
+  final accent_6 = const Color(0xFF6455AB);
+  final accent_7 = const Color(0xFFB3C0FF);
+  final accent_8 = const Color(0xFFE0E4FF);
 
   //Logo
   final logo1 = const Color(0xFFFF6263); // red
@@ -111,6 +115,14 @@ class _TextStyles {
     fontWeight: FontWeight.w600,
     color: S.colors.primary,
     letterSpacing: 1.2,
+  );
+
+  final TextStyle h4Underline = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: S.colors.textColor_1,
+    decoration: TextDecoration.underline,
   );
 }
 

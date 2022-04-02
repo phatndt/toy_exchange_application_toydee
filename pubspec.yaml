@@ -47,6 +47,10 @@ dependencies:
 
   ##Utils
   freezed_annotation: ^1.1.0
+  flutter_screenutil: ^5.3.1
+
+  ##ui
+  card_swiper: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +81,7 @@ flutter:
   assets:
     - assets/icons/nav/
     - assets/images/onboarding/
+    - assets/images/home/
     - assets/images/logo/
     - assets/images/login/
 
