@@ -15,6 +15,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("aaaa");
     final phoneNumber = FocusNode();
     final email = FocusNode();
     final passwordFocus = FocusNode();
@@ -203,8 +204,9 @@ class SignUpScreen extends StatelessWidget {
                             style: S.textStyles.titleHeavy),
                         InkWell(
                           onTap: () {
-                      NavigationService.push(
-                          isNamed: true, page: RoutePaths.login);},
+                            NavigationService.push(
+                                isNamed: true, page: RoutePaths.login);
+                          },
                           child: Text(
                             T.signUpLogin,
                             style: S.textStyles.titleHeavyPrimary,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding_page.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
@@ -8,7 +9,6 @@ import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
 import 'core/styles/styles.dart';
-
 // int? initScreen;
 
 // Future<void> main() async {
@@ -28,19 +28,24 @@ class Toydee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: S.colors.primary,
+    return ScreenUtilInit(
+      designSize: const Size(414, 896),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: () => MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: S.colors.primary,
+          ),
         ),
+        navigatorKey: NavigationService.navigationKey,
+        debugShowCheckedModeBanner: false,
+        initialRoute: RoutePaths.welcome,
+        onGenerateRoute: AppRouter.generateRoute,
+        // initialRoute: initScreen == 0 || initScreen == null
+        //     ? RoutePaths.onboardingpage
+        //     : RoutePaths.login,
       ),
-      navigatorKey: NavigationService.navigationKey,
-      debugShowCheckedModeBanner: false,
-      initialRoute: RoutePaths.homefilter,
-      onGenerateRoute: AppRouter.generateRoute,
-      // initialRoute: initScreen == 0 || initScreen == null
-      //     ? RoutePaths.onboardingpage
-      //     : RoutePaths.login,
     );
   }
 

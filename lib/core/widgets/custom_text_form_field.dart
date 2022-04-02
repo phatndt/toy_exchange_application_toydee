@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../styles/styles.dart';
@@ -13,9 +12,10 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.onFieldSubmitted,
-    required this.inputType,
+    this.inputType,
     required this.controller,
     this.focusNode,
+    this.width = double.infinity,
   }) : super(key: key);
 
   final FocusNode? focusNode;
@@ -26,13 +26,15 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String value)? onChanged;
   final String? Function(String? value)? validator;
   final Function(String? value)? onFieldSubmitted;
-  final TextInputType inputType;
+  final TextInputType? inputType;
   final TextEditingController controller;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
+      width: width,
       child: TextFormField(
         focusNode: focusNode,
         controller: controller,
