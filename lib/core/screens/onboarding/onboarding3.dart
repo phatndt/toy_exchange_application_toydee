@@ -71,7 +71,7 @@ class OnBoarding3 extends StatelessWidget {
                   CustomButton(
                     text: T.onbNext,
                     onPressed: () {
-                      NavigationService.push(
+                      NavigationService.pushReplacement(
                           isNamed: true, page: RoutePaths.login);
                     },
                     width: 120.0,

@@ -20,6 +20,11 @@ class T {
   static const filterAge = 'Age group';
   static const filterSuitable = 'Suitable for';
   static const filterSelect = 'Select one or more categories';
+
+  static const imageProfilePath =
+      'https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80';
+  static const imageProfilePath2 = 'assets/images/avatar/avatar1.jpg';
+
   static const listCategories = [
     'Educational',
     'Wooden',
