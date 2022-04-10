@@ -124,6 +124,16 @@ class _TextStyles {
     color: S.colors.textColor_1,
     decoration: TextDecoration.underline,
   );
+
+  final titleLightUnderline = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: S.colors.textColor_1,
+    letterSpacing: 1.2,
+    textBaseline: TextBaseline.alphabetic,
+    decoration: TextDecoration.underline,
+  );
 }
 
 class _Dimens {

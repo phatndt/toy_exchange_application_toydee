@@ -81,4 +81,7 @@ class T {
   static const signUpTextButton = "Create Account";
   static const signUpAlreadyAMember = "Already a member? ";
   static const signUpLogin = "Login";
+
+  //home
+  static const homeSeeAll = "See All";
 }

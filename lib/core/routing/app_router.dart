@@ -95,12 +95,12 @@ class AppRouter {
         );
       case RoutePaths.onboardingpage:
         return MaterialPageRoute(
-          builder: (_) => OnBoardingPage(),
+          builder: (_) => const OnBoardingPage(),
           settings: settings,
         );
       case RoutePaths.homefilter:
         return MaterialPageRoute(
-          builder: (_) => HomeFilterScreen(),
+          builder: (_) => const HomeFilterScreen(),
           settings: settings,
         );
 
