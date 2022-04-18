@@ -209,6 +209,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         width: ScreenUtil().setWidth(320),
                       ),
                       CustomIconButton(
+                        backgroundcolor: S.colors.accent_5,
                         width: ScreenUtil().setWidth(50),
                         text: FontAwesomeIcons.filter,
                         onPressed: () {},

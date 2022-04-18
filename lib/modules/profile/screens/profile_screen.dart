@@ -23,23 +23,37 @@ class ProfileScreenState extends State<ProfileScreen>
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_2,
-      body: ListView(
-        physics: BouncingScrollPhysics(),
+      body: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomIconButton(
-                  width: 50.0,
-                  text: Icons.arrow_back_rounded,
-                  onPressed: () {}),
-              IconButton(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomIconButton(
+                    backgroundcolor: S.colors.primary,
+                    color: S.colors.textColor_1,
+                    width: 50.0,
+                    text: Icons.arrow_back_rounded,
+                    onPressed: () {}),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomIconButton(
+                  text: Icons.edit_note,
                   onPressed: () {},
-                  iconSize: 40.0,
-                  icon: Icon(
-                    Icons.edit_note,
-                    color: S.colors.primary,
-                  )),
+                  backgroundcolor: S.colors.primary,
+                  color: S.colors.textColor_1,
+                ),
+              ),
+              // IconButton(
+              //   onPressed: () {},
+              //   iconSize: 40.0,
+              //   icon: Icon(
+              //     Icons.edit_note,
+              //     color: S.colors.primary,
+              //   ),
+              // ),
             ],
           ),
           ProfileWidget(imagePath: T.imageProfilePath, onPressed: () {}),
@@ -49,20 +63,67 @@ class ProfileScreenState extends State<ProfileScreen>
           Column(
             children: [
               Text(
-                'Alababa',
+                T.profileTextName,
                 style: S.textStyles.h3,
               ),
               const SizedBox(
                 height: 5.0,
               ),
               Text(
-                'email@alabaka.xaxa',
-                style: S.textStyles.titleLightPrimary,
+                T.profileTextEmail,
+                style: S.textStyles.titleLight,
               )
             ],
           ),
           const SizedBox(
             height: 10.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CustomIconButton(
+                  text: Icons.mail,
+                  onPressed: () {},
+                  color: S.colors.textColor_1,
+                  backgroundcolor: S.colors.primary,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(S.dimens.defaultPadding_8)),
+                  color: S.colors.primary,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ReviewWidget(
+                      name: T.profileRating,
+                      point: '5',
+                    ),
+                    ReviewWidget(
+                      name: T.profileSwap,
+                      point: '18',
+                    ),
+                    ReviewWidget(
+                      name: T.profileDonated,
+                      point: '22',
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CustomIconButton(
+                  text: Icons.phone,
+                  onPressed: () {},
+                  color: S.colors.textColor_1,
+                  backgroundcolor: S.colors.primary,
+                ),
+              ),
+            ],
           ),
           Container(
             child: TabBar(
@@ -70,26 +131,23 @@ class ProfileScreenState extends State<ProfileScreen>
               labelColor: S.colors.primary,
               labelStyle: S.textStyles.titleHeavy,
               indicatorColor: S.colors.primary,
+              indicatorSize: TabBarIndicatorSize.label,
               indicatorPadding: EdgeInsets.all(8.0),
               indicatorWeight: 2.5,
               controller: _tabController,
               tabs: [
                 Tab(
-                  text: 'Post',
-                  // icon: Icon(
-                  //   Icons.list,
-                  //   color: S.colors.primary,
-                  // ),
+                  text: T.profileTabText1,
                 ),
                 Tab(
-                  text: 'Review',
+                  text: T.profileTabText2,
                   // icon: Icon(
                   //   Icons.reviews,
                   //   color: S.colors.primary,
                   // ),
                 ),
                 Tab(
-                  text: 'Contact',
+                  text: T.profileTabText3,
                   // icon: Icon(
                   //   Icons.mail,
                   //   color: S.colors.primary,
@@ -98,33 +156,59 @@ class ProfileScreenState extends State<ProfileScreen>
               ],
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
               children: [
-                Container(
-                  width: double.maxFinite,
-                  height: MediaQuery.of(context).size.height,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      ProfileTab1(
-                        color: S.colors.primary,
-                      ),
-                      ProfileTab1(
-                        color: Colors.greenAccent,
-                      ),
-                      ProfileTab1(
-                        color: Colors.amber,
-                      ),
-                    ],
-                  ),
-                ),
+                ProfileTab1(),
+                ProfileTab1(),
+                ProfileTab1(),
               ],
             ),
           )
         ],
       ),
     ));
+  }
+}
+
+class ReviewWidget extends StatelessWidget {
+  const ReviewWidget({
+    Key? key,
+    required this.name,
+    required this.point,
+  }) : super(key: key);
+
+  final String name;
+  final String point;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: S.dimens.defaultPadding_8,
+          vertical: S.dimens.defaultPadding_4),
+      child: Column(
+        children: [
+          Text(
+            name,
+            style: S.textStyles.titleLight,
+          ),
+          RichText(
+              text: TextSpan(
+            style: S.textStyles.titleHeavy,
+            children: [
+              WidgetSpan(
+                child: Icon(
+                  Icons.star,
+                  color: S.colors.textColor_1,
+                ),
+              ),
+              TextSpan(text: point, style: S.textStyles.titleLight),
+            ],
+          ))
+        ],
+      ),
+    );
   }
 }

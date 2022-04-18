@@ -43,9 +43,10 @@ class ProfileWidget extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
                     color: S.colors.primary,
-                    child: const Icon(
+                    child: Icon(
                       Icons.edit,
                       size: 20.0,
+                      color: S.colors.textColor_1,
                     ),
                   ),
                 ),

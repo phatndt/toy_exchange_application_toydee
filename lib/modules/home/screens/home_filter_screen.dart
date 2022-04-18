@@ -43,6 +43,8 @@ class HomeFilterScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: S.dimens.defaultPadding_8),
                       child: CustomIconButton(
+                          backgroundcolor: S.colors.primary,
+                          color: Colors.black,
                           width: 50.0,
                           text: Icons.arrow_back,
                           onPressed: () {
