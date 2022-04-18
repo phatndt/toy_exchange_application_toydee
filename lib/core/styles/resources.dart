@@ -34,4 +34,8 @@ class _Image {
   final homeToy_2 = '$homePath/toy_2.png';
   final homeToy_3 = '$homePath/toy_3.png';
   final homeToy_4 = '$homePath/toy_4.png';
+  
+  static const swapPath = 'assets/images/swap';
+  
+  final swapWelcome = '$swapPath/swap_welcome.png';
 }

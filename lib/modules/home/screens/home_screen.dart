@@ -177,12 +177,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     ];
     TabController tabController = TabController(length: 2, vsync: this);
 
-    return SafeArea(
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          backgroundColor: S.colors.background_2,
-          body: SingleChildScrollView(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: S.colors.background_2,
+        body: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
@@ -225,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             CustomIconButton(
                               width: ScreenUtil().setWidth(50),
                               text: FontAwesomeIcons.filter,
+                              backgroundColor: S.colors.accent_5,
                               onPressed: () {
                                 NavigationService.push(
                                     isNamed: true, page: RoutePaths.homefilter);

@@ -53,6 +53,7 @@ dependencies:
 
   ##ui
   card_swiper: ^2.0.3
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +87,7 @@ flutter:
     - assets/images/home/
     - assets/images/logo/
     - assets/images/login/
+    - assets/images/swap/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

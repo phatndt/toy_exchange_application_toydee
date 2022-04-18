@@ -20,13 +20,13 @@ import 'core/styles/styles.dart';
 // }
 
 void main() {
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const ProviderScope(child: Toydee()),
-    ),
-  );
-  // runApp(const ProviderScope(child: Toydee()));
+  // runApp(
+  //   DevicePreview(
+  //     enabled: true,
+  //     builder: (context) => const ProviderScope(child: Toydee()),
+  //   ),
+  // );
+  runApp(const ProviderScope(child: Toydee()));
 }
 
 class Toydee extends StatelessWidget {
@@ -36,7 +36,7 @@ class Toydee extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(414, 896),
-      minTextAdapt: true,
+      minTextAdapt: false,
       splitScreenMode: true,
       builder: () => MaterialApp(
         theme: ThemeData(
@@ -46,7 +46,7 @@ class Toydee extends StatelessWidget {
         ),
         navigatorKey: NavigationService.navigationKey,
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutePaths.onboardingpage,
+        initialRoute: RoutePaths.swapScreenUpload,
         onGenerateRoute: AppRouter.generateRoute,
         // initialRoute: initScreen == 0 || initScreen == null
         //     ? RoutePaths.onboardingpage

@@ -9,11 +9,13 @@ class CustomIconButton extends StatelessWidget {
     this.width = 50,
     required this.text,
     required this.onPressed,
+    required this.backgroundColor,
   }) : super(key: key);
 
   final double width;
   final IconData text;
   final VoidCallback onPressed;
+  final Color backgroundColor;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,7 +32,7 @@ class CustomIconButton extends StatelessWidget {
           elevation: MaterialStateProperty.all<double>(1),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               const EdgeInsets.all(12)),
-          backgroundColor: MaterialStateProperty.all<Color>(S.colors.accent_5),
+          backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
         ),
         child: Icon(
           text,

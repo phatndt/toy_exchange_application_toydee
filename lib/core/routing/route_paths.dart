@@ -16,4 +16,8 @@ class RoutePaths {
   static const welcome = '/welcome';
   static const signUp = '/signUp';
   static const homefilter = '/home_filter_screen';
+  static const swapWelcomeScreen = '/swap_welcome_screen';
+  static const swapScreenMain = '/swap_screen_main';
+  static const swapScreenUpload = '/swap_screen_upload';
+  static const swapScreenThree = '/swap_screen_three';
 }

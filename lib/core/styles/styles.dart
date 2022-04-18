@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class S {
   static final colors = _Colors();
@@ -44,66 +45,68 @@ class _Colors {
 
   //Text color
   final textColor_1 = const Color(0xFF261F41);
+
+  final lavender = const Color(0xFFE0E4FF);
 }
 
 class _TextStyles {
   final h2 = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 36,
+    fontSize: ScreenUtil().setSp(36),
     fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
   );
   final h3 = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 28,
+    fontSize: ScreenUtil().setSp(28),
     fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
   );
   final TextStyle h4 = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 20,
+    fontSize: ScreenUtil().setSp(20),
     fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
   );
   final TextStyle h5 = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 36,
+    fontSize: ScreenUtil().setSp(36),
     fontWeight: FontWeight.w900,
     color: S.colors.primary,
   );
   final titleHeavy = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 18,
+    fontSize: ScreenUtil().setSp(18),
     fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
     letterSpacing: 1.2,
   );
   final titleLight = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 16,
+    fontSize: ScreenUtil().setSp(16),
     fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
-    letterSpacing: 1.2,
+    letterSpacing: 0.05,
     textBaseline: TextBaseline.alphabetic,
   );
 
   final nav = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 16,
+    fontSize: ScreenUtil().setSp(16),
     fontWeight: FontWeight.bold,
     color: S.colors.gray_3,
   );
 
   final navSelected = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 16,
+    fontSize: ScreenUtil().setSp(16),
     fontWeight: FontWeight.bold,
     color: S.colors.primary,
   );
 
   final titleLightPrimary = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 16,
+    fontSize: ScreenUtil().setSp(16),
     fontWeight: FontWeight.w600,
     color: S.colors.primary,
     letterSpacing: 1.2,
@@ -111,7 +114,7 @@ class _TextStyles {
 
   final titleHeavyPrimary = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 18,
+    fontSize: ScreenUtil().setSp(18),
     fontWeight: FontWeight.w600,
     color: S.colors.primary,
     letterSpacing: 1.2,
@@ -119,7 +122,7 @@ class _TextStyles {
 
   final TextStyle h4Underline = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 20,
+    fontSize: ScreenUtil().setSp(20),
     fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
     decoration: TextDecoration.underline,
@@ -127,12 +130,20 @@ class _TextStyles {
 
   final titleLightUnderline = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 16,
+    fontSize: ScreenUtil().setSp(16),
     fontWeight: FontWeight.w600,
     color: S.colors.textColor_1,
     letterSpacing: 1.2,
     textBaseline: TextBaseline.alphabetic,
     decoration: TextDecoration.underline,
+  );
+
+  final titleLightNoSpacing = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(16),
+    fontWeight: FontWeight.w500,
+    color: S.colors.textColor_1,
+    textBaseline: TextBaseline.alphabetic,
   );
 }
 
