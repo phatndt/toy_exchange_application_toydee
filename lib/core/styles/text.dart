@@ -94,4 +94,33 @@ class T {
   static const signUpTextButton = "Create Account";
   static const signUpAlreadyAMember = "Already a member? ";
   static const signUpLogin = "Login";
+
+  //home
+  static const homeSeeAll = "See All";
+
+  //swap screen
+  static const swapTitleWelcome = "Give your old toys a new home";
+  static const swapContentWelcome =
+      "You have a freedom to choose whether to sell, swap or donate your toys. Donated toys are offered at charity auctions.";
+  static const swapContentButtonWelcome = "Upload a toy";
+
+  //swap screen one
+  static const swapPhotoOne = "Photo";
+  static const swapDescriptionOne = "Description";
+  static const swapUploadOne = "Upload";
+  static const swapUploadPhotosOne = "Upload photos";
+  static const swapUploadPhotosDescriptionOne = "or use your device camera";
+  static const swapUploadPhotoButtonOne = "Take Photo";
+  static const swapUploadPhotosWarningWelcome =
+      "Select minimum 2 photos to show item from different angles. It is recommanded to use white color background.";
+  static const swapTitleOne = "Title";
+  static const swapTitleContentOne = "Add title here";
+  static const swapFiltersOne = "Filters";
+  static const swapFiltersContentOne = "Select your filters";
+  static const swapDescriptionTitleOne = "Description";
+  static const swapLocationTitle = "Location";
+  static const swapLocationnContent = "Choose specific location";
+  static const swapCheckBoxOneContent = "Use the phone location";
+  static const swapCheckBoxTwoContent = "Swap available";
+  static const swapButtonContent = "Preview";
 }

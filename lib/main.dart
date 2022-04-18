@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding_page.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
-
+import 'package:device_preview/device_preview.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
@@ -20,6 +20,12 @@ import 'core/styles/styles.dart';
 // }
 
 void main() {
+  // runApp(
+  //   DevicePreview(
+  //     enabled: true,
+  //     builder: (context) => const ProviderScope(child: Toydee()),
+  //   ),
+  // );
   runApp(const ProviderScope(child: Toydee()));
 }
 
@@ -30,7 +36,7 @@ class Toydee extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(414, 896),
-      minTextAdapt: true,
+      minTextAdapt: false,
       splitScreenMode: true,
       builder: () => MaterialApp(
         theme: ThemeData(
@@ -40,7 +46,7 @@ class Toydee extends StatelessWidget {
         ),
         navigatorKey: NavigationService.navigationKey,
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutePaths.profile,
+        initialRoute: RoutePaths.swapScreenUpload,
         onGenerateRoute: AppRouter.generateRoute,
         // initialRoute: initScreen == 0 || initScreen == null
         //     ? RoutePaths.onboardingpage

@@ -6,6 +6,10 @@ import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboardi
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_three.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_upload.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_welcome_screen.dart';
 
 import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
@@ -95,12 +99,12 @@ class AppRouter {
         );
       case RoutePaths.onboardingpage:
         return MaterialPageRoute(
-          builder: (_) => OnBoardingPage(),
+          builder: (_) => const OnBoardingPage(),
           settings: settings,
         );
       case RoutePaths.homefilter:
         return MaterialPageRoute(
-          builder: (_) => HomeFilterScreen(),
+          builder: (_) => const HomeFilterScreen(),
           settings: settings,
         );
 
@@ -121,7 +125,26 @@ class AppRouter {
           builder: (_) => const WelcomeScreen(),
           settings: settings,
         );
-
+      case RoutePaths.swapWelcomeScreen:
+        return MaterialPageRoute(
+          builder: (_) => const SwapWelcomeScreen(),
+          settings: settings,
+        );
+      case RoutePaths.swapScreenMain:
+        return MaterialPageRoute(
+          builder: (_) => const SwapScreenOne(),
+          settings: settings,
+        );
+      case RoutePaths.swapScreenUpload:
+        return MaterialPageRoute(
+          builder: (_) => const SwapScreenTwo(),
+          settings: settings,
+        );
+      case RoutePaths.swapScreenThree:
+        return MaterialPageRoute(
+          builder: (_) => const SwappScreenThree(),
+          settings: settings,
+        );
       //Map
       // case RoutePaths.map:
       //   return MaterialPageRoute(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 
 import '../core/navigation/bottom_navigation_bar.dart';
 import '../core/styles/styles.dart';
@@ -30,7 +32,9 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: S.colors.primary,
           child: const Icon(FontAwesomeIcons.plus),
-          onPressed: () {},
+          onPressed: () {
+            NavigationService.push(page: RoutePaths.swapWelcomeScreen, isNamed: true);
+          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CustomBottomAppBar(

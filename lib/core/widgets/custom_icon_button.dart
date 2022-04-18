@@ -10,14 +10,15 @@ class CustomIconButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.color,
-    required this.backgroundcolor,
+    required this.backgroundColor,
   }) : super(key: key);
 
   final double width;
   final IconData text;
   final VoidCallback onPressed;
   final Color? color;
-  final Color backgroundcolor;
+  final Color backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -34,7 +35,7 @@ class CustomIconButton extends StatelessWidget {
           elevation: MaterialStateProperty.all<double>(1),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               const EdgeInsets.all(12)),
-          backgroundColor: MaterialStateProperty.all<Color>(backgroundcolor),
+          backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
         ),
         child: Icon(
           text,

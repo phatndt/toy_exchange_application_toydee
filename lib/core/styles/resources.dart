@@ -30,4 +30,12 @@ class _Image {
   final homeSwiper_1 = '$homePath/swiper_1.png';
   final homeSwiper_2 = '$homePath/swiper_2.png';
   final homeSwiper_3 = '$homePath/swiper_3.png';
+  final homeToy_1 = '$homePath/toy_1.png';
+  final homeToy_2 = '$homePath/toy_2.png';
+  final homeToy_3 = '$homePath/toy_3.png';
+  final homeToy_4 = '$homePath/toy_4.png';
+  
+  static const swapPath = 'assets/images/swap';
+  
+  final swapWelcome = '$swapPath/swap_welcome.png';
 }

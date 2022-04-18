@@ -16,6 +16,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     this.focusNode,
     this.width = double.infinity,
+    this.height = 50,
+    this.maxLines = 1,
   }) : super(key: key);
 
   final FocusNode? focusNode;
@@ -29,13 +31,16 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? inputType;
   final TextEditingController controller;
   final double? width;
+  final double? height;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: height,
       width: width,
       child: TextFormField(
+        maxLines: maxLines,
         focusNode: focusNode,
         controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
