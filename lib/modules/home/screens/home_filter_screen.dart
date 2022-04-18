@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
+import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 
+import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 
@@ -36,10 +39,22 @@ class HomeFilterScreen extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_8),
                 child: Row(
                   children: [
-                    BackButton(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: S.dimens.defaultPadding_8),
+                      child: CustomIconButton(
+                          backgroundcolor: S.colors.primary,
+                          color: Colors.black,
+                          width: 50.0,
+                          text: Icons.arrow_back,
+                          onPressed: () {
+                            NavigationService.pushReplacement(
+                                isNamed: true, page: RoutePaths.home);
+                          }),
+                    ),
                     SizedBox(
                       height: 50.0,
-                      width: 330.0,
+                      width: 315.0,
                       child: TextField(
                         style: S.textStyles.titleLight,
                         textAlignVertical: TextAlignVertical.bottom,
@@ -164,7 +179,7 @@ class HomeFilterScreen extends StatelessWidget {
                               Radius.circular(S.dimens.defaultPadding_8)),
                           spacing: 15,
                           buttonWidth: 100,
-                          buttonHeight: 40,
+                          buttonHeight: 50,
                         ),
                         onSelected: (index, isSelected) =>
                             print('$index button is selected'),

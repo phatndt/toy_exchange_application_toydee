@@ -9,13 +9,16 @@ class CustomIconButton extends StatelessWidget {
     this.width = 50,
     required this.text,
     required this.onPressed,
+    this.color,
     required this.backgroundColor,
   }) : super(key: key);
 
   final double width;
   final IconData text;
   final VoidCallback onPressed;
+  final Color? color;
   final Color backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,7 +39,7 @@ class CustomIconButton extends StatelessWidget {
         ),
         child: Icon(
           text,
-          color: S.colors.primary,
+          color: color,
         ),
       ),
     );

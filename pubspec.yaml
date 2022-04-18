@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.13
   introduction_screen: ^3.0.1
   group_button: ^4.8.0
+  like_button: ^2.0.4
 
 
   ##Utils
@@ -88,6 +89,8 @@ flutter:
     - assets/images/logo/
     - assets/images/login/
     - assets/images/swap/
+    - assets/images/avatar/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
