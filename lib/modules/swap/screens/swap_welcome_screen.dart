@@ -34,6 +34,7 @@ class SwapWelcomeScreen extends StatelessWidget {
                     CustomIconButton(
                       text: FontAwesomeIcons.angleLeft,
                       backgroundColor: S.colors.background_2,
+                      color: S.colors.primary,
                       onPressed: () {
                         NavigationService.goBack();
                       },

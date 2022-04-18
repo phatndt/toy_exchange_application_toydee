@@ -6,7 +6,7 @@ import '../../../core/styles/styles.dart';
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     Key? key,
-    this.width = 50,
+    this.width = 45,
     required this.text,
     required this.onPressed,
     this.color,
@@ -22,24 +22,27 @@ class CustomIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 45,
       width: width,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(S.dimens.defaultBorderRadius),
+      child: Center(
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(S.dimens.defaultBorderRadius),
+              ),
             ),
+            elevation: MaterialStateProperty.all<double>(1),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.all(12)),
+            backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
           ),
-          elevation: MaterialStateProperty.all<double>(1),
-          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-              const EdgeInsets.all(12)),
-          backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-        ),
-        child: Icon(
-          text,
-          color: color,
+          child: Icon(
+            text,
+            color: color,
+          ),
         ),
       ),
     );

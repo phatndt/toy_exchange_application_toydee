@@ -31,7 +31,7 @@ class ProfileScreenState extends State<ProfileScreen>
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomIconButton(
-                    backgroundcolor: S.colors.primary,
+                    backgroundColor: S.colors.primary,
                     color: S.colors.textColor_1,
                     width: 50.0,
                     text: Icons.arrow_back_rounded,
@@ -42,7 +42,7 @@ class ProfileScreenState extends State<ProfileScreen>
                 child: CustomIconButton(
                   text: Icons.edit_note,
                   onPressed: () {},
-                  backgroundcolor: S.colors.primary,
+                  backgroundColor: S.colors.primary,
                   color: S.colors.textColor_1,
                 ),
               ),
@@ -87,7 +87,7 @@ class ProfileScreenState extends State<ProfileScreen>
                   text: Icons.mail,
                   onPressed: () {},
                   color: S.colors.textColor_1,
-                  backgroundcolor: S.colors.primary,
+                  backgroundColor: S.colors.primary,
                 ),
               ),
               Container(
@@ -120,7 +120,7 @@ class ProfileScreenState extends State<ProfileScreen>
                   text: Icons.phone,
                   onPressed: () {},
                   color: S.colors.textColor_1,
-                  backgroundcolor: S.colors.primary,
+                  backgroundColor: S.colors.primary,
                 ),
               ),
             ],
