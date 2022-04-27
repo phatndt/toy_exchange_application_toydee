@@ -19,13 +19,18 @@ class ProfileConfigurationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 4.0),
+      margin: EdgeInsets.symmetric(
+        vertical: S.dimens.defaultPadding_8,
+      ),
       elevation: 1,
       color: S.colors.background_2,
       child: InkWell(
         onTap: press,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: S.dimens.defaultPadding_8,
+            vertical: S.dimens.defaultPadding_8,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,16 +38,17 @@ class ProfileConfigurationItem extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: S.dimens.defaultPadding_8,
-                        vertical: S.dimens.defaultPadding_8),
+                      horizontal: S.dimens.defaultPadding_8,
+                      vertical: S.dimens.defaultPadding_8,
+                    ),
                     child: Icon(
                       icon,
                       size: 24,
                       color: S.colors.primary,
                     ),
                   ),
-                  const SizedBox(
-                    width: 8,
+                  SizedBox(
+                    width: S.dimens.defaultPadding_8,
                   ),
                   Text(
                     label,
@@ -53,19 +59,26 @@ class ProfileConfigurationItem extends StatelessWidget {
               Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: S.dimens.defaultPadding_8,
+                    ),
                     child: Icon(
                       icon,
                       size: 24,
                       color: Colors.transparent,
                     ),
                   ),
-                  const SizedBox(
-                    width: 8,
+                  SizedBox(
+                    width: S.dimens.defaultPadding_8,
                   ),
-                  Text(
-                    information,
-                    style: S.textStyles.titleLight,
+                  Expanded(
+                    child: Text(
+                      information,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: S.textStyles.titleLight,
+                    ),
                   ),
                 ],
               )

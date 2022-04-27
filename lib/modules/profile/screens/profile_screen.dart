@@ -28,32 +28,30 @@ class ProfileScreenState extends State<ProfileScreen>
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: S.dimens.defaultPadding_48),
+            padding: EdgeInsets.only(
+              top: S.dimens.defaultPadding_48,
+              left: S.dimens.defaultPadding_16,
+              right: S.dimens.defaultPadding_16,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomIconButton(
-                      backgroundColor: S.colors.accent_5,
-                      color: S.colors.primary,
-                      width: 50.0,
-                      text: Icons.arrow_back_rounded,
-                      onPressed: () {}),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomIconButton(
-                    text: FontAwesomeIcons.gear,
-                    onPressed: () {
-                      NavigationService.push(
-                        isNamed: true,
-                        page: RoutePaths.profileconfiguration,
-                      );
-                    },
+                CustomIconButton(
                     backgroundColor: S.colors.accent_5,
                     color: S.colors.primary,
-                  ),
+                    width: 50.0,
+                    text: Icons.arrow_back_rounded,
+                    onPressed: () {}),
+                CustomIconButton(
+                  text: FontAwesomeIcons.gear,
+                  onPressed: () {
+                    NavigationService.push(
+                      isNamed: true,
+                      page: RoutePaths.profileconfiguration,
+                    );
+                  },
+                  backgroundColor: S.colors.accent_5,
+                  color: S.colors.primary,
                 ),
                 // IconButton(
                 //   onPressed: () {},
@@ -67,8 +65,8 @@ class ProfileScreenState extends State<ProfileScreen>
             ),
           ),
           ProfileWidget(imagePath: T.imageProfilePath, onPressed: () {}),
-          const SizedBox(
-            height: 10.0,
+          SizedBox(
+            height: S.dimens.defaultPadding_8,
           ),
           Column(
             children: [
@@ -76,8 +74,8 @@ class ProfileScreenState extends State<ProfileScreen>
                 T.profileTextName,
                 style: S.textStyles.h3,
               ),
-              const SizedBox(
-                height: 5.0,
+              SizedBox(
+                height: S.dimens.defaultPadding_4,
               ),
               Text(
                 T.profileTextEmail,
@@ -85,12 +83,13 @@ class ProfileScreenState extends State<ProfileScreen>
               )
             ],
           ),
-          const SizedBox(
-            height: 10.0,
+          SizedBox(
+            height: S.dimens.defaultPadding_8,
           ),
           Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_8),
+            padding: EdgeInsets.symmetric(
+              horizontal: S.dimens.defaultPadding_16,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -130,14 +129,11 @@ class ProfileScreenState extends State<ProfileScreen>
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CustomIconButton(
-                    text: Icons.phone,
-                    onPressed: () {},
-                    color: S.colors.primary,
-                    backgroundColor: S.colors.accent_5,
-                  ),
+                CustomIconButton(
+                  text: Icons.phone,
+                  onPressed: () {},
+                  color: S.colors.primary,
+                  backgroundColor: S.colors.accent_5,
                 ),
               ],
             ),

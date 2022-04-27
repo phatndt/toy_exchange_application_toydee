@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_gender.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_names.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_text.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_item.dart';
 
@@ -25,108 +26,201 @@ class _ProfileConfigurationScreenState
   String _datetime = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime dateTime = DateTime.now();
   String gender = '...';
-  String name = T.proConLabelNameEx;
+  String email = '';
+  String password = '';
+  String showPassword = '******';
+  String phone = '';
+  String address = '';
+  List<String> names = ['1', '2'];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_16),
-              child: Center(
-                child: Text(
-                  T.proConScreenLabel,
-                  style: S.textStyles.h5,
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: S.dimens.defaultPadding_48,
+                child: Center(
+                  child: Text(
+                    T.proConScreenLabel,
+                    style: S.textStyles.h5,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              width: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: CustomIconButton(
-                text: FontAwesomeIcons.angleLeft,
-                color: S.colors.primary,
-                onPressed: () {
-                  NavigationService.pushReplacement(
-                      isNamed: true, page: RoutePaths.profile);
-                },
-                backgroundColor: S.colors.accent_5,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: S.dimens.defaultPadding_16,
+                ),
+                child: CustomIconButton(
+                  text: FontAwesomeIcons.angleLeft,
+                  color: S.colors.primary,
+                  onPressed: () {
+                    NavigationService.pushReplacement(
+                        isNamed: true, page: RoutePaths.profile);
+                  },
+                  backgroundColor: S.colors.accent_5,
+                ),
               ),
-            ),
-            ProfileConfigurationItem(
-              icon: FontAwesomeIcons.user,
-              label: T.proConLabelName,
-              information: '$name',
-              press: () async {
-                final newName =
-                    await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProfileConfigurationTextChanging(
-                    label: T.proConLabelName,
-                    information: T.proConLabelNameEx,
-                  ),
-                ));
+              SizedBox(
+                height: S.dimens.defaultPadding_8,
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.lock,
+                label: T.proConLabelPassword,
+                information: showPassword,
+                press: () async {
+                  final newPassword =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProfileConfigurationTextChanging(
+                      label: T.proConLabelPassword,
+                      information: password,
+                      textInputType: TextInputType.visiblePassword,
+                    ),
+                  ));
+                  setState(() {
+                    password = newPassword;
+                  });
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.user,
+                label: T.proConLabelEmail,
+                information: email,
+                press: () async {
+                  final newEmail =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProfileConfigurationTextChanging(
+                      label: T.proConLabelEmail,
+                      information: email,
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                  ));
 
-                setState(() {
-                  this.name = newName;
-                });
-              },
-            ),
-            ProfileConfigurationItem(
-              icon: FontAwesomeIcons.lock,
-              label: T.proConLabelPassword,
-              information: T.proConLabelPasswordEx,
-              press: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProfileConfigurationTextChanging(
-                    label: T.proConLabelPassword,
-                    information: T.proConLabelPasswordEx,
-                  ),
-                ));
-              },
-            ),
-            ProfileConfigurationItem(
-              icon: FontAwesomeIcons.calendar,
-              label: T.proConLabelBirth,
-              information: '$_datetime',
-              press: () async {
-                DateTime? newDateTime = await showDatePicker(
-                  context: context,
-                  initialDate: dateTime,
-                  firstDate: DateTime(2021),
-                  lastDate: DateTime(2023),
-                );
-                // Cancel
-                if (newDateTime == null) return;
-                // OK
-                setState(() {
-                  _datetime = DateFormat('dd/MM/yyyy').format(newDateTime);
-                });
-              },
-            ),
-            ProfileConfigurationItem(
-              icon: FontAwesomeIcons.venusMars,
-              label: T.proConLabelGender,
-              information: '$gender',
-              press: () async {
-                final newGender =
-                    await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProfileConfigurationGenderChanging(
-                    label: T.proConLabelGender,
-                  ),
-                ));
-                setState(() {
-                  this.gender = newGender;
-                });
-              },
-            ),
-          ],
+                  setState(() {
+                    email = newEmail;
+                  });
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.phone,
+                label: T.proConLabelPhone,
+                information: phone,
+                press: () async {
+                  final newPhone =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProfileConfigurationTextChanging(
+                      label: T.proConLabelPhone,
+                      information: phone,
+                      textInputType: TextInputType.phone,
+                    ),
+                  ));
+
+                  setState(() {
+                    phone = newPhone;
+                  });
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.pencil,
+                label: T.proConLabelName,
+                information: names[0] + ' ' + names[1],
+                press: () async {
+                  final newNames =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProfileConfigurationNamesChanging(
+                      label1: T.proConLabelFirstName,
+                      label2: T.proConLabelLastName,
+                      information1: names[0] + ' ',
+                      information2: names[1],
+                      textInputType: TextInputType.name,
+                      names: names,
+                    ),
+                  ));
+
+                  setState(() {
+                    names = newNames;
+                  });
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.calendar,
+                label: T.proConLabelBirth,
+                information: _datetime,
+                press: () async {
+                  DateTime? newDateTime = await showDatePicker(
+                    context: context,
+                    initialDate: dateTime,
+                    firstDate: DateTime(2021),
+                    lastDate: DateTime(2023),
+                  );
+                  // Cancel
+                  if (newDateTime == null) return;
+                  // OK
+                  setState(() {
+                    _datetime = DateFormat('dd/MM/yyyy').format(newDateTime);
+                  });
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.venusMars,
+                label: T.proConLabelGender,
+                information: gender,
+                press: () async {
+                  final newGender =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProfileConfigurationGenderChanging(
+                      label: T.proConLabelGender,
+                    ),
+                  ));
+                  // setState(() {
+                  //   gender = newGender;
+                  // });
+                  switch (newGender) {
+                    case 0:
+                      setState(() {
+                        gender = 'Male';
+                      });
+                      break;
+                    case 1:
+                      setState(() {
+                        gender = 'Female';
+                      });
+                      break;
+                    case 2:
+                      setState(() {
+                        gender = 'Other';
+                      });
+                      break;
+                  }
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.locationDot,
+                label: T.proConLabelAddress,
+                information: address,
+                press: () async {
+                  final newAddress =
+                      await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProfileConfigurationTextChanging(
+                      label: T.proConLabelAddress,
+                      information: address,
+                      textInputType: TextInputType.streetAddress,
+                    ),
+                  ));
+
+                  setState(() {
+                    address = newAddress;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

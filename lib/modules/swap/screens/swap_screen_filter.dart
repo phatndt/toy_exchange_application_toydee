@@ -91,8 +91,8 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -102,15 +102,15 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Center(
                       child: buildGroupButton(T.listCategories, 150, false,
                           _groupButtonController1),
                     ),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -121,14 +121,14 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Center(
                         child: buildGroupButton(T.listCondition, 150, true,
                             _groupButtonController2)),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -139,15 +139,15 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Center(
                       child: buildGroupButton(
                           T.listSuitable, 100, true, _groupButtonController3),
                     ),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -158,8 +158,8 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -189,8 +189,8 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                             print('$index button is selected'),
                       ),
                     ),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -201,8 +201,8 @@ class _SwapFilterScreenState extends State<SwapFilterScreen> {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(

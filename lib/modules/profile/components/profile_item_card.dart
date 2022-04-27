@@ -23,13 +23,12 @@ class ProfileItemCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: S.dimens.defaultPadding_16,
-          vertical: S.dimens.defaultPadding_4),
+          vertical: S.dimens.defaultPadding_8),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           backgroundColor: S.colors.background_2,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(S.dimens.defaultPadding_8)),
-          side: BorderSide(width: 0.1, color: S.colors.primary),
         ),
         onPressed: press,
         child: Padding(
@@ -44,8 +43,8 @@ class ProfileItemCard extends StatelessWidget {
                   width: 140,
                 ),
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: S.dimens.defaultPadding_8,
               ),
               Expanded(
                 child: Column(
@@ -59,8 +58,8 @@ class ProfileItemCard extends StatelessWidget {
                       softWrap: false,
                       style: S.textStyles.titleHeavyPrimary,
                     ),
-                    const SizedBox(
-                      height: 8,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -86,13 +85,13 @@ class ProfileItemCard extends StatelessWidget {
                             end: S.colors.primary,
                           ),
                         ),
-                        const SizedBox(
-                          height: 8,
+                        SizedBox(
+                          height: S.dimens.defaultPadding_8,
                         ),
                         Row(
                           children: [
-                            const SizedBox(
-                              width: 7,
+                            SizedBox(
+                              width: S.dimens.defaultPadding_8,
                             ),
                             Expanded(
                               child: Text(
@@ -103,8 +102,8 @@ class ProfileItemCard extends StatelessWidget {
                                 softWrap: false,
                               ),
                             ),
-                            const SizedBox(
-                              width: 7,
+                            SizedBox(
+                              width: S.dimens.defaultPadding_8,
                             ),
                             Expanded(
                               child: SingleChildScrollView(

@@ -16,8 +16,8 @@ class OnBoarding1 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 50.0,
+            SizedBox(
+              height: S.dimens.defaultPadding_48,
             ),
             Image.asset(
               T.onb1Image,
@@ -36,7 +36,9 @@ class OnBoarding1 extends StatelessWidget {
                     T.onb1Title,
                     style: S.textStyles.h5,
                   ),
-                  const SizedBox(height: 10.0),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_8,
+                  ),
                   Text(
                     T.onb1Content,
                     style: S.textStyles.titleHeavy,
@@ -45,8 +47,8 @@ class OnBoarding1 extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 40.0,
+            SizedBox(
+              height: S.dimens.defaultPadding_40,
             ),
             Padding(
               padding: EdgeInsets.symmetric(

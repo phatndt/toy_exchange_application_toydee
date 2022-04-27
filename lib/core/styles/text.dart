@@ -24,14 +24,20 @@ class T {
 
   static const proConfigurationSave = 'Save Changes';
   static const proConScreenLabel = 'Configuration';
-  static const proConLabelName = 'Name';
+  static const proConLabelEmail = 'Email';
   static const proConLabelPassword = 'Password';
   static const proConLabelBirth = 'Date of birth';
   static const proConLabelGender = 'Gender';
-  static const proConLabelNameEx = 'Quakhukiacuaanh';
-  static const proConLabelPasswordEx = 'hereisthepassword';
-  static const proConLabelBirthEx = '03/06/2001';
-  static const proConLabelGenderEx = 'Meo';
+  static const proConLabelFirstName = 'First Name';
+  static const proConLabelName = 'Name';
+  static const proConLabelLastName = 'Last Name';
+  static const proConLabelAddress = 'Address';
+  static const proConLabelPhone = 'Phone';
+  static const listGender = [
+    'Male',
+    'Female',
+    'Other',
+  ];
 
   static const imageProfilePath =
       'https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80';

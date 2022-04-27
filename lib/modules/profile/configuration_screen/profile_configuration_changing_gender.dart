@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:group_button/group_button.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/styles/styles.dart';
@@ -21,113 +22,105 @@ class ProfileConfigurationGenderChanging extends StatefulWidget {
 
 class _ProfileConfigurationGenderChangingState
     extends State<ProfileConfigurationGenderChanging> {
+  final groupButtonController = GroupButtonController();
   String selectedGenderValue = '';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          backgroundColor: S.colors.background_1,
           body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_16),
-            child: Center(
-              child: Text(
-                T.proConScreenLabel,
-                style: S.textStyles.h5,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: CustomIconButton(
-              text: FontAwesomeIcons.angleLeft,
-              color: S.colors.primary,
-              onPressed: () {
-                NavigationService.goBack();
-              },
-              backgroundColor: S.colors.accent_5,
-            ),
-          ),
-          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: S.dimens.defaultPadding_48,
+                child: Center(
+                  child: Text(
+                    T.proConScreenLabel,
+                    style: S.textStyles.h5,
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: S.dimens.defaultPadding_16,
-                    horizontal: S.dimens.defaultPadding_16),
-                child: Text(
-                  widget.label,
-                  style: S.textStyles.titleHeavyPrimary,
+                  horizontal: S.dimens.defaultPadding_16,
                 ),
-              ),
-              RadioListTile(
-                selectedTileColor: S.colors.primary,
-                activeColor: S.colors.primary,
-                value: 'Male',
-                title: Text(
-                  'Male',
-                  style: S.textStyles.titleHeavy,
-                ),
-                groupValue: selectedGenderValue,
-                onChanged: (value) {
-                  setState(() {
-                    selectedGenderValue = 'Male';
-                  });
-                },
-              ),
-              RadioListTile(
-                selectedTileColor: S.colors.primary,
-                //tileColor: S.colors.textColor_1,
-                activeColor: S.colors.primary,
-                value: 'Femle',
-                title: Text(
-                  'Femle',
-                  style: S.textStyles.titleHeavy,
-                ),
-                groupValue: selectedGenderValue,
-                onChanged: (value) {
-                  setState(() {
-                    selectedGenderValue = 'Femle';
-                  });
-                },
-              ),
-              RadioListTile(
-                selectedTileColor: S.colors.primary,
-                //tileColor: S.colors.textColor_1,
-                activeColor: S.colors.primary,
-                value: 'Other',
-                title: Text(
-                  'Other',
-                  style: S.textStyles.titleHeavy,
-                ),
-                groupValue: selectedGenderValue,
-                onChanged: (value) {
-                  setState(() {
-                    selectedGenderValue = 'Other';
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: CustomButton(
-                  text: T.proConfigurationSave,
+                child: CustomIconButton(
+                  text: FontAwesomeIcons.angleLeft,
+                  color: S.colors.primary,
                   onPressed: () {
-                    Navigator.of(context).pop(selectedGenderValue);
+                    NavigationService.goBack(
+                      result: 'Adu',
+                    );
                   },
-                  width: 350,
+                  backgroundColor: S.colors.accent_5,
                 ),
-              )
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: S.dimens.defaultPadding_16,
+                  horizontal: S.dimens.defaultPadding_32,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: S.dimens.defaultPadding_16,
+                          horizontal: S.dimens.defaultPadding_16),
+                      child: Text(
+                        widget.label,
+                        style: S.textStyles.h4,
+                      ),
+                    ),
+                    Center(
+                      child: GroupButton(
+                        buttons: T.listGender,
+                        controller: groupButtonController,
+                        enableDeselect: false,
+                        options: GroupButtonOptions(
+                          selectedTextStyle: S.textStyles.titleLight,
+                          unselectedTextStyle: S.textStyles.titleLight,
+                          groupingType: GroupingType.column,
+                          selectedShadow: const <BoxShadow>[
+                            BoxShadow(color: Colors.transparent)
+                          ],
+                          unselectedShadow: const <BoxShadow>[
+                            BoxShadow(color: Colors.transparent)
+                          ],
+                          selectedColor: S.colors.primary,
+                          unselectedColor: S.colors.background_2,
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(S.dimens.defaultPadding_8)),
+                          spacing: 15,
+                          buttonWidth: 120,
+                          buttonHeight: 60,
+                        ),
+                        onSelected: (index, isSelected) =>
+                            selectedGenderValue = '$index',
+                      ),
+                    ),
+                    SizedBox(
+                      height: S.dimens.defaultPadding_32,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: S.dimens.defaultPadding_32,
+                      ),
+                      child: CustomButton(
+                        text: T.proConfigurationSave,
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pop(int.parse(selectedGenderValue));
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
-          ),
-        ],
-      )),
+          )),
     );
   }
 }

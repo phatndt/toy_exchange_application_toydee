@@ -86,8 +86,8 @@ class HomeFilterScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -97,15 +97,15 @@ class HomeFilterScreen extends StatelessWidget {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Center(
                       child: buildGroupButton(T.listCategories, 150, false,
                           _groupButtonController1),
                     ),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -116,14 +116,14 @@ class HomeFilterScreen extends StatelessWidget {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Center(
                         child: buildGroupButton(T.listCondition, 150, true,
                             _groupButtonController2)),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -134,15 +134,15 @@ class HomeFilterScreen extends StatelessWidget {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     Center(
                       child: buildGroupButton(
                           T.listSuitable, 100, true, _groupButtonController3),
                     ),
-                    const SizedBox(
-                      height: 16.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_16,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -153,8 +153,8 @@ class HomeFilterScreen extends StatelessWidget {
                         style: S.textStyles.h4,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -197,10 +197,10 @@ class HomeFilterScreen extends StatelessWidget {
                           )),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        left: 32.0,
-                        right: 32.0,
-                        bottom: 32.0,
+                      padding: EdgeInsets.only(
+                        left: S.dimens.defaultPadding_32,
+                        right: S.dimens.defaultPadding_32,
+                        bottom: S.dimens.defaultPadding_32,
                       ),
                       child: CustomButton(
                         text: T.filterApply,

@@ -8,25 +8,30 @@ import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
-class ProfileConfigurationTextChanging extends StatefulWidget {
-  final String label;
-  final String information;
+class ProfileConfigurationNamesChanging extends StatefulWidget {
+  final String label1, label2;
+  final String information1, information2;
   final TextInputType? textInputType;
-  const ProfileConfigurationTextChanging({
+  final List names;
+  const ProfileConfigurationNamesChanging({
     Key? key,
-    required this.label,
-    required this.information,
     this.textInputType,
+    required this.names,
+    required this.label1,
+    required this.label2,
+    required this.information1,
+    required this.information2,
   }) : super(key: key);
 
   @override
-  State<ProfileConfigurationTextChanging> createState() =>
-      _ProfileConfigurationTextChangingState();
+  State<ProfileConfigurationNamesChanging> createState() =>
+      _ProfileConfigurationNamesChangingState();
 }
 
-class _ProfileConfigurationTextChangingState
-    extends State<ProfileConfigurationTextChanging> {
+class _ProfileConfigurationNamesChangingState
+    extends State<ProfileConfigurationNamesChanging> {
   TextEditingController e = TextEditingController();
+  TextEditingController f = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,7 +61,8 @@ class _ProfileConfigurationTextChangingState
                 text: FontAwesomeIcons.angleLeft,
                 color: S.colors.primary,
                 onPressed: () {
-                  NavigationService.goBack(result: widget.information);
+                  NavigationService.goBack(
+                      result: [widget.information1, widget.information2]);
                 },
                 backgroundColor: S.colors.accent_5,
               ),
@@ -70,7 +76,7 @@ class _ProfileConfigurationTextChangingState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.label,
+                    widget.label1,
                     style: S.textStyles.h4,
                   ),
                   SizedBox(
@@ -79,12 +85,37 @@ class _ProfileConfigurationTextChangingState
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: widget.information,
+                      hintText: widget.information1,
                       obscureText: false,
                       controller: e,
                       suffixIconData: GestureDetector(
                         onTap: () {
                           e.text = '';
+                        },
+                        child: const Icon(FontAwesomeIcons.xmark),
+                      ),
+                      inputType: widget.textInputType,
+                    ),
+                  ),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_16,
+                  ),
+                  Text(
+                    widget.label2,
+                    style: S.textStyles.h4,
+                  ),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_16,
+                  ),
+                  Center(
+                    child: CustomTextFormField(
+                      height: 60,
+                      hintText: widget.information2,
+                      obscureText: false,
+                      controller: f,
+                      suffixIconData: GestureDetector(
+                        onTap: () {
+                          f.text = '';
                         },
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
@@ -98,7 +129,8 @@ class _ProfileConfigurationTextChangingState
                     child: CustomButton(
                       text: T.proConfigurationSave,
                       onPressed: () {
-                        Navigator.of(context).pop(e.text.toString());
+                        Navigator.of(context)
+                            .pop([e.text.toString(), f.text.toString()]);
                       },
                     ),
                   )
