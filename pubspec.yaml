@@ -46,6 +46,7 @@ dependencies:
   group_button: ^4.8.0
   like_button: ^2.0.4
 
+  intl: ^0.17.0
 
   ##Utils
   freezed_annotation: ^1.1.0

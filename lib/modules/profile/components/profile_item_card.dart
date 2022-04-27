@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/single_child_widget.dart';
 
-import '../../core/styles/styles.dart';
-import '../../core/styles/text.dart';
+import '../../../core/styles/styles.dart';
 
 class ProfileItemCard extends StatelessWidget {
   const ProfileItemCard({
@@ -61,11 +60,15 @@ class ProfileItemCard extends StatelessWidget {
                       style: S.textStyles.titleHeavyPrimary,
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 8,
                     ),
-                    Row(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         LikeButton(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           size: 30,
                           likeBuilder: (bool isLiked) {
                             return Icon(
@@ -84,37 +87,44 @@ class ProfileItemCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          width: 7,
+                          height: 8,
                         ),
-                        Expanded(
-                          child: Text(
-                            r'$' + itemPrice,
-                            style: S.textStyles.titleLight,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 7,
-                        ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.place,
-                                  size: 20,
-                                  color: S.colors.primary,
-                                ),
-                                Text(
-                                  itemDistance + 'km',
-                                  style: S.textStyles.titleLight,
-                                ),
-                              ],
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 7,
                             ),
-                          ),
+                            Expanded(
+                              child: Text(
+                                r'$' + itemPrice,
+                                style: S.textStyles.titleLight,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.place,
+                                      size: 20,
+                                      color: S.colors.primary,
+                                    ),
+                                    Text(
+                                      itemDistance + 'km',
+                                      style: S.textStyles.titleLight,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
@@ -14,8 +15,36 @@ final _groupButtonController2 = GroupButtonController();
 final _groupButtonController3 = GroupButtonController();
 final _groupButtonController4 = GroupButtonController();
 
-class HomeFilterScreen extends StatelessWidget {
-  const HomeFilterScreen({Key? key}) : super(key: key);
+class SwapFilterScreen extends StatefulWidget {
+  const SwapFilterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SwapFilterScreenState();
+  }
+}
+
+class _SwapFilterScreenState extends State<SwapFilterScreen> {
+  int _index = 0;
+
+  void cleanFilters() {
+    _groupButtonController1.unselectAll();
+    _groupButtonController2.unselectAll();
+    _groupButtonController3.unselectAll();
+    _groupButtonController4.unselectAll();
+  }
+
+  void minusIndex() {
+    setState(() {
+      _index <= 0 ? _index = 0 : _index--;
+    });
+  }
+
+  void plusIndex() {
+    setState(() {
+      _index++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +54,9 @@ class HomeFilterScreen extends StatelessWidget {
           body: ListView(
             children: <Widget>[
               Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_8),
+                padding: EdgeInsets.only(
+                  top: S.dimens.defaultPadding_24,
+                ),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
@@ -50,31 +80,6 @@ class HomeFilterScreen extends StatelessWidget {
                           onPressed: () {
                             NavigationService.goBack();
                           }),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                      width: 315.0,
-                      child: TextField(
-                        style: S.textStyles.titleLight,
-                        textAlignVertical: TextAlignVertical.bottom,
-                        textAlign: TextAlign.start,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: S.colors.background_2,
-                          hintText: T.filterSearch,
-                          hintStyle: S.textStyles.titleLight,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: S.dimens.defaultPadding_8,
-                                  vertical: S.dimens.defaultPadding_8),
-                              child: const Icon(Icons.search)),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(S.dimens.defaultPadding_8)),
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -184,6 +189,61 @@ class HomeFilterScreen extends StatelessWidget {
                             print('$index button is selected'),
                       ),
                     ),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: S.dimens.defaultPadding_16,
+                      ),
+                      child: Text(
+                        T.filterPriceRange,
+                        style: S.textStyles.h4,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: S.dimens.defaultPadding_24),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                          color: S.colors.background_1,
+                        ),
+                        padding: EdgeInsets.zero,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: minusIndex,
+                              child: Icon(FontAwesomeIcons.minus),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 2.0,
+                                shape: CircleBorder(),
+                                primary: S.colors.accent_5,
+                                onPrimary: S.colors.primary,
+                              ),
+                            ),
+                            Text(
+                              '$_index',
+                              style: S.textStyles.titleHeavy,
+                            ),
+                            ElevatedButton(
+                              onPressed: plusIndex,
+                              child: Icon(FontAwesomeIcons.plus),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 2.0,
+                                shape: CircleBorder(),
+                                primary: S.colors.accent_5,
+                                onPrimary: S.colors.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Container(
                       alignment: Alignment.topRight,
                       padding: EdgeInsets.symmetric(
@@ -243,12 +303,5 @@ class HomeFilterScreen extends StatelessWidget {
       buttons: list,
       onSelected: (index, isSelected) => print('$index button is selected'),
     );
-  }
-
-  void cleanFilters() {
-    _groupButtonController1.unselectAll();
-    _groupButtonController2.unselectAll();
-    _groupButtonController3.unselectAll();
-    _groupButtonController4.unselectAll();
   }
 }

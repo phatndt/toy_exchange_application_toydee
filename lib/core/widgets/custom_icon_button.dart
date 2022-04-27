@@ -6,7 +6,7 @@ import '../../../core/styles/styles.dart';
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     Key? key,
-    this.width = 45,
+    this.width = 50,
     required this.text,
     required this.onPressed,
     this.color,
@@ -22,7 +22,7 @@ class CustomIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
+      height: 50,
       width: width,
       child: Center(
         child: ElevatedButton(
