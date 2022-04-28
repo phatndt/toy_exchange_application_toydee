@@ -22,6 +22,7 @@ class SwapScreenOne extends StatelessWidget {
       child: Scaffold(
         backgroundColor: S.colors.background_1,
         body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_16),
@@ -33,6 +34,7 @@ class SwapScreenOne extends StatelessWidget {
                 ),
                 CustomIconButton(
                   text: FontAwesomeIcons.angleLeft,
+                  color: S.colors.primary,
                   backgroundColor: S.colors.background_2,
                   onPressed: () {
                     NavigationService.goBack();
@@ -48,53 +50,7 @@ class SwapScreenOne extends StatelessWidget {
                 SizedBox(
                   height: S.dimens.defaultPadding_8,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 110,
-                      height: 110,
-                      decoration: BoxDecoration(
-                        color: S.colors.lavender,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(S.dimens.defaultBorderRadius),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Icon(FontAwesomeIcons.plus),
-                      ),
-                    ),
-                    Container(
-                      width: 110,
-                      height: 110,
-                      decoration: BoxDecoration(
-                        color: S.colors.lavender,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(S.dimens.defaultBorderRadius),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Icon(FontAwesomeIcons.plus),
-                      ),
-                    ),
-                    Container(
-                      width: 110,
-                      height: 110,
-                      decoration: BoxDecoration(
-                        color: S.colors.lavender,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(S.dimens.defaultBorderRadius),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Icon(FontAwesomeIcons.plus),
-                      ),
-                    ),
-                  ],
-                ),
+                toyImage(),
                 SizedBox(
                   height: S.dimens.defaultPadding_24,
                 ),
@@ -162,7 +118,7 @@ class SwapScreenOne extends StatelessWidget {
                   obscureText: false,
                   controller: f,
                   maxLines: 5,
-                  height: 150,
+                  height: 167.3913043478261.h,
                 ),
                 SizedBox(
                   height: S.dimens.defaultPadding_16,
@@ -192,10 +148,13 @@ class SwapScreenOne extends StatelessWidget {
                     Transform.scale(
                       scale: 1.5,
                       child: Checkbox(
-                        side: BorderSide(width: 2, color: S.colors.gray_3),
-                        shape: const RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 2.2318840579710146.h,
+                          color: S.colors.gray_3,
+                        ),
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(4),
+                            Radius.circular(4.463768115942029.h),
                           ),
                         ),
                         value: false,
@@ -217,10 +176,13 @@ class SwapScreenOne extends StatelessWidget {
                     Transform.scale(
                       scale: 1.5,
                       child: Checkbox(
-                        side: BorderSide(width: 2, color: S.colors.gray_3),
-                        shape: const RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 2.2318840579710146.h,
+                          color: S.colors.gray_3,
+                        ),
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(4),
+                            Radius.circular(4.463768115942029.h),
                           ),
                         ),
                         value: false,
@@ -235,22 +197,7 @@ class SwapScreenOne extends StatelessWidget {
                 SizedBox(
                   height: S.dimens.defaultPadding_24,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: S.dimens.defaultPadding_16),
-                  child: CustomButton(
-                    text: T.swapButtonContent,
-                    onPressed: () {
-                      NavigationService.push(
-                        page: RoutePaths.swapScreenUpload,
-                        isNamed: true,
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: S.dimens.defaultPadding_48,
-                ),
+                bottomButton(),
               ],
             ),
           ),
@@ -258,4 +205,71 @@ class SwapScreenOne extends StatelessWidget {
       ),
     );
   }
+
+  Widget toyImage() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 115.95833333333333.w,
+            height: 122.7536231884058.h,
+            decoration: BoxDecoration(
+              color: S.colors.lavender,
+              borderRadius: BorderRadius.all(
+                Radius.circular(S.dimens.defaultBorderRadius),
+              ),
+            ),
+            child: TextButton(
+              onPressed: () {},
+              child: const Icon(FontAwesomeIcons.plus),
+            ),
+          ),
+          Container(
+            width: 115.95833333333333.w,
+            height: 122.7536231884058.h,
+            decoration: BoxDecoration(
+              color: S.colors.lavender,
+              borderRadius: BorderRadius.all(
+                Radius.circular(S.dimens.defaultBorderRadius),
+              ),
+            ),
+            child: TextButton(
+              onPressed: () {},
+              child: const Icon(FontAwesomeIcons.plus),
+            ),
+          ),
+          Container(
+            width: 115.95833333333333.w,
+            height: 122.7536231884058.h,
+            decoration: BoxDecoration(
+              color: S.colors.lavender,
+              borderRadius: BorderRadius.all(
+                Radius.circular(S.dimens.defaultBorderRadius),
+              ),
+            ),
+            child: TextButton(
+              onPressed: () {},
+              child: const Icon(FontAwesomeIcons.plus),
+            ),
+          ),
+        ],
+      );
+
+  Widget bottomButton() => Container(
+        height: S.dimens.defaultPadding_88,
+        padding: EdgeInsets.symmetric(
+          horizontal: S.dimens.defaultPadding_16,
+        ),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: CustomButton(
+            text: T.swapButtonContent,
+            onPressed: () {
+              NavigationService.push(
+                page: RoutePaths.swapScreenUpload,
+                isNamed: true,
+              );
+            },
+          ),
+        ),
+      );
 }

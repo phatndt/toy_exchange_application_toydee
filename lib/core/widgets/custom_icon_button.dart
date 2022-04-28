@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/styles/styles.dart';
 
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     Key? key,
-    this.width = 45,
+    this.width,
     required this.text,
     required this.onPressed,
     this.color,
     required this.backgroundColor,
+    this.elevation = 1,
   }) : super(key: key);
 
-  final double width;
+  final double? width;
   final IconData text;
   final VoidCallback onPressed;
   final Color? color;
   final Color backgroundColor;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
-      width: width,
+      height: ScreenUtil().scaleHeight * 55.79710144927537,
+      width: width ?? ScreenUtil().scaleHeight * 55.79710144927537,
       child: Center(
         child: ElevatedButton(
           onPressed: onPressed,
@@ -34,7 +36,7 @@ class CustomIconButton extends StatelessWidget {
                     BorderRadius.circular(S.dimens.defaultBorderRadius),
               ),
             ),
-            elevation: MaterialStateProperty.all<double>(1),
+            elevation: MaterialStateProperty.all<double>(elevation),
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(12)),
             backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),

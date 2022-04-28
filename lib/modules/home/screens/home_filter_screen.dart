@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
@@ -20,59 +22,66 @@ class HomeFilterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: S.colors.gray_5,
+          backgroundColor: S.colors.background_1,
           body: ListView(
             children: <Widget>[
               Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_8),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(
-                    T.filterTitle,
-                    style: S.textStyles.h3,
-                  )
-                ]),
+                padding: EdgeInsets.symmetric(
+                  vertical: S.dimens.defaultPadding_8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      T.filterTitle,
+                      style: S.textStyles.h3,
+                    )
+                  ],
+                ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.symmetric(vertical: S.dimens.defaultPadding_8),
+                padding: EdgeInsets.symmetric(
+                  vertical: S.dimens.defaultPadding_8,
+                  horizontal: S.dimens.defaultPadding_16,
+                ),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: S.dimens.defaultPadding_8),
-                      child: CustomIconButton(
-                          backgroundColor: S.colors.primary,
-                          color: Colors.black,
-                          width: 50.0,
-                          text: Icons.arrow_back,
-                          onPressed: () {
-                            NavigationService.pushReplacement(
-                                isNamed: true, page: RoutePaths.home);
-                          }),
+                    CustomIconButton(
+                      backgroundColor: S.colors.accent_5,
+                      color: S.colors.primary,
+                      elevation: 0.5,
+                      text: FontAwesomeIcons.arrowLeft,
+                      onPressed: () {
+                        //print(ScreenUtil().scaleHeight * 55.79710144927537);
+                        NavigationService.push(
+                            isNamed: true, page: RoutePaths.mainScreen);
+                      },
                     ),
                     SizedBox(
-                      height: 50.0,
-                      width: 315.0,
-                      child: TextField(
-                        style: S.textStyles.titleLight,
-                        textAlignVertical: TextAlignVertical.bottom,
-                        textAlign: TextAlign.start,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: S.colors.background_2,
-                          hintText: T.filterSearch,
-                          hintStyle: S.textStyles.titleLight,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: S.dimens.defaultPadding_8,
-                                  vertical: S.dimens.defaultPadding_8),
-                              child: const Icon(Icons.search)),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(S.dimens.defaultPadding_8)),
+                      width: S.dimens.defaultPadding_8,
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 55.79710144927537.h,
+                        child: TextFormField(
+                          style: S.textStyles.titleLight,
+                          textAlignVertical: TextAlignVertical.bottom,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: S.colors.background_2,
+                            hintText: T.filterSearch,
+                            hintStyle: S.textStyles.titleLight,
+                            prefixIcon: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: S.dimens.defaultPadding_8,
+                                    vertical: S.dimens.defaultPadding_8),
+                                child: const Icon(Icons.search)),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(S.dimens.defaultPadding_8)),
+                            ),
                           ),
                         ),
                       ),
@@ -81,8 +90,13 @@ class HomeFilterScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                //height: MediaQuery.of(context).size.height,
-                color: S.colors.background_2,
+                decoration: BoxDecoration(
+                  color: S.colors.background_2,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(S.dimens.defaultBorderRadius),
+                    topRight: Radius.circular(S.dimens.defaultBorderRadius),
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -160,35 +174,35 @@ class HomeFilterScreen extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: GroupButton(
-                        controller: _groupButtonController4,
-                        isRadio: true,
-                        buttons: T.listAge,
-                        options: GroupButtonOptions(
-                          selectedTextStyle: S.textStyles.titleLight,
-                          unselectedTextStyle: S.textStyles.titleLight,
-                          groupingType: GroupingType.row,
-                          selectedShadow: const <BoxShadow>[
-                            BoxShadow(color: Colors.transparent)
-                          ],
-                          unselectedShadow: const <BoxShadow>[
-                            BoxShadow(color: Colors.transparent)
-                          ],
-                          selectedColor: S.colors.primary,
-                          unselectedColor: S.colors.gray_5,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(S.dimens.defaultPadding_8)),
-                          spacing: 15,
-                          buttonWidth: 100,
-                          buttonHeight: 50,
-                        ),
-                        onSelected: (index, isSelected) =>
-                            print('$index button is selected'),
-                      ),
+                          controller: _groupButtonController4,
+                          isRadio: true,
+                          buttons: T.listAge,
+                          options: GroupButtonOptions(
+                            selectedTextStyle: S.textStyles.titleLight,
+                            unselectedTextStyle: S.textStyles.titleLight,
+                            groupingType: GroupingType.row,
+                            selectedShadow: const <BoxShadow>[
+                              BoxShadow(color: Colors.transparent)
+                            ],
+                            unselectedShadow: const <BoxShadow>[
+                              BoxShadow(color: Colors.transparent)
+                            ],
+                            selectedColor: S.colors.primary,
+                            unselectedColor: S.colors.gray_5,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(S.dimens.defaultPadding_8)),
+                            spacing: 15,
+                            buttonWidth: 100,
+                            buttonHeight: 50,
+                          ),
+                          onSelected: (index, isSelected) {}
+                          //print('$index button is selected'),
+                          ),
                     ),
                     Container(
                       alignment: Alignment.topRight,
                       padding: EdgeInsets.symmetric(
-                          horizontal: S.dimens.defaultPadding_8,
+                          horizontal: S.dimens.defaultPadding_16,
                           vertical: S.dimens.defaultPadding_8),
                       child: TextButton(
                           onPressed: () => cleanFilters(),
@@ -197,16 +211,18 @@ class HomeFilterScreen extends StatelessWidget {
                             style: S.textStyles.titleLight,
                           )),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 32.0,
-                        right: 32.0,
-                        bottom: 32.0,
-                      ),
-                      child: CustomButton(
-                        text: T.filterApply,
-                        width: 0,
-                        onPressed: () {},
+                    SizedBox(
+                      height: S.dimens.defaultPadding_88,
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: S.dimens.defaultPadding_32),
+                          child: CustomButton(
+                            text: T.filterApply,
+                            onPressed: () {},
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -220,30 +236,31 @@ class HomeFilterScreen extends StatelessWidget {
   GroupButton buildGroupButton(List<String> list, double buttonwidth,
       bool isradio, GroupButtonController control) {
     return GroupButton(
-      controller: control,
-      options: GroupButtonOptions(
-        selectedTextStyle: S.textStyles.titleLight,
-        unselectedTextStyle: S.textStyles.titleLight,
-        selectedShadow: const <BoxShadow>[BoxShadow(color: Colors.transparent)],
-        unselectedShadow: const <BoxShadow>[
-          BoxShadow(color: Colors.transparent)
-        ],
-        selectedColor: S.colors.primary,
-        unselectedColor: S.colors.gray_5,
-        borderRadius:
-            BorderRadius.all(Radius.circular(S.dimens.defaultPadding_8)),
-        mainGroupAlignment: MainGroupAlignment.center,
-        crossGroupAlignment: CrossGroupAlignment.center,
-        groupRunAlignment: GroupRunAlignment.spaceEvenly,
-        spacing: 15,
-        buttonWidth: buttonwidth,
-        buttonHeight: 50,
-      ),
-      isRadio: isradio,
-      enableDeselect: true,
-      buttons: list,
-      onSelected: (index, isSelected) => print('$index button is selected'),
-    );
+        controller: control,
+        options: GroupButtonOptions(
+          selectedTextStyle: S.textStyles.titleLight,
+          unselectedTextStyle: S.textStyles.titleLight,
+          selectedShadow: const <BoxShadow>[
+            BoxShadow(color: Colors.transparent)
+          ],
+          unselectedShadow: const <BoxShadow>[
+            BoxShadow(color: Colors.transparent)
+          ],
+          selectedColor: S.colors.primary,
+          unselectedColor: S.colors.gray_5,
+          borderRadius:
+              BorderRadius.all(Radius.circular(S.dimens.defaultPadding_8)),
+          mainGroupAlignment: MainGroupAlignment.center,
+          crossGroupAlignment: CrossGroupAlignment.center,
+          groupRunAlignment: GroupRunAlignment.spaceEvenly,
+          spacing: 15,
+          buttonWidth: buttonwidth,
+          buttonHeight: 50,
+        ),
+        isRadio: isradio,
+        enableDeselect: true,
+        buttons: list,
+        onSelected: (index, isSelected) {});
   }
 
   void cleanFilters() {

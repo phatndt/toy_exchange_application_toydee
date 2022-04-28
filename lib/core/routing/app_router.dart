@@ -6,8 +6,11 @@ import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboardi
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/home/screens/home_all_toy_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/home/screens/home_search_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/home/screens/home_toy_detail_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
-import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_three.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_done.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_upload.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_welcome_screen.dart';
 
@@ -140,9 +143,24 @@ class AppRouter {
           builder: (_) => const SwapScreenTwo(),
           settings: settings,
         );
-      case RoutePaths.swapScreenThree:
+      case RoutePaths.swapScreenDone:
         return MaterialPageRoute(
           builder: (_) => const SwappScreenThree(),
+          settings: settings,
+        );
+      case RoutePaths.seeAllToy:
+        return MaterialPageRoute(
+          builder: (_) => const HomeAllToyScreen(),
+          settings: settings,
+        );
+      case RoutePaths.toyDetailScreen:
+        return MaterialPageRoute(
+          builder: (_) => const HomeToyDetailScreen(),
+          settings: settings,
+        );
+      case RoutePaths.searchScreen:
+        return MaterialPageRoute(
+          builder: (_) => const HomeSearchScreen(),
           settings: settings,
         );
       //Map
