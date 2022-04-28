@@ -133,6 +133,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const ProfileConfigurationGenderChanging(
             label: '',
+            information: '',
           ),
           settings: settings,
         );

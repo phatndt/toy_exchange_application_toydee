@@ -25,12 +25,12 @@ class _ProfileConfigurationScreenState
     extends State<ProfileConfigurationScreen> {
   String _datetime = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime dateTime = DateTime.now();
-  String gender = '...';
   String email = '';
   String password = '';
   String showPassword = '******';
   String phone = '';
   String address = '';
+  String gender = '0';
   List<String> names = ['1', '2'];
   @override
   Widget build(BuildContext context) {
@@ -170,12 +170,13 @@ class _ProfileConfigurationScreenState
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.venusMars,
                 label: T.proConLabelGender,
-                information: gender,
+                information: (gender),
                 press: () async {
                   final newGender =
                       await Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationGenderChanging(
                       label: T.proConLabelGender,
+                      information: (gender),
                     ),
                   ));
                   // setState(() {
@@ -197,6 +198,8 @@ class _ProfileConfigurationScreenState
                         gender = 'Other';
                       });
                       break;
+                    default:
+                      '';
                   }
                 },
               ),

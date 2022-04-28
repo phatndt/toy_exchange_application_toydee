@@ -10,9 +10,11 @@ import '../../../core/widgets/custom_text_elevated_button.dart';
 
 class ProfileConfigurationGenderChanging extends StatefulWidget {
   final String label;
+  final String information;
   const ProfileConfigurationGenderChanging({
     Key? key,
     required this.label,
+    required this.information,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,8 @@ class ProfileConfigurationGenderChanging extends StatefulWidget {
 class _ProfileConfigurationGenderChangingState
     extends State<ProfileConfigurationGenderChanging> {
   final groupButtonController = GroupButtonController();
-  String selectedGenderValue = '';
+  String selectedGenderValue = '0';
+  bool _isButtonDisabled = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,7 +54,7 @@ class _ProfileConfigurationGenderChangingState
                   color: S.colors.primary,
                   onPressed: () {
                     NavigationService.goBack(
-                      result: 'Adu',
+                      result: widget.information,
                     );
                   },
                   backgroundColor: S.colors.accent_5,
@@ -76,30 +79,31 @@ class _ProfileConfigurationGenderChangingState
                     ),
                     Center(
                       child: GroupButton(
-                        buttons: T.listGender,
-                        controller: groupButtonController,
-                        enableDeselect: false,
-                        options: GroupButtonOptions(
-                          selectedTextStyle: S.textStyles.titleLight,
-                          unselectedTextStyle: S.textStyles.titleLight,
-                          groupingType: GroupingType.column,
-                          selectedShadow: const <BoxShadow>[
-                            BoxShadow(color: Colors.transparent)
-                          ],
-                          unselectedShadow: const <BoxShadow>[
-                            BoxShadow(color: Colors.transparent)
-                          ],
-                          selectedColor: S.colors.primary,
-                          unselectedColor: S.colors.background_2,
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(S.dimens.defaultPadding_8)),
-                          spacing: 15,
-                          buttonWidth: 120,
-                          buttonHeight: 60,
-                        ),
-                        onSelected: (index, isSelected) =>
-                            selectedGenderValue = '$index',
-                      ),
+                          buttons: T.listGender,
+                          controller: groupButtonController,
+                          enableDeselect: false,
+                          options: GroupButtonOptions(
+                            selectedTextStyle: S.textStyles.titleLight,
+                            unselectedTextStyle: S.textStyles.titleLight,
+                            groupingType: GroupingType.column,
+                            selectedShadow: const <BoxShadow>[
+                              BoxShadow(color: Colors.transparent)
+                            ],
+                            unselectedShadow: const <BoxShadow>[
+                              BoxShadow(color: Colors.transparent)
+                            ],
+                            selectedColor: S.colors.primary,
+                            unselectedColor: S.colors.background_2,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(S.dimens.defaultPadding_8)),
+                            spacing: 15,
+                            buttonWidth: 120,
+                            buttonHeight: 60,
+                          ),
+                          onSelected: (index, isSelected) {
+                            selectedGenderValue = '$index';
+                            _isButtonDisabled = false;
+                          }),
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_32,
@@ -111,8 +115,10 @@ class _ProfileConfigurationGenderChangingState
                       child: CustomButton(
                         text: T.proConfigurationSave,
                         onPressed: () {
-                          Navigator.of(context)
-                              .pop(int.parse(selectedGenderValue));
+                          _isButtonDisabled
+                              ? null
+                              : Navigator.of(context)
+                                  .pop(int.parse(selectedGenderValue));
                         },
                       ),
                     )
