@@ -117,7 +117,7 @@ class _TextStyles {
     fontSize: ScreenUtil().setSp(18),
     fontWeight: FontWeight.w600,
     color: S.colors.primary,
-    letterSpacing: 1.2,
+    letterSpacing: 0.5,
   );
 
   final TextStyle h4Underline = TextStyle(
@@ -145,6 +145,14 @@ class _TextStyles {
     color: S.colors.textColor_1,
     textBaseline: TextBaseline.alphabetic,
   );
+
+  final titleHeavyBoldPrimary = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(18),
+    fontWeight: FontWeight.bold,
+    color: S.colors.primary,
+    letterSpacing: 0.5,
+  );
 }
 
 class _Dimens {
@@ -160,6 +168,7 @@ class _Dimens {
   final defaultPadding_100 = 96.0;
   final defaultPadding_128 = 128.0;
   final defaultPadding_256 = 256.0;
+  final defaultPadding_88 = 88.0;
 
   final defaultBorderRadius = 8.0;
 }

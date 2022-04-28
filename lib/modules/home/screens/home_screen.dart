@@ -6,13 +6,10 @@ import 'package:toy_exchange_application_toydee/core/routing/navigation_service.
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_form_field.dart';
-import 'package:toy_exchange_application_toydee/core/widgets/custom_text_outline_button.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/viewmodels/tesst.dart';
 
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
-import '../../../core/styles/text.dart';
-import '../../../core/widgets/custom_text_elevated_button.dart';
 
 // class HomeScreen extends StatelessWidget {
 //   const HomeScreen({Key? key}) : super(key: key);
@@ -154,6 +151,7 @@ import '../../../core/widgets/custom_text_elevated_button.dart';
 //     );
 //   }
 // }
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -162,9 +160,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  FocusNode myFocusNode = FocusNode();
+
+  bool _keyboardVisible = true;
   @override
   Widget build(BuildContext context) {
-    List color = [S.colors.accent_8, S.colors.accent_4, S.colors.accent_5];
+    List color = [S.colors.accent_4, S.colors.accent_5, S.colors.accent_8];
     List text = [
       "Donate unused toys or help with  funds for worthy causes",
       "Exchange toy with other users easily and quickly",
@@ -176,13 +177,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       R.images.homeSwiper_3,
     ];
     TabController tabController = TabController(length: 2, vsync: this);
+    if (MediaQuery.of(context).viewInsets.bottom == 0) {
+      myFocusNode.unfocus();
+    }
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: S.colors.background_2,
-        body: SafeArea(
-          child: SingleChildScrollView(
+    return GestureDetector(
+      onTap: (() {
+        myFocusNode.unfocus();
+      }),
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          backgroundColor: S.colors.background_2,
+          body: SafeArea(
             child: Column(
               children: [
                 Container(
@@ -216,20 +223,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomTextFormField(
-                              hintText: "Search",
-                              obscureText: true,
-                              controller: Tesst.e,
-                              width: ScreenUtil().setWidth(320),
+                            Expanded(
+                              child: CustomTextFormField(
+                                hintText: "Search",
+                                obscureText: true,
+                                controller: Tesst.g,
+                                width: ScreenUtil().setWidth(320),
+                                focusNode: myFocusNode,
+                                onTap: () {
+                                  NavigationService.push(
+                                    page: RoutePaths.searchScreen,
+                                    isNamed: true,
+                                  );
+                                },
+                                readOnly: true,
+                              ),
+                            ),
+                            SizedBox(
+                              width: S.dimens.defaultPadding_8,
                             ),
                             CustomIconButton(
-                              width: ScreenUtil().setWidth(50),
+                              width: 50,
                               text: FontAwesomeIcons.filter,
                               backgroundColor: S.colors.accent_5,
                               onPressed: () {
                                 NavigationService.push(
                                     isNamed: true, page: RoutePaths.homefilter);
                               },
+                              color: S.colors.primary,
                             ),
                           ],
                         ),
@@ -237,64 +258,61 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           height: S.dimens.defaultPadding_16,
                         ),
                         SizedBox(
-                          height: 400.h,
+                          height: ScreenUtil().scaleHeight * 160,
                           width: double.infinity,
                           child: Swiper(
                             itemBuilder: (BuildContext context, int index) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: S.dimens.defaultPadding_4),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: color[index],
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                          S.dimens.defaultBorderRadius),
-                                    ),
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: color[index],
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                        S.dimens.defaultBorderRadius),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(
-                                        S.dimens.defaultPadding_24),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(
-                                                width: 140,
-                                                child: Text(
-                                                  text[index],
-                                                  style: S.textStyles.h4,
-                                                ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(
+                                      S.dimens.defaultPadding_16),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width:
+                                                  ScreenUtil().scaleWidth * 160,
+                                              child: Text(
+                                                text[index],
+                                                style: S.textStyles.h4,
                                               ),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Text(
-                                                  "Learn more",
-                                                  style: S.textStyles
-                                                      .titleLightUnderline,
-                                                ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Text(
+                                                "Learn more",
+                                                style: S.textStyles
+                                                    .titleLightUnderline,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: S.dimens.defaultPadding_16,
-                                        ),
-                                        Expanded(
-                                            flex: 2,
-                                            child: Center(
-                                                child:
-                                                    Image.asset(image[index]))),
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        width: S.dimens.defaultPadding_16,
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: Center(
+                                              child:
+                                                  Image.asset(image[index]))),
+                                    ],
                                   ),
                                 ),
                               );
@@ -340,49 +358,229 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: S.dimens.defaultPadding_16),
-                  width: double.infinity,
-                  height: 300.h,
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      Column(
-                        children: [
-                          // Text(T.homeSeeAll),
-                          // GridView.builder(
-                          //   gridDelegate:
-                          //       const SliverGridDelegateWithFixedCrossAxisCount(
-                          //     crossAxisCount: 2,
-                          //     childAspectRatio: 0.75,
-                          //     mainAxisSpacing: 8.0,
-                          //     crossAxisSpacing: 8.0,
-                          //   ),
-                          //   itemBuilder: (context, index) => GestureDetector(
-                          //     child: Container(
-                          //       padding: EdgeInsets.symmetric(
-                          //           horizontal: S.dimens.defaultBorderRadius),
-                          //       decoration: BoxDecoration(
-                          //         color: Color(0xFFF7F7F7),
-                          //         borderRadius: BorderRadius.all(
-                          //           Radius.circular(
-                          //               S.dimens.defaultBorderRadius),
-                          //         ),
-                          //       ),
-                          //       child: Column(
-                          //         children: [],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ],
+                SizedBox(
+                  height: S.dimens.defaultPadding_8,
+                ),
+                Align(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: S.dimens.defaultPadding_16,
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        NavigationService.push(
+                          page: RoutePaths.seeAllToy,
+                          isNamed: true,
+                        );
+                      },
+                      child: Text(
+                        "See all",
+                        style: S.textStyles.titleLightPrimary,
                       ),
-                      Card(
-                        color: S.colors.background_1,
-                        child: SizedBox(height: 50),
-                      )
-                    ],
+                    ),
+                  ),
+                  alignment: Alignment.centerRight,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: S.dimens.defaultPadding_16,
+                        vertical: S.dimens.defaultPadding_4),
+                    child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        RefreshIndicator(
+                          onRefresh: () async {},
+                          child: GridView.builder(
+                            itemCount: 10,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: S.dimens.defaultPadding_4,
+                              mainAxisSpacing: S.dimens.defaultPadding_4,
+                              childAspectRatio: 0.725,
+                            ),
+                            itemBuilder: (context, index) => Card(
+                              elevation: 0.3,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  S.dimens.defaultBorderRadius,
+                                ),
+                              ),
+                              color: S.colors.background_1,
+                              child: InkWell(
+                                onTap: () {
+                                  NavigationService.push(
+                                    page: RoutePaths.toyDetailScreen,
+                                    isNamed: true,
+                                  );
+                                },
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: ScreenUtil().scaleHeight * 180,
+                                      child: Image.asset(R.images.homeToy_1),
+                                    ),
+                                    SizedBox(
+                                      height: S.dimens.defaultPadding_8,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          left: S.dimens.defaultPadding_4),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width:
+                                                ScreenUtil().scaleWidth * 110,
+                                            child: Text(
+                                              "Helicoptersdsdsdádasdadasdassdsd",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: S.textStyles
+                                                  .titleHeavyBoldPrimary,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 50.w,
+                                            height: 40.h,
+                                            decoration: BoxDecoration(
+                                              color: S.colors.accent_5,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                  S.dimens.defaultPadding_16,
+                                                ),
+                                                bottomLeft: Radius.circular(
+                                                  S.dimens.defaultPadding_16,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Icon(
+                                              FontAwesomeIcons.retweet,
+                                              color: S.colors.primary,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: S.dimens.defaultPadding_4,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              S.dimens.defaultPadding_4),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(
+                                            FontAwesomeIcons.faceSmile,
+                                            size: 20.w,
+                                          ),
+                                          Text(
+                                            "15 Km",
+                                            overflow: TextOverflow.ellipsis,
+                                            style:
+                                                S.textStyles.titleHeavyPrimary,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: S.dimens.defaultPadding_4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GridView.builder(
+                          itemCount: 10,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: S.dimens.defaultPadding_4,
+                            mainAxisSpacing: S.dimens.defaultPadding_4,
+                            childAspectRatio: 0.6,
+                          ),
+                          itemBuilder: (context, index) => Card(
+                            elevation: 0.3,
+                            color: S.colors.background_1,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: ScreenUtil().scaleHeight * 180,
+                                  child: Image.asset(R.images.homeToy_1),
+                                ),
+                                SizedBox(
+                                  height: S.dimens.defaultPadding_8,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: S.dimens.defaultPadding_4),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: ScreenUtil().scaleWidth * 110,
+                                        child: Text(
+                                          "Helicoptersdsdsdádasdadasdassdsd",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: S
+                                              .textStyles.titleHeavyBoldPrimary,
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 50.w,
+                                        height: 40.h,
+                                        decoration: BoxDecoration(
+                                          color: S.colors.accent_5,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                              S.dimens.defaultPadding_16,
+                                            ),
+                                            bottomLeft: Radius.circular(
+                                              S.dimens.defaultPadding_16,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          FontAwesomeIcons.retweet,
+                                          color: S.colors.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: S.dimens.defaultPadding_4),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Icon(FontAwesomeIcons.faceSmile),
+                                      SizedBox(
+                                        width: ScreenUtil().scaleWidth * 110,
+                                        child: Text(
+                                          "dsdsd",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: S
+                                              .textStyles.titleHeavyBoldPrimary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -391,5 +589,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
   }
 }

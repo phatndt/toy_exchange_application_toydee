@@ -18,6 +18,9 @@ class CustomTextFormField extends StatelessWidget {
     this.width = double.infinity,
     this.height = 50,
     this.maxLines = 1,
+    this.autofocus = false,
+    this.onTap,
+    this.readOnly = false,
   }) : super(key: key);
 
   final FocusNode? focusNode;
@@ -33,6 +36,9 @@ class CustomTextFormField extends StatelessWidget {
   final double? width;
   final double? height;
   final int? maxLines;
+  final bool autofocus;
+  final VoidCallback? onTap;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +46,9 @@ class CustomTextFormField extends StatelessWidget {
       height: height,
       width: width,
       child: TextFormField(
+        onTap: onTap,
+        readOnly: readOnly,
+        autofocus: autofocus,
         maxLines: maxLines,
         focusNode: focusNode,
         controller: controller,
