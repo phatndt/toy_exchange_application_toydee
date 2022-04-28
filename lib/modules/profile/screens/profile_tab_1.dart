@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
-import '../profile_item_card.dart';
-import '../list_post.dart';
+import '../components/list_post.dart';
+import '../components/profile_item_card.dart';
 
 class ProfileTab1 extends StatelessWidget {
   const ProfileTab1({

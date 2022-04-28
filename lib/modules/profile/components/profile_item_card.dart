@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/single_child_widget.dart';
 
-import '../../core/styles/styles.dart';
-import '../../core/styles/text.dart';
+import '../../../core/styles/styles.dart';
 
 class ProfileItemCard extends StatelessWidget {
   const ProfileItemCard({
@@ -24,13 +23,12 @@ class ProfileItemCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: S.dimens.defaultPadding_16,
-          vertical: S.dimens.defaultPadding_4),
+          vertical: S.dimens.defaultPadding_8),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           backgroundColor: S.colors.background_2,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(S.dimens.defaultPadding_8)),
-          side: BorderSide(width: 0.1, color: S.colors.primary),
         ),
         onPressed: press,
         child: Padding(
@@ -45,8 +43,8 @@ class ProfileItemCard extends StatelessWidget {
                   width: 140,
                 ),
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: S.dimens.defaultPadding_8,
               ),
               Expanded(
                 child: Column(
@@ -60,12 +58,16 @@ class ProfileItemCard extends StatelessWidget {
                       softWrap: false,
                       style: S.textStyles.titleHeavyPrimary,
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: S.dimens.defaultPadding_8,
                     ),
-                    Row(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         LikeButton(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           size: 30,
                           likeBuilder: (bool isLiked) {
                             return Icon(
@@ -83,38 +85,45 @@ class ProfileItemCard extends StatelessWidget {
                             end: S.colors.primary,
                           ),
                         ),
-                        const SizedBox(
-                          width: 7,
+                        SizedBox(
+                          height: S.dimens.defaultPadding_8,
                         ),
-                        Expanded(
-                          child: Text(
-                            r'$' + itemPrice,
-                            style: S.textStyles.titleLight,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 7,
-                        ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.place,
-                                  size: 20,
-                                  color: S.colors.primary,
-                                ),
-                                Text(
-                                  itemDistance + 'km',
-                                  style: S.textStyles.titleLight,
-                                ),
-                              ],
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: S.dimens.defaultPadding_8,
                             ),
-                          ),
+                            Expanded(
+                              child: Text(
+                                r'$' + itemPrice,
+                                style: S.textStyles.titleLight,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                              ),
+                            ),
+                            SizedBox(
+                              width: S.dimens.defaultPadding_8,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.place,
+                                      size: 20,
+                                      color: S.colors.primary,
+                                    ),
+                                    Text(
+                                      itemDistance + 'km',
+                                      style: S.textStyles.titleLight,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

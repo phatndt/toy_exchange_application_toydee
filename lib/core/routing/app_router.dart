@@ -17,7 +17,10 @@ import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_welcom
 import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
+import '../../modules/profile/configuration_screen/profile_configuration_changing_gender.dart';
+import '../../modules/profile/configuration_screen/profile_configuration_changing_text.dart';
 import '../../modules/profile/screens/profile_screen.dart';
+import '../../modules/profile/configuration_screen/profile_configuration_screen.dart';
 import '../screens/onboarding/onboarding2.dart';
 import '../screens/onboarding/onboarding3.dart';
 import '../screens/splash_screen.dart';
@@ -108,6 +111,32 @@ class AppRouter {
       case RoutePaths.homefilter:
         return MaterialPageRoute(
           builder: (_) => const HomeFilterScreen(),
+          settings: settings,
+        );
+      case RoutePaths.swapscreenfilter:
+        return MaterialPageRoute(
+          builder: (_) => const SwapFilterScreen(),
+          settings: settings,
+        );
+      case RoutePaths.profileconfiguration:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileConfigurationScreen(),
+          settings: settings,
+        );
+      case RoutePaths.profileconfigurationchangingtext:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileConfigurationTextChanging(
+            label: '',
+            information: '',
+          ),
+          settings: settings,
+        );
+      case RoutePaths.profileconfigurationchangingdate:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileConfigurationGenderChanging(
+            label: '',
+            information: '',
+          ),
           settings: settings,
         );
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/styles/styles.dart';
+import '../../../core/styles/styles.dart';
 
-class ProfileWidget extends StatelessWidget {
-  const ProfileWidget({
+class ProfileWidget2 extends StatelessWidget {
+  const ProfileWidget2({
     Key? key,
     required this.imagePath,
     required this.onPressed,
@@ -13,23 +13,20 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = NetworkImage(imagePath);
-
     return Center(
       child: Stack(
         children: [
           ClipOval(
             child: Material(
-              // color: Colors.transparent,
-              child: Ink.image(
-                image: image,
-                fit: BoxFit.cover,
-                width: 128,
-                height: 128,
-                child: InkWell(
+              //color: Colors.transparent, // Button color
+              child: InkWell(
+                  //splashColor: Colors.red, // Splash color
                   onTap: onPressed,
-                ),
-              ),
+                  child: Image.asset(
+                    imagePath,
+                    height: 128,
+                    width: 128,
+                  )),
             ),
           ),
           Positioned(
@@ -37,16 +34,15 @@ class ProfileWidget extends StatelessWidget {
             right: 4,
             child: ClipOval(
               child: Container(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(3.0),
                 color: S.colors.background_2,
                 child: ClipOval(
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
                     color: S.colors.primary,
-                    child: Icon(
+                    child: const Icon(
                       Icons.edit,
-                      size: 20.0,
-                      color: S.colors.textColor_1,
+                      size: 15.0,
                     ),
                   ),
                 ),

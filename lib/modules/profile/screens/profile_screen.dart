@@ -1,11 +1,13 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
-import '../profile_widget.dart';
-import '../profile_wiget2.dart';
+
+import '../components/profile_widget.dart';
 import 'profile_tab_1.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -25,40 +27,46 @@ class ProfileScreenState extends State<ProfileScreen>
       backgroundColor: S.colors.background_2,
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomIconButton(
-                    backgroundColor: S.colors.primary,
-                    color: S.colors.textColor_1,
+          Padding(
+            padding: EdgeInsets.only(
+              top: S.dimens.defaultPadding_48,
+              left: S.dimens.defaultPadding_16,
+              right: S.dimens.defaultPadding_16,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomIconButton(
+                    backgroundColor: S.colors.accent_5,
+                    color: S.colors.primary,
                     width: 50.0,
                     text: Icons.arrow_back_rounded,
                     onPressed: () {}),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomIconButton(
-                  text: Icons.edit_note,
-                  onPressed: () {},
-                  backgroundColor: S.colors.primary,
-                  color: S.colors.textColor_1,
+                CustomIconButton(
+                  text: FontAwesomeIcons.gear,
+                  onPressed: () {
+                    NavigationService.push(
+                      isNamed: true,
+                      page: RoutePaths.profileconfiguration,
+                    );
+                  },
+                  backgroundColor: S.colors.accent_5,
+                  color: S.colors.primary,
                 ),
-              ),
-              // IconButton(
-              //   onPressed: () {},
-              //   iconSize: 40.0,
-              //   icon: Icon(
-              //     Icons.edit_note,
-              //     color: S.colors.primary,
-              //   ),
-              // ),
-            ],
+                // IconButton(
+                //   onPressed: () {},
+                //   iconSize: 40.0,
+                //   icon: Icon(
+                //     Icons.edit_note,
+                //     color: S.colors.primary,
+                //   ),
+                // ),
+              ],
+            ),
           ),
           ProfileWidget(imagePath: T.imageProfilePath, onPressed: () {}),
-          const SizedBox(
-            height: 10.0,
+          SizedBox(
+            height: S.dimens.defaultPadding_8,
           ),
           Column(
             children: [
@@ -66,8 +74,8 @@ class ProfileScreenState extends State<ProfileScreen>
                 T.profileTextName,
                 style: S.textStyles.h3,
               ),
-              const SizedBox(
-                height: 5.0,
+              SizedBox(
+                height: S.dimens.defaultPadding_4,
               ),
               Text(
                 T.profileTextEmail,
@@ -75,59 +83,65 @@ class ProfileScreenState extends State<ProfileScreen>
               )
             ],
           ),
-          const SizedBox(
-            height: 10.0,
+          SizedBox(
+            height: S.dimens.defaultPadding_8,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: CustomIconButton(
-                  text: Icons.mail,
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: S.dimens.defaultPadding_16,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomIconButton(
+                  text: FontAwesomeIcons.envelope,
                   onPressed: () {},
-                  color: S.colors.textColor_1,
-                  backgroundColor: S.colors.primary,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(S.dimens.defaultPadding_8)),
                   color: S.colors.primary,
+                  backgroundColor: S.colors.accent_5,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ReviewWidget(
-                      name: T.profileRating,
-                      point: '5',
-                    ),
-                    ReviewWidget(
-                      name: T.profileSwap,
-                      point: '18',
-                    ),
-                    ReviewWidget(
-                      name: T.profileDonated,
-                      point: '22',
-                    ),
-                  ],
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(S.dimens.defaultPadding_8)),
+                    color: S.colors.primary,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ReviewWidget(
+                        name: T.profileRating,
+                        point: '5',
+                      ),
+                      ReviewWidget(
+                        name: T.profileSwap,
+                        point: '18',
+                      ),
+                      ReviewWidget(
+                        name: T.profileDonated,
+                        point: '22',
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: CustomIconButton(
+                CustomIconButton(
                   text: Icons.phone,
                   onPressed: () {},
-                  color: S.colors.textColor_1,
-                  backgroundColor: S.colors.primary,
+                  color: S.colors.primary,
+                  backgroundColor: S.colors.accent_5,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Container(
             child: TabBar(
               unselectedLabelColor: S.colors.gray_3,
+              unselectedLabelStyle: S.textStyles.titleHeavy,
               labelColor: S.colors.primary,
               labelStyle: S.textStyles.titleHeavy,
               indicatorColor: S.colors.primary,
