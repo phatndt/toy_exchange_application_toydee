@@ -11,7 +11,7 @@ class _Icons {
 }
 
 class _Image {
-  static const path = 'assets/icons';
+  //static const path = 'assets/icons';
   //final logo = '$path/';
 
   static const logoPath = 'assets/images/logo';
@@ -24,7 +24,6 @@ class _Image {
   final ggLogin = '$loginPath/flat-color-icons_google.png';
   final appleLogin = '$loginPath/ant-design_apple-filled.png';
 
-  
   static const homePath = 'assets/images/home';
 
   final homeSwiper_1 = '$homePath/swiper_1.png';
@@ -34,8 +33,10 @@ class _Image {
   final homeToy_2 = '$homePath/toy_2.png';
   final homeToy_3 = '$homePath/toy_3.png';
   final homeToy_4 = '$homePath/toy_4.png';
-  
+
   static const swapPath = 'assets/images/swap';
-  
+
   final swapWelcome = '$swapPath/swap_welcome.png';
+  final swapUpload = '$swapPath/swap_upload_done.png';
+  final swapDone = '$swapPath/swap_done.json';
 }

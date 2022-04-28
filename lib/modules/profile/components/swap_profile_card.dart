@@ -29,7 +29,7 @@ class SwapProductCard extends StatelessWidget {
               ),
               RatingBarIndicator(
                 rating: 2.5,
-                itemBuilder: (context, index) => Icon(
+                itemBuilder: (context, index) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),

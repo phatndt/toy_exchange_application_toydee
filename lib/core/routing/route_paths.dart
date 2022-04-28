@@ -19,9 +19,13 @@ class RoutePaths {
   static const swapWelcomeScreen = '/swap_welcome_screen';
   static const swapScreenMain = '/swap_screen_main';
   static const swapScreenUpload = '/swap_screen_upload';
-  static const swapScreenThree = '/swap_screen_three';
   static const swapscreenfilter = '/swap_screen_filter';
-  static const profileconfiguration = '/profile_configuration_screen';
+  static const swapScreenDone = '/swap_screen_done';
+  static const seeAllToy = '/home_all_toy_screen';
+  static const toyDetailScreen = '/toy_detail_screen';
+  static const searchScreen = '/home_search_screen';
+
+   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
       '/profile_configuration_changing_text';
   static const profileconfigurationchangingdate =

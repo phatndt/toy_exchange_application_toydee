@@ -6,7 +6,7 @@ class Product {
   Product({this.title, this.image});
 }
 
-List<Product> demo_products = [
+List<Product> demoProducts = [
   Product(title: "Cabbage", image: R.images.homeToy_1),
   Product(title: "Broccoli", image:  R.images.homeToy_2),
   Product(title: "Carrot", image:  R.images.homeToy_3),

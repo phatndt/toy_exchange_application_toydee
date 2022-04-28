@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "436142257427",
+    "project_id": "toyexchangeapplication",
+    "storage_bucket": "toyexchangeapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436142257427:android:9a9d728eab62021b67d6e6",
+        "android_client_info": {
+          "package_name": "com.example.toy_exchange_application_toydee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436142257427-kpajd8dd4vit3f5b7vgealb0r6dvef5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.toy_exchange_application_toydee",
+            "certificate_hash": "8d2a95501ee3a80e52d49d7310df504cd43b00d6"
+          }
+        },
+        {
+          "client_id": "436142257427-ok5mag1asqre4vto7nshgbcu2gntmfvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyNEoZk7ycZ5ZW9KSw9TIq3_EPnmjkj1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436142257427-ok5mag1asqre4vto7nshgbcu2gntmfvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
