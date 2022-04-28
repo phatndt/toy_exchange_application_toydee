@@ -21,6 +21,7 @@ import '../../modules/profile/configuration_screen/profile_configuration_changin
 import '../../modules/profile/configuration_screen/profile_configuration_changing_text.dart';
 import '../../modules/profile/screens/profile_screen.dart';
 import '../../modules/profile/configuration_screen/profile_configuration_screen.dart';
+import '../../modules/swap/screens/swap_screen_filter.dart';
 import '../screens/onboarding/onboarding2.dart';
 import '../screens/onboarding/onboarding3.dart';
 import '../screens/splash_screen.dart';

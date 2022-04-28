@@ -61,8 +61,7 @@ class _ProfileConfigurationScreenState
                   text: FontAwesomeIcons.angleLeft,
                   color: S.colors.primary,
                   onPressed: () {
-                    NavigationService.pushReplacement(
-                        isNamed: true, page: RoutePaths.profile);
+                    NavigationService.goBack();
                   },
                   backgroundColor: S.colors.accent_5,
                 ),

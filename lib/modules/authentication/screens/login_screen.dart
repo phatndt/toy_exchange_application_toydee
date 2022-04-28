@@ -168,9 +168,9 @@ class LoginScreen extends ConsumerWidget {
                       CustomButton(
                         text: T.login,
                         onPressed: () {
-                          // NavigationService.push(
-                          //     isNamed: true, page: RoutePaths.mainScreen);
-                          //print(object);
+                          NavigationService.push(
+                              isNamed: true, page: RoutePaths.mainScreen);
+                          // print(object);
                         },
                       ),
                       SizedBox(
