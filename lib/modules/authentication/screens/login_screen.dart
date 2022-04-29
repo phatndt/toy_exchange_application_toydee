@@ -168,8 +168,15 @@ class LoginScreen extends ConsumerWidget {
                       CustomButton(
                         text: T.login,
                         onPressed: () {
-                          NavigationService.push(
-                              isNamed: true, page: RoutePaths.mainScreen);
+                          // ref
+                          //     .watch(loginSettingNotifierProvider.notifier)
+                          //     .signInWithEmailAndPassword(
+                          //       context,
+                          //       email: ref
+                          //     .watch(loginSettingNotifierProvider).emailController.text,
+                          //       password: ref
+                          //     .watch(loginSettingNotifierProvider).passwordController.text,
+                          //     );
                           // print(object);
                         },
                       ),

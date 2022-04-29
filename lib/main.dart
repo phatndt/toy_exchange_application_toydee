@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,13 +20,15 @@ import 'core/styles/styles.dart';
 //   runApp(const ProviderScope(child: Toydee()));
 // }
 
-void main() {
+void main() async {
   // runApp(
   //   DevicePreview(
   //     enabled: true,
   //     builder: (context) => const ProviderScope(child: Toydee()),
   //   ),
   // );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const ProviderScope(child: Toydee()));
 }
 

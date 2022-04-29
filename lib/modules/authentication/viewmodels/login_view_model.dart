@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/routing/navigation_service.dart';
+import '../repos/auth_repo.dart';
+
 class LoginSetting extends ChangeNotifier {
   final bool emailClear;
   bool isVisible;
@@ -38,13 +41,20 @@ class LoginSetting extends ChangeNotifier {
 }
 
 class LoginSettingNotifier extends StateNotifier<LoginSetting> {
-  LoginSettingNotifier()
-      : super(LoginSetting(
-          emailClear: false,
-          isVisible: true,
-          emailController: TextEditingController(),
-          passwordController: TextEditingController(),
-        ));
+  LoginSettingNotifier(this.ref)
+      : super(
+          LoginSetting(
+            emailClear: false,
+            isVisible: true,
+            emailController: TextEditingController(),
+            passwordController: TextEditingController(),
+          ),
+        ) {
+    _authRepo = ref.watch(authRepoProvider);
+  }
+
+  final Ref ref;
+  late AuthRepo _authRepo;
 
   void updateEmailClear() {
     final newState = state.copy(emailClear: !state.emailClear);
@@ -59,11 +69,27 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
   void clearEmail() {
     state.clearEmail();
   }
+
+  String? emailValidator(text) {
+    if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(text)) return 'Invalid email';
+    return null;
+  }
+
+  signInWithEmailAndPassword(
+    BuildContext context, {
+    required String email,
+    required String password,
+  }) async {
+    NavigationService.removeAllFocus();
+    final _result = await _authRepo.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
 }
 
 final loginSettingNotifierProvider =
     StateNotifierProvider<LoginSettingNotifier, LoginSetting>(
-        ((ref) => LoginSettingNotifier()));
-
-
-
+        ((ref) => LoginSettingNotifier(ref)));

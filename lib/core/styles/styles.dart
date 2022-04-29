@@ -156,21 +156,21 @@ class _TextStyles {
 }
 
 class _Dimens {
-  final defaultPadding_4 = 4.0;
-  final defaultPadding_8 = 8.0;
-  final defaultPadding_16 = 16.0;
+  final defaultPadding_4 = 253 / 60 * ScreenUtil().scaleWidth;
+  final defaultPadding_8 = 759 / 80 * ScreenUtil().scaleWidth;
+  final defaultPadding_16 = 253 / 15 * ScreenUtil().scaleWidth;
   final defaultPadding_24 = 24.0;
-  final defaultPadding_32 = 32.0;
-  final defaultPadding_40 = 40.0;
-  final defaultPadding_48 = 48.0;
-  final defaultPadding_64 = 64.0;
-  final defaultPadding_80 = 80.0;
-  final defaultPadding_100 = 96.0;
-  final defaultPadding_128 = 128.0;
-  final defaultPadding_256 = 256.0;
-  final defaultPadding_88 = 88.0;
+  final defaultPadding_32 = 506 / 15 * ScreenUtil().scaleWidth;
+  final defaultPadding_40 = 253 / 6 * ScreenUtil().scaleWidth;
+  final defaultPadding_48 = 253 / 5 * ScreenUtil().scaleWidth;
+  final defaultPadding_64 = 1012 / 15 * ScreenUtil().scaleWidth;
+  final defaultPadding_80 = 253 / 3 * ScreenUtil().scaleWidth;
+  final defaultPadding_100 = 506 / 5 * ScreenUtil().scaleWidth;
+  final defaultPadding_128 = 2024 / 15 * ScreenUtil().scaleWidth;
+  final defaultPadding_256 = 4048 / 15 * ScreenUtil().scaleWidth;
+  final defaultPadding_88 = 2783 / 30 * ScreenUtil().scaleWidth;
 
-  final defaultBorderRadius = 8.0;
+  final defaultBorderRadius = 759 / 80 * ScreenUtil().scaleWidth;
 }
 
 class _InputBorders {
