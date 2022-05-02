@@ -16,11 +16,12 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     this.focusNode,
     this.width = double.infinity,
-    this.height = 50,
+    this.height,
     this.maxLines = 1,
     this.autofocus = false,
     this.onTap,
     this.readOnly = false,
+    this.maxLength,
   }) : super(key: key);
 
   final FocusNode? focusNode;
@@ -39,12 +40,13 @@ class CustomTextFormField extends StatelessWidget {
   final bool autofocus;
   final VoidCallback? onTap;
   final bool readOnly;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
       width: width,
+      height: height,
       child: TextFormField(
         onTap: onTap,
         readOnly: readOnly,
@@ -59,7 +61,11 @@ class CustomTextFormField extends StatelessWidget {
         validator: validator,
         obscureText: obscureText,
         style: S.textStyles.titleHeavy,
+        maxLength: maxLength,
+        minLines: 1,
         decoration: InputDecoration(
+          counterText: "",
+          isDense: true,
           hintStyle: S.textStyles.titleLight,
           hintText: hintText,
           enabledBorder: S.inputBorders.inputBorderStyle,

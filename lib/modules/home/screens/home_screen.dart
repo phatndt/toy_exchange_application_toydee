@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           height: S.dimens.defaultPadding_16,
                         ),
                         SizedBox(
-                          height: ScreenUtil().scaleHeight * 160,
+                          height: ScreenUtil().scaleHeight * 165,
                           width: double.infinity,
                           child: Swiper(
                             itemBuilder: (BuildContext context, int index) {

@@ -49,7 +49,9 @@ dependencies:
   group_button: ^4.8.0
   like_button: ^2.0.4
   hooks_riverpod: ^1.0.3
+  flutter_hooks: ^0.18.3
 
+  open_mail_app: ^0.4.5
 
   ##Utils
   freezed_annotation: ^1.1.0
@@ -72,6 +74,9 @@ dependencies:
   cloud_firestore: ^3.1.13
 
   dartz: ^0.10.1
+
+  ##
+  image_picker: ^0.8.5
 
   ###
   dio: ^4.0.6

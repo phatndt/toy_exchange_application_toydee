@@ -158,9 +158,20 @@ class LoginScreen extends ConsumerWidget {
                       SizedBox(
                         height: S.dimens.defaultPadding_8,
                       ),
-                      Text(
-                        T.loginForgotPassword,
-                        style: S.textStyles.titleHeavy,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            NavigationService.push(
+                              page: RoutePaths.resetPassword,
+                              isNamed: true,
+                            );
+                          },
+                          child: Text(
+                            T.loginForgotPassword,
+                            style: S.textStyles.titleHeavy,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: S.dimens.defaultPadding_24,
@@ -168,8 +179,15 @@ class LoginScreen extends ConsumerWidget {
                       CustomButton(
                         text: T.login,
                         onPressed: () {
-                          NavigationService.push(
-                              isNamed: true, page: RoutePaths.mainScreen);
+                          // ref
+                          //     .watch(loginSettingNotifierProvider.notifier)
+                          //     .signInWithEmailAndPassword(
+                          //       context,
+                          //       email: ref
+                          //     .watch(loginSettingNotifierProvider).emailController.text,
+                          //       password: ref
+                          //     .watch(loginSettingNotifierProvider).passwordController.text,
+                          //     );
                           // print(object);
                         },
                       ),

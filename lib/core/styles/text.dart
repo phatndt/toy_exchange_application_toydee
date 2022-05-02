@@ -141,4 +141,22 @@ class T {
   static const swapCheckBoxOneContent = "Use the phone location";
   static const swapCheckBoxTwoContent = "Swap available";
   static const swapButtonContent = "Preview";
+
+  //Reset password
+  static const resetPasswordTitle = "Reset password";
+  static const resetPasswordContent =
+      "Enter the email associated with your account and we'll send an email with instructions to reset your password.";
+  static const resetPasswordHintext = "Your email";
+  static const resetPasswordButton = "Send Instructions";
+
+  //swap screen done
+  static const resetPasswordDoneTitle = "Check your mail";
+  static const resetPasswordDoneContent =
+      "We have sent a password recover instructions to your email.";
+  static const resetPasswordDoneButton = "Open email app";
+  static const resetPasswordDoneSkipp = "Skip, I'll confirm later";
+  static const resetPasswordDoneReResend =
+      "Did not receive the email? Check your spam filter,";
+  static const resetPasswordDoneOr = "or, ";
+  static const resetPasswordDoneTryAnother = "try another email address";
 }

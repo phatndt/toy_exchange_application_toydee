@@ -23,6 +23,7 @@ class _Image {
   final fbLogin = '$loginPath/logos_facebook.png';
   final ggLogin = '$loginPath/flat-color-icons_google.png';
   final appleLogin = '$loginPath/ant-design_apple-filled.png';
+  final sendEmail = '$loginPath/send_email.json';
 
   static const homePath = 'assets/images/home';
 
