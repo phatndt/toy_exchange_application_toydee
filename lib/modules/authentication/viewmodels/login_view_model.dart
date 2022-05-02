@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/routing/navigation_service.dart';
 import '../repos/auth_repo.dart';
 
-class LoginSetting extends ChangeNotifier {
+class LoginSetting {
   final bool emailClear;
   bool isVisible;
 

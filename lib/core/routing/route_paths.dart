@@ -15,6 +15,8 @@ class RoutePaths {
   static const login = '/login';
   static const welcome = '/welcome';
   static const signUp = '/signUp';
+  static const resetPassword = '/reset_password_screen';
+  static const resetPasswordDone = '/reset_password_done_screen';
   static const homefilter = '/home_filter_screen';
   static const swapWelcomeScreen = '/swap_welcome_screen';
   static const swapScreenMain = '/swap_screen_main';
@@ -25,7 +27,7 @@ class RoutePaths {
   static const toyDetailScreen = '/toy_detail_screen';
   static const searchScreen = '/home_search_screen';
 
-   static const profileconfiguration = '/profile_configuration_screen';
+  static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
       '/profile_configuration_changing_text';
   static const profileconfigurationchangingdate =

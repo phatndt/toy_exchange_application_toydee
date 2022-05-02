@@ -153,6 +153,35 @@ class _TextStyles {
     color: S.colors.primary,
     letterSpacing: 0.5,
   );
+
+  final titleHeavyNoSpacing = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(18),
+    fontWeight: FontWeight.w600,
+    color: S.colors.textColor_1,
+  );
+
+  final h6 = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(14),
+    fontWeight: FontWeight.bold,
+  );
+
+  final titleLightBoldNoSpacing = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(15),
+    fontWeight: FontWeight.bold,
+    color: S.colors.textColor_1,
+    textBaseline: TextBaseline.alphabetic,
+  );
+
+  final titleLightBoldNoSpacingPrimary = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(15),
+    fontWeight: FontWeight.bold,
+    color: S.colors.primary,
+    textBaseline: TextBaseline.alphabetic,
+  );
 }
 
 class _Dimens {

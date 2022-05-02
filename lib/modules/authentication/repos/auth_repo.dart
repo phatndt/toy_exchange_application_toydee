@@ -230,6 +230,28 @@ class AuthRepo {
     }
   }
 
+  Future<bool?> sendPasswordResetEmail({
+    required String email,
+  }) async {
+    try {
+      bool _result = false;
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: email)
+          .then((value) async => {
+               _result = true,
+              });
+      return _result;
+    } on FirebaseAuthException catch (e) {
+      final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    } catch (e) {
+      log(e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return null;
+  }
+
   Future signOut() async {
     try {
       await FirebaseAuth.instance.signOut();

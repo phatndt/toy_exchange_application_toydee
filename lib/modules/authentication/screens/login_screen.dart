@@ -158,9 +158,20 @@ class LoginScreen extends ConsumerWidget {
                       SizedBox(
                         height: S.dimens.defaultPadding_8,
                       ),
-                      Text(
-                        T.loginForgotPassword,
-                        style: S.textStyles.titleHeavy,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            NavigationService.push(
+                              page: RoutePaths.resetPassword,
+                              isNamed: true,
+                            );
+                          },
+                          child: Text(
+                            T.loginForgotPassword,
+                            style: S.textStyles.titleHeavy,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: S.dimens.defaultPadding_24,

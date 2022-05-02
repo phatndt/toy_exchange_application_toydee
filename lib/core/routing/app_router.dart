@@ -4,6 +4,7 @@ import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding1.dart';
 import 'package:toy_exchange_application_toydee/core/screens/onboarding/onboarding_page.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/login_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/screens/reset_password_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_all_toy_screen.dart';
@@ -14,6 +15,7 @@ import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_upload.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_welcome_screen.dart';
 
+import '../../modules/authentication/screens/reset_password_done_screen.dart';
 import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
@@ -191,6 +193,16 @@ class AppRouter {
       case RoutePaths.searchScreen:
         return MaterialPageRoute(
           builder: (_) => const HomeSearchScreen(),
+          settings: settings,
+        );
+      case RoutePaths.resetPassword:
+        return MaterialPageRoute(
+          builder: (_) => const ResetPasswordScreen(),
+          settings: settings,
+        );
+      case RoutePaths.resetPasswordDone:
+        return MaterialPageRoute(
+          builder: (_) => const ResetPasswordDoneScreen(),
           settings: settings,
         );
       //Map

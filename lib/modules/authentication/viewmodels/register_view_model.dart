@@ -8,7 +8,7 @@ import '../../../core/routing/route_paths.dart';
 import '../models/user_model.dart';
 import '../repos/auth_repo.dart';
 
-class RegisterSetting extends ChangeNotifier {
+class RegisterSetting {
   final bool isVisiblePassword;
   final bool isVisibleRepeatPassword;
 
