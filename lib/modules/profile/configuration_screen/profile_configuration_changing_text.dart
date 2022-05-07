@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/styles/styles.dart';
@@ -8,27 +10,27 @@ import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
-class ProfileConfigurationTextChanging extends StatefulWidget {
+class ProfileConfigurationTextChanging extends ConsumerWidget {
   final String label;
   final String information;
   final TextInputType? textInputType;
-  const ProfileConfigurationTextChanging({
+  final TextEditingController textEditingController;
+  final VoidCallback backPress;
+  final VoidCallback savePress;
+  final VoidCallback clearPress;
+  ProfileConfigurationTextChanging({
     Key? key,
     required this.label,
     required this.information,
+    required this.textEditingController,
+    required this.backPress,
+    required this.savePress,
+    required this.clearPress,
     this.textInputType,
   }) : super(key: key);
 
   @override
-  State<ProfileConfigurationTextChanging> createState() =>
-      _ProfileConfigurationTextChangingState();
-}
-
-class _ProfileConfigurationTextChangingState
-    extends State<ProfileConfigurationTextChanging> {
-  TextEditingController e = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_1,
@@ -55,9 +57,7 @@ class _ProfileConfigurationTextChangingState
               child: CustomIconButton(
                 text: FontAwesomeIcons.angleLeft,
                 color: S.colors.primary,
-                onPressed: () {
-                  NavigationService.goBack(result: widget.information);
-                },
+                onPressed: backPress,
                 backgroundColor: S.colors.accent_5,
               ),
             ),
@@ -70,7 +70,7 @@ class _ProfileConfigurationTextChangingState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.label,
+                    label,
                     style: S.textStyles.h4,
                   ),
                   SizedBox(
@@ -79,16 +79,14 @@ class _ProfileConfigurationTextChangingState
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: widget.information,
+                      hintText: information,
                       obscureText: false,
-                      controller: e,
+                      controller: textEditingController,
                       suffixIconData: GestureDetector(
-                        onTap: () {
-                          e.text = '';
-                        },
+                        onTap: clearPress,
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
-                      inputType: widget.textInputType,
+                      inputType: textInputType,
                     ),
                   ),
                   SizedBox(
@@ -97,9 +95,7 @@ class _ProfileConfigurationTextChangingState
                   Center(
                     child: CustomButton(
                       text: T.proConfigurationSave,
-                      onPressed: () {
-                        Navigator.of(context).pop(e.text.toString());
-                      },
+                      onPressed: savePress,
                     ),
                   )
                 ],
