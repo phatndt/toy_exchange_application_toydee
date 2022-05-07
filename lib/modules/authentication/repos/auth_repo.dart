@@ -238,7 +238,7 @@ class AuthRepo {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: email)
           .then((value) async => {
-               _result = true,
+                _result = true,
               });
       return _result;
     } on FirebaseAuthException catch (e) {

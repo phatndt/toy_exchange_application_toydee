@@ -162,7 +162,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   FocusNode myFocusNode = FocusNode();
 
-  bool _keyboardVisible = true;
   @override
   Widget build(BuildContext context) {
     List color = [S.colors.accent_4, S.colors.accent_5, S.colors.accent_8];
@@ -258,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           height: S.dimens.defaultPadding_16,
                         ),
                         SizedBox(
-                          height: ScreenUtil().scaleHeight * 165,
+                          height: 165.h,
                           width: double.infinity,
                           child: Swiper(
                             itemBuilder: (BuildContext context, int index) {
@@ -287,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           children: [
                                             SizedBox(
                                               width:
-                                                  ScreenUtil().scaleWidth * 160,
+                                                  ScreenUtil().scaleWidth * 200,
                                               child: Text(
                                                 text[index],
                                                 style: S.textStyles.h4,
@@ -303,9 +302,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: S.dimens.defaultPadding_16,
                                       ),
                                       Expanded(
                                           flex: 2,

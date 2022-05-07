@@ -1,22 +1,15 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_mail_app/open_mail_app.dart';
-import 'package:toy_exchange_application_toydee/modules/authentication/viewmodels/login_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/viewmodels/reset_password_view_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
-import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_elevated_button.dart';
-import '../../../core/widgets/custom_text_form_field.dart';
 
 class ResetPasswordDoneScreen extends HookConsumerWidget {
   const ResetPasswordDoneScreen({Key? key}) : super(key: key);
@@ -134,11 +127,11 @@ class ResetPasswordDoneScreen extends HookConsumerWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Open Mail App"),
-          content: Text("No mail apps installed"),
+          title: const Text("Open Mail App"),
+          content: const Text("No mail apps installed"),
           actions: <Widget>[
-            FlatButton(
-              child: Text("OK"),
+            TextButton(
+              child: const Text("OK"),
               onPressed: () {
                 Navigator.pop(context);
               },

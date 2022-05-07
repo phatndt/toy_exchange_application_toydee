@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../routing/navigation_service.dart';
 
 abstract class Exceptions {
   static String errorMessage(dynamic e, {String? server}) {

@@ -87,8 +87,9 @@ dependencies:
   app_tracking_transparency: ^2.0.2+2
   google_maps_flutter: ^2.1.1
   flutter_polyline_points: ^1.0.0
-
-
+  geocoding: ^2.0.4
+  geocode: ^1.0.1
+  geocoder2: ^1.1.0
 
 dev_dependencies:
   flutter_test:

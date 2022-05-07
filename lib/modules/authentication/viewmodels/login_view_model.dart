@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../repos/auth_repo.dart';
@@ -38,6 +37,8 @@ class LoginSetting {
   void clearEmail() {
     emailController.clear();
   }
+
+  //LoginSetting copyWith({}) {return LoginSetting(emailClear: emailClear, isVisible: isVisible, emailController: emailController, passwordController: passwordController)}
 }
 
 class LoginSettingNotifier extends StateNotifier<LoginSetting> {

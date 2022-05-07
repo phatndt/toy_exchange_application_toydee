@@ -13,16 +13,6 @@ import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
-final _emailController = Provider.autoDispose<TextEditingController>((ref) {
-  final controller = TextEditingController();
-
-  ref.onDispose(() {
-    controller.dispose();
-  });
-
-  return controller;
-});
-
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
 

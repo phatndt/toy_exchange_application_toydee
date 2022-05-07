@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
 class UserModel {
   final String id;
@@ -9,7 +10,7 @@ class UserModel {
   final String? lastName;
   final DateTime? birthday;
   final bool? gender;
-  final String? address;
+  final Address? address;
   final String? imageUrl;
   final DateTime? createDate;
   final DateTime? lastUpdateDate;
@@ -62,7 +63,7 @@ class UserModel {
       lastName: map['lastName'] ?? '',
       birthday: map['birthday'] ?? '',
       gender: map['gender'] ?? '',
-      address: map['address'] ?? '',
+      address: Address.fromMap(map['address'] ?? ''),
       imageUrl: map['imageUrl'] ?? '',
       createDate: map['createDate'] ?? '',
       lastUpdateDate: map['lastUpdateDate'] ?? '',

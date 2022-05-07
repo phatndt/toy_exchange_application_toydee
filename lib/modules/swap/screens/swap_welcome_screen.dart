@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
@@ -18,17 +22,14 @@ class SwapWelcomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
-        body: SizedBox(
-          height: ScreenUtil().screenHeight,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              body(),
-              const Expanded(child: SizedBox()),
-              foooter(),
-            ],
-          ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            header(),
+            body(),
+            const Expanded(child: SizedBox()),
+            foooter(),
+          ],
         ),
       ),
     );
@@ -39,7 +40,7 @@ class SwapWelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: S.dimens.defaultPadding_48,
+              height: S.dimens.defaultPaddingVertical_48,
             ),
             CustomIconButton(
               text: FontAwesomeIcons.angleLeft,
@@ -58,7 +59,7 @@ class SwapWelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: S.dimens.defaultPadding_16,
+              height: S.dimens.defaultPaddingVertical_16,
             ),
             Align(
               alignment: Alignment.center,
@@ -69,22 +70,16 @@ class SwapWelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: 314.w,
-              child: Text(
-                T.swapTitleWelcome,
-                style: S.textStyles.h5,
-              ),
+            Text(
+              T.swapTitleWelcome,
+              style: S.textStyles.h5,
             ),
             SizedBox(
-              height: S.dimens.defaultPadding_16,
+              height: S.dimens.defaultPaddingVertical_16,
             ),
-            SizedBox(
-              width: 314.w,
-              child: Text(
-                T.swapContentWelcome,
-                style: S.textStyles.titleHeavy,
-              ),
+            Text(
+              T.swapContentWelcome,
+              style: S.textStyles.titleHeavy,
             ),
           ],
         ),
@@ -93,16 +88,38 @@ class SwapWelcomeScreen extends StatelessWidget {
   Widget foooter() => Padding(
         padding: EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
         child: SizedBox(
-          height: S.dimens.defaultPadding_88,
+          height: S.dimens.defaultPaddingVertical_88,
           child: Align(
             alignment: Alignment.topCenter,
             child: CustomButton(
-              text: "Upload a toy",
-              onPressed: () {
+              text: T.swapWelcomeButton,
+              onPressed: () async {
                 NavigationService.push(
                   page: RoutePaths.swapScreenMain,
                   isNamed: true,
                 );
+
+                // LocationPermission permission;
+
+                // permission = await Geolocator.checkPermission();
+
+                // if (permission == LocationPermission.denied) {
+                //   permission = await Geolocator.requestPermission();
+                //   if (permission == LocationPermission.denied) {
+                //     return Future.error('Location Permissions are denied');
+                //   }
+                // }
+                // Position position = await Geolocator.getCurrentPosition();
+                // log('1');
+                // List<Placemark> placemarks = await placemarkFromCoordinates(
+                //     position.latitude, position.longitude);
+                // Placemark place = placemarks[0];
+                // log(place.toString());
+                // log(place.thoroughfare! +
+                //     place.locality! +
+                //     place.administrativeArea! +
+                //     place.country!);
+                // log('2');
               },
             ),
           ),
