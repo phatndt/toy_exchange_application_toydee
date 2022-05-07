@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_gender.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_names.dart';
@@ -8,21 +9,17 @@ import 'package:toy_exchange_application_toydee/modules/profile/configuration_sc
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_item.dart';
 
 import 'package:intl/intl.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_names_view_models.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 
-class ProfileConfigurationScreen extends StatefulWidget {
-  const ProfileConfigurationScreen({Key? key}) : super(key: key);
+class ProfileConfigurationScreen extends ConsumerWidget {
+  ProfileConfigurationScreen({Key? key}) : super(key: key);
 
-  @override
-  State<ProfileConfigurationScreen> createState() =>
-      _ProfileConfigurationScreenState();
-}
-
-class _ProfileConfigurationScreenState
-    extends State<ProfileConfigurationScreen> {
   String _datetime = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime dateTime = DateTime.now();
   String email = '';
@@ -33,7 +30,7 @@ class _ProfileConfigurationScreenState
   String gender = '0';
   List<String> names = ['1', '2'];
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
@@ -73,152 +70,187 @@ class _ProfileConfigurationScreenState
                 icon: FontAwesomeIcons.lock,
                 label: T.proConLabelPassword,
                 information: showPassword,
-                press: () async {
-                  final newPassword =
-                      await Navigator.of(context).push(MaterialPageRoute(
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationTextChanging(
                       label: T.proConLabelPassword,
-                      information: password,
+                      information:
+                          ref.watch(configurationNotifierProvider).password,
                       textInputType: TextInputType.visiblePassword,
+                      backPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .navigationBackPassword,
+                      savePress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .saveChangesPassword,
+                      clearPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .clearTextPassword,
+                      textEditingController: ref
+                          .watch(configurationChangingTextNotifierProvider)
+                          .passwordEditingController,
                     ),
                   ));
-                  setState(() {
-                    password = newPassword;
-                  });
                 },
               ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.user,
                 label: T.proConLabelEmail,
-                information: email,
-                press: () async {
-                  final newEmail =
-                      await Navigator.of(context).push(MaterialPageRoute(
+                information: ref.watch(configurationNotifierProvider).email,
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationTextChanging(
                       label: T.proConLabelEmail,
-                      information: email,
+                      information:
+                          ref.watch(configurationNotifierProvider).email,
                       textInputType: TextInputType.emailAddress,
+                      backPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .navigationBackEmail,
+                      savePress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .saveChangesEmail,
+                      clearPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .clearTextEmail,
+                      textEditingController: ref
+                          .watch(configurationChangingTextNotifierProvider)
+                          .emailEditingController,
                     ),
                   ));
-
-                  setState(() {
-                    email = newEmail;
-                  });
                 },
               ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.phone,
                 label: T.proConLabelPhone,
-                information: phone,
-                press: () async {
-                  final newPhone =
-                      await Navigator.of(context).push(MaterialPageRoute(
+                information: ref.watch(configurationNotifierProvider).phone,
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationTextChanging(
                       label: T.proConLabelPhone,
-                      information: phone,
+                      information:
+                          ref.watch(configurationNotifierProvider).phone,
                       textInputType: TextInputType.phone,
+                      backPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .navigationBackPhone,
+                      savePress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .saveChangesPhone,
+                      clearPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .clearTextPhone,
+                      textEditingController: ref
+                          .watch(configurationChangingTextNotifierProvider)
+                          .phoneEditingController,
                     ),
                   ));
-
-                  setState(() {
-                    phone = newPhone;
-                  });
                 },
               ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.pencil,
                 label: T.proConLabelName,
-                information: names[0] + ' ' + names[1],
-                press: () async {
-                  final newNames =
-                      await Navigator.of(context).push(MaterialPageRoute(
+                information:
+                    ref.watch(configurationNotifierProvider).firstname +
+                        ' ' +
+                        ref.watch(configurationNotifierProvider).lastname,
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationNamesChanging(
                       label1: T.proConLabelFirstName,
                       label2: T.proConLabelLastName,
-                      information1: names[0] + ' ',
-                      information2: names[1],
+                      firstName:
+                          ref.watch(configurationNotifierProvider).firstname,
+                      lastName:
+                          ref.watch(configurationNotifierProvider).lastname,
+                      information1:
+                          ref.watch(configurationNotifierProvider).firstname +
+                              ' ',
+                      information2:
+                          ref.watch(configurationNotifierProvider).lastname,
                       textInputType: TextInputType.name,
-                      names: names,
+                      firstNameController: ref
+                          .watch(configurationChangingNamesNotifierProvider)
+                          .firstNameEditingController,
+                      lastNameController: ref
+                          .watch(configurationChangingNamesNotifierProvider)
+                          .lastNameEditingController,
                     ),
                   ));
-
-                  setState(() {
-                    names = newNames;
-                  });
                 },
               ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.calendar,
                 label: T.proConLabelBirth,
-                information: _datetime,
-                press: () async {
-                  DateTime? newDateTime = await showDatePicker(
+                information: ref.watch(configurationNotifierProvider).datetime,
+                press: () {
+                  showDatePicker(
                     context: context,
                     initialDate: dateTime,
                     firstDate: DateTime(2021),
                     lastDate: DateTime(2023),
-                  );
-                  // Cancel
-                  if (newDateTime == null) return;
-                  // OK
-                  setState(() {
-                    _datetime = DateFormat('dd/MM/yyyy').format(newDateTime);
+                  ).then((value) {
+                    if (value != null) {
+                      ref.watch(configurationNotifierProvider).datetime =
+                          DateFormat('dd/MM/yyyy').format(value);
+                      ref
+                          .watch(configurationNotifierProvider.notifier)
+                          .updateDate(DateFormat('dd/MM/yyyy').format(value));
+                    }
                   });
+                  // Cancel
                 },
               ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.venusMars,
                 label: T.proConLabelGender,
-                information: (gender),
-                press: () async {
-                  final newGender =
-                      await Navigator.of(context).push(MaterialPageRoute(
+                information: ref.watch(configurationNotifierProvider).gender,
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationGenderChanging(
                       label: T.proConLabelGender,
-                      information: (gender),
+                      information:
+                          ref.watch(configurationNotifierProvider).gender,
                     ),
                   ));
-                  // setState(() {
-                  //   gender = newGender;
-                  // });
-                  switch (newGender) {
-                    case 0:
-                      setState(() {
-                        gender = 'Male';
-                      });
-                      break;
-                    case 1:
-                      setState(() {
-                        gender = 'Female';
-                      });
-                      break;
-                    case 2:
-                      setState(() {
-                        gender = 'Other';
-                      });
-                      break;
-                    default:
-                      '';
-                  }
                 },
               ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.locationDot,
                 label: T.proConLabelAddress,
-                information: address,
-                press: () async {
-                  final newAddress =
-                      await Navigator.of(context).push(MaterialPageRoute(
+                information: ref.watch(configurationNotifierProvider).address,
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationTextChanging(
                       label: T.proConLabelAddress,
                       information: address,
                       textInputType: TextInputType.streetAddress,
+                      backPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .navigationBackAddress,
+                      savePress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .saveChangesAddress,
+                      clearPress: ref
+                          .watch(configurationChangingTextNotifierProvider
+                              .notifier)
+                          .clearTextAddress,
+                      textEditingController: ref
+                          .watch(configurationChangingTextNotifierProvider)
+                          .addressEditingController,
                     ),
                   ));
-
-                  setState(() {
-                    address = newAddress;
-                  });
                 },
               ),
             ],
