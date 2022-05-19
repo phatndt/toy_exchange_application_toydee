@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 <key>LSApplicationQueriesSchemes</key>
-<array>
+<!-- <array>
     <string>googlegmail</string>
     <string>x-dispatch</string>
     <string>readdle-spark</string>
@@ -13,7 +13,7 @@
     <string>fastmail</string>
     <string>superhuman</string>
     <string>protonmail</string>
-</array>
+</array> -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

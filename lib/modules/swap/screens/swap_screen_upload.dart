@@ -127,7 +127,11 @@ class SwapScreenTwo extends ConsumerWidget {
                       // SizedBox(
                       //   height: S.dimens.defaultPadding_16,
                       // ),
-                      bottomButton(),
+                      bottomButton(
+                        ref,
+                        uploadSwapSettingNotifierProvider,
+                        mainSwapSettingNotifierProvider,
+                      ),
                     ],
                   ),
                 ),
@@ -209,7 +213,14 @@ class SwapScreenTwo extends ConsumerWidget {
         ],
       );
 
-  Widget bottomButton() => SizedBox(
+  Widget bottomButton(
+    WidgetRef ref,
+    StateNotifierProvider<UploadSwapSettingNotifier, UploadSwapSetting>
+        uploadSwapSettingNotifierProvider,
+    StateNotifierProvider<MainSwapSettingNotifier, MainSwapSetting>
+        mainSwapSettingNotifierProvider,
+  ) =>
+      SizedBox(
         height: S.dimens.defaultPaddingVertical_88,
         child: Align(
           alignment: Alignment.topCenter,
@@ -219,10 +230,48 @@ class SwapScreenTwo extends ConsumerWidget {
                 child: CustomButton(
                   text: "Upload",
                   onPressed: () {
-                    NavigationService.push(
-                      page: RoutePaths.swapScreenDone,
-                      isNamed: true,
-                    );
+                    ref
+                        .watch(uploadSwapSettingNotifierProvider.notifier)
+                        .uploadToyToFirebase(
+                            imagePathOne: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .imagePathOne,
+                            imagePathTwo: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .imagePathTwo,
+                            imagePathThree: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .imagePathThree,
+                            title: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .titleController
+                                .text,
+                            description: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .descriptionController
+                                .text,
+                            categories: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerCategories
+                                .selectedIndexes,
+                            condition: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerCondition
+                                .selectedIndex!,
+                            genderType: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerGenderType
+                                .selectedIndex!,
+                            ageGroup: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerAgeGroup
+                                .selectedIndex!,
+                            // address: address,
+                            userId: "userId");
+                    // NavigationService.push(
+                    //   page: RoutePaths.swapScreenDone,
+                    //   isNamed: true,
+                    // );
                   },
                 ),
               ),

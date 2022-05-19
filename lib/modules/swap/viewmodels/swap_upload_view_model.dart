@@ -11,11 +11,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/models/toy_type.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/repos/swap_repo.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/styles.dart';
 import '../../authentication/repos/auth_repo.dart';
+import '../models/swap_toy.dart';
 
 class UploadSwapSetting {
   String imagePathOne;
@@ -172,11 +175,11 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
             swapAvailable: false,
           ),
         ) {
-    _authRepo = ref.watch(authRepoProvider);
+    _swapRepo = ref.watch(swapRepoRepoProvider);
   }
 
   final Ref ref;
-  late AuthRepo _authRepo;
+  late SwapRepo _swapRepo;
   late UserRepo _userRepo;
 
   String convertCategories(Set<int> indexes) {
@@ -276,6 +279,48 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
         break;
     }
     return _result;
+  }
+
+  uploadToyToFirebase({
+    required String imagePathOne,
+    required String imagePathTwo,
+    required String imagePathThree,
+    required String title,
+    required String description,
+    required Set<int> categories,
+    required int condition,
+    required int genderType,
+    required int ageGroup,
+    // required Address address,
+    required String userId,
+  }) {
+    Address address = Address(
+      address: "1",
+      detailAddress: "2",
+      latitude: "3",
+      longitude: "3",
+    );
+
+    ToyType toyType = ToyType(
+      id: "1",
+      toyId: "2",
+      categories: categories.toList(),
+      condition: condition,
+      genderType: genderType,
+      ageGroup: ageGroup,
+    );
+
+    SwapToy swapToy = SwapToy(
+      id: "",
+      userId: userId,
+      name: title,
+      description: description,
+      location: address,
+      toyType: toyType,
+      isSwapped: false,
+    );
+    _swapRepo.uploadSwapToyToFireStore(swapToy: swapToy);
+    
   }
 }
 

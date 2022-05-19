@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_shape.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
@@ -39,208 +40,218 @@ class LoginScreen extends ConsumerWidget {
         },
         child: Scaffold(
           backgroundColor: S.colors.background_1,
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  color: S.colors.background_1,
-                  child: ClipPath(
-                    clipper: CustomShape(),
-                    child: Container(
-                      height: 120,
-                      color: S.colors.background_2,
-                      child: Center(
-                        child: SizedBox(
-                            height: 40,
-                            width: 160,
-                            child: Image.asset(R.images.logoText)),
+          body: ModalProgressHUD(
+            inAsyncCall: ref.watch(loginSettingNotifierProvider).isLoadingLogin,
+            opacity: 0.5,
+            progressIndicator: const CircularProgressIndicator(),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    color: S.colors.background_1,
+                    child: ClipPath(
+                      clipper: CustomShape(),
+                      child: Container(
+                        height: 120,
+                        color: S.colors.background_2,
+                        child: Center(
+                          child: SizedBox(
+                              height: 40,
+                              width: 160,
+                              child: Image.asset(R.images.logoText)),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: S.dimens.defaultPadding_32,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: S.dimens.defaultPadding_64,
-                      ),
-                      Text(
-                        T.loginTitle_1,
-                        style: S.textStyles.h3,
-                      ),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 300),
-                        child: Text(
-                          T.loginTitle_2,
-                          style: S.textStyles.titleHeavy,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: S.dimens.defaultPadding_32,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: S.dimens.defaultPadding_64,
                         ),
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_48,
-                      ),
-                      CustomTextFormField(
-                        hintText: "Email",
-                        prefixIconData:
-                            const Icon(FontAwesomeIcons.envelopeOpenText),
-                        suffixIconData: GestureDetector(
-                          onTap: () {
-                            ref
-                                .watch(loginSettingNotifierProvider.notifier)
-                                .clearEmail();
-                          },
-                          child: const Icon(FontAwesomeIcons.xmark),
+                        Text(
+                          T.loginTitle_1,
+                          style: S.textStyles.h3,
                         ),
-                        obscureText: false,
-                        onChanged: (value) {},
-                        validator: (value) {
-                          return null;
-                        },
-                        onFieldSubmitted: (value) {
-                          // passwordFocus.requestFocus();
-                        },
-                        inputType: TextInputType.emailAddress,
-                        controller: ref
-                            .watch(loginSettingNotifierProvider)
-                            .emailController,
-                        focusNode: ref
-                            .watch(loginSettingNotifierProvider)
-                            .emailFocusNode,
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_24,
-                      ),
-                      CustomTextFormField(
-                        hintText: "Password",
-                        prefixIconData: const Icon(FontAwesomeIcons.key),
-                        suffixIconData: GestureDetector(
-                          onTap: () {
-                            ref
-                                .watch(loginSettingNotifierProvider.notifier)
-                                .updatePasswordVisible();
-                          },
-                          child:
-                              ref.watch(loginSettingNotifierProvider).isVisible
-                                  ? const Icon(FontAwesomeIcons.eyeSlash)
-                                  : const Icon(FontAwesomeIcons.eye),
-                        ),
-                        obscureText:
-                            ref.watch(loginSettingNotifierProvider).isVisible,
-                        onChanged: (value) {
-                          //print("");
-                        },
-                        validator: (value) {
-                          return null;
-                        },
-                        onFieldSubmitted: (value) {},
-                        inputType: TextInputType.emailAddress,
-                        controller: ref
-                            .watch(loginSettingNotifierProvider)
-                            .passwordController,
-                        focusNode: ref
-                            .watch(loginSettingNotifierProvider)
-                            .passwordFocusNode,
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_8,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            NavigationService.push(
-                              page: RoutePaths.resetPassword,
-                              isNamed: true,
-                            );
-                          },
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 300),
                           child: Text(
-                            T.loginForgotPassword,
+                            T.loginTitle_2,
                             style: S.textStyles.titleHeavy,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_24,
-                      ),
-                      CustomButton(
-                        text: T.login,
-                        onPressed: () {
-                          // ref
-                          //     .watch(loginSettingNotifierProvider.notifier)
-                          //     .signInWithEmailAndPassword(
-                          //       context,
-                          //       email: ref
-                          //     .watch(loginSettingNotifierProvider).emailController.text,
-                          //       password: ref
-                          //     .watch(loginSettingNotifierProvider).passwordController.text,
-                          //     );
-                          // print(object);
-                        },
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_24,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          T.wcOrConnectWith,
-                          style: S.textStyles.titleHeavy,
+                        SizedBox(
+                          height: S.dimens.defaultPadding_48,
                         ),
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AnotherLoginButton(
-                            text: R.images.ggLogin,
-                            onPressed: () {},
+                        CustomTextFormField(
+                          hintText: "Email",
+                          prefixIconData:
+                              const Icon(FontAwesomeIcons.envelopeOpenText),
+                          suffixIconData: GestureDetector(
+                            onTap: () {
+                              ref
+                                  .watch(loginSettingNotifierProvider.notifier)
+                                  .clearEmail();
+                            },
+                            child: const Icon(FontAwesomeIcons.xmark),
                           ),
-                          SizedBox(
-                            width: S.dimens.defaultPadding_16,
+                          obscureText: false,
+                          onChanged: (value) {},
+                          validator: (value) {
+                            return null;
+                          },
+                          onFieldSubmitted: (value) {
+                            // passwordFocus.requestFocus();
+                          },
+                          inputType: TextInputType.emailAddress,
+                          controller: ref
+                              .watch(loginSettingNotifierProvider)
+                              .emailController,
+                          focusNode: ref
+                              .watch(loginSettingNotifierProvider)
+                              .emailFocusNode,
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_24,
+                        ),
+                        CustomTextFormField(
+                          hintText: "Password",
+                          prefixIconData: const Icon(FontAwesomeIcons.key),
+                          suffixIconData: GestureDetector(
+                            onTap: () {
+                              ref
+                                  .watch(loginSettingNotifierProvider.notifier)
+                                  .updatePasswordVisible();
+                            },
+                            child: ref
+                                    .watch(loginSettingNotifierProvider)
+                                    .isVisible
+                                ? const Icon(FontAwesomeIcons.eyeSlash)
+                                : const Icon(FontAwesomeIcons.eye),
                           ),
-                          AnotherLoginButton(
-                            text: R.images.fbLogin,
-                            onPressed: () {},
-                          ),
-                          SizedBox(
-                            width: S.dimens.defaultPadding_16,
-                          ),
-                          AnotherLoginButton(
-                            text: R.images.appleLogin,
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(T.loginNotMember,
-                              style: S.textStyles.titleHeavy),
-                          InkWell(
+                          obscureText:
+                              ref.watch(loginSettingNotifierProvider).isVisible,
+                          onChanged: (value) {
+                            //print("");
+                          },
+                          validator: (value) {
+                            return null;
+                          },
+                          onFieldSubmitted: (value) {},
+                          inputType: TextInputType.emailAddress,
+                          controller: ref
+                              .watch(loginSettingNotifierProvider)
+                              .passwordController,
+                          focusNode: ref
+                              .watch(loginSettingNotifierProvider)
+                              .passwordFocusNode,
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_8,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
                             onTap: () {
                               NavigationService.push(
-                                  isNamed: true, page: RoutePaths.signUp);
+                                page: RoutePaths.resetPassword,
+                                isNamed: true,
+                              );
                             },
                             child: Text(
-                              T.loginSignUp,
-                              style: S.textStyles.titleHeavyPrimary,
+                              T.loginForgotPassword,
+                              style: S.textStyles.titleHeavy,
                             ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_24,
+                        ),
+                        CustomButton(
+                          text: T.login,
+                          onPressed: () {
+                            ref
+                                .watch(loginSettingNotifierProvider.notifier)
+                                .signInWithEmailAndPassword(
+                                  context,
+                                  email: ref
+                                      .watch(loginSettingNotifierProvider)
+                                      .emailController
+                                      .text,
+                                  password: ref
+                                      .watch(loginSettingNotifierProvider)
+                                      .passwordController
+                                      .text,
+                                );
+                            // print(object);
+                          },
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_24,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            T.wcOrConnectWith,
+                            style: S.textStyles.titleHeavy,
+                          ),
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_16,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AnotherLoginButton(
+                              text: R.images.ggLogin,
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              width: S.dimens.defaultPadding_16,
+                            ),
+                            AnotherLoginButton(
+                              text: R.images.fbLogin,
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              width: S.dimens.defaultPadding_16,
+                            ),
+                            AnotherLoginButton(
+                              text: R.images.appleLogin,
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_16,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(T.loginNotMember,
+                                style: S.textStyles.titleHeavy),
+                            InkWell(
+                              onTap: () {
+                                NavigationService.push(
+                                    isNamed: true, page: RoutePaths.signUp);
+                              },
+                              child: Text(
+                                T.loginSignUp,
+                                style: S.textStyles.titleHeavyPrimary,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

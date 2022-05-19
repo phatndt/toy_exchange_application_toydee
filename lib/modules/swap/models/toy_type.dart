@@ -1,6 +1,6 @@
 class ToyType {
-  final int id;
-  final int toyId;
+  final String id;
+  final String toyId;
   final List<int> categories;
   final int condition;
   final int genderType;

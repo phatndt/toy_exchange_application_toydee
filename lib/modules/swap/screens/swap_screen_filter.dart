@@ -455,6 +455,7 @@ class SwapFilterScreen extends ConsumerWidget {
                               .groupButtonControllerAgeGroup,
                           isRadio: true,
                           buttons: T.listAge,
+                          enableDeselect: true,
                           options: GroupButtonOptions(
                             selectedTextStyle: S.textStyles.titleLight,
                             unselectedTextStyle: S.textStyles.titleLight,
@@ -546,22 +547,29 @@ class SwapFilterScreen extends ConsumerWidget {
                           child: CustomButton(
                             text: T.filterApply,
                             onPressed: () {
-                              print("c" +
+                              print("a" +
                                   ref
                                       .watch(mainSwapSettingNotifierProvider)
-                                      .groupButtonControllerCondition
+                                      .groupButtonControllerCategories
                                       .selectedIndexes
                                       .toString());
-                              print("g" +
+                              print("b" +
                                   ref
                                       .watch(mainSwapSettingNotifierProvider)
                                       .groupButtonControllerCondition
                                       .selectedIndex
                                       .toString());
-                              print("a" +
+                              print("c" +
                                   ref
                                       .watch(mainSwapSettingNotifierProvider)
-                                      .agegroup
+                                      .groupButtonControllerCondition
+                                      .selectedIndex
+                                      .toString());
+                              print("d" +
+                                  ref
+                                      .watch(mainSwapSettingNotifierProvider)
+                                      .groupButtonControllerAgeGroup
+                                      .selectedIndex
                                       .toString());
                             },
                           ),
