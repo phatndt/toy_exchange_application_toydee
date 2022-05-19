@@ -9,7 +9,7 @@ class S {
 
   static final TextStyle h2 = TextStyle(
     fontFamily: 'Lato',
-    fontSize: 36,
+    fontSize: ScreenUtil().setSp(36),
     fontWeight: FontWeight.w500,
     color: S.colors.textColor_1,
   );
@@ -55,6 +55,12 @@ class _TextStyles {
     fontSize: ScreenUtil().setSp(36),
     fontWeight: FontWeight.bold,
     color: S.colors.textColor_1,
+  );
+  final h2Primary = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(36),
+    fontWeight: FontWeight.bold,
+    color: S.colors.primary,
   );
   final h3 = TextStyle(
     fontFamily: 'Lato',
@@ -188,7 +194,7 @@ class _Dimens {
   final defaultPadding_4 = 253 / 60 * ScreenUtil().scaleWidth;
   final defaultPadding_8 = 759 / 80 * ScreenUtil().scaleWidth;
   final defaultPadding_16 = 253 / 15 * ScreenUtil().scaleWidth;
-  final defaultPadding_24 = 24.0;
+  final defaultPadding_24 = 253 / 10 * ScreenUtil().scaleWidth;
   final defaultPadding_32 = 506 / 15 * ScreenUtil().scaleWidth;
   final defaultPadding_40 = 253 / 6 * ScreenUtil().scaleWidth;
   final defaultPadding_48 = 253 / 5 * ScreenUtil().scaleWidth;
@@ -200,6 +206,20 @@ class _Dimens {
   final defaultPadding_88 = 2783 / 30 * ScreenUtil().scaleWidth;
 
   final defaultBorderRadius = 759 / 80 * ScreenUtil().scaleWidth;
+
+  final defaultPaddingVertical_4 = 253 / 60 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_8 = 759 / 80 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_16 = 253 / 15 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_24 = 253 / 10 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_32 = 506 / 15 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_40 = 253 / 6 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_48 = 253 / 5 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_64 = 1012 / 15 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_80 = 253 / 3 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_100 = 506 / 5 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_128 = 2024 / 15 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_256 = 4048 / 15 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_88 = 2783 / 30 * ScreenUtil().scaleHeight;
 }
 
 class _InputBorders {

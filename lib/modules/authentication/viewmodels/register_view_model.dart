@@ -134,19 +134,19 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     String email,
     String userName,
   ) async {
-    final _result = await _authRepo.uploadUserProfileToFirestore(
+    _authRepo
+        .uploadUserProfileToFirestore(
       email: email,
       userName: userName,
       uuid: userModel.id,
-    );
-
-    log(_result.toString());
-
-    if (_result != null) {
-      if (_result) {
-        navigationToMainScreen(context);
+    )
+        .then(((value) {
+      if (value != null) {
+        if (value) {
+          navigationToMainScreen(context);
+        }
       }
-    }
+    }));
   }
 
   navigationToMainScreen(BuildContext context) {

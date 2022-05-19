@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 <key>LSApplicationQueriesSchemes</key>
-<array>
+<!-- <array>
     <string>googlegmail</string>
     <string>x-dispatch</string>
     <string>readdle-spark</string>
@@ -13,7 +13,7 @@
     <string>fastmail</string>
     <string>superhuman</string>
     <string>protonmail</string>
-</array>
+</array> -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -55,5 +55,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To choose an avatar</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To take an avatar photo</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location when in the background.</string>
 </dict>
 </plist>

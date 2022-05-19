@@ -1,29 +1,56 @@
+import 'dart:io';
+
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/components/swap_profile_card.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/viewmodels/swap_main_view_model.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/widgets/custom_icon_button.dart';
+import '../viewmodels/swap_upload_view_model.dart';
 
-class SwapScreenTwo extends StatelessWidget {
+class SwapScreenTwo extends ConsumerWidget {
   const SwapScreenTwo({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_2,
         body: Column(
           children: [
             SizedBox(
-              height: ScreenUtil().screenWidth - 10,
-              child: Image.asset(R.images.homeToy_1),
+              height: ScreenUtil().screenHeight / 2.2,
+              child: Swiper(
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.all(S.dimens.defaultPaddingVertical_4),
+                    child: Image.file(File(ref
+                        .watch(mainSwapSettingNotifierProvider.notifier)
+                        .getList()[index])),
+                  );
+                },
+                itemCount: 3,
+                pagination: SwiperPagination(
+                  alignment: Alignment.bottomCenter,
+                  builder: DotSwiperPaginationBuilder(
+                    activeColor: S.colors.primary,
+                    color: S.colors.accent_5,
+                  ),
+                ),
+              ),
             ),
+            // SizedBox(
+            //   height: ScreenUtil().screenHeight / 2.2,
+            //   child: Image.asset(R.images.homeToy_1),
+            // ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -40,46 +67,87 @@ class SwapScreenTwo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: S.dimens.defaultPadding_32,
+                        height: S.dimens.defaultPaddingVertical_24,
                       ),
                       Text(
-                        "Tobbie the futuristic Robot",
+                        ref
+                            .watch(mainSwapSettingNotifierProvider)
+                            .titleController
+                            .text,
                         style: S.textStyles.h3,
                       ),
                       SizedBox(
-                        height: S.dimens.defaultPadding_8,
+                        height: S.dimens.defaultPaddingVertical_16,
+                      ),
+                      Text(
+                        ref
+                            .watch(mainSwapSettingNotifierProvider)
+                            .descriptionController
+                            .text,
+                        style: S.textStyles.titleLight,
                       ),
                       SizedBox(
-                        width: 323.6231884057971.h,
-                        child: Text(
-                          "A huggable plush Bear in the height of 25 cm, durable, resistant to stains, and easy to maintain. Made with the finest ultra-soft plush materials and premium stuffing.",
-                          style: S.textStyles.titleLight,
-                        ),
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_16,
+                        height: S.dimens.defaultPaddingVertical_16,
                       ),
                       const SwapProductCard(),
                       SizedBox(
-                        height: S.dimens.defaultPadding_16,
+                        height: S.dimens.defaultPaddingVertical_16,
                       ),
-                      toyInfo(),
+                      toyInfo(ref, uploadSwapSettingNotifierProvider),
+                      SizedBox(
+                        height: S.dimens.defaultPaddingVertical_16,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.typo3,
+                            color: S.colors.primary,
+                          ),
+                          SizedBox(
+                            width: S.dimens.defaultPadding_8,
+                          ),
+                          Expanded(
+                            child: Text(
+                              ref
+                                  .watch(uploadSwapSettingNotifierProvider
+                                      .notifier)
+                                  .convertCategories(ref
+                                      .watch(mainSwapSettingNotifierProvider)
+                                      .groupButtonControllerCategories
+                                      .selectedIndexes),
+                              style: S.textStyles.titleLight,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        ],
+                      ),
                       const Expanded(
                         child: SizedBox(),
                       ),
-                      bottomButton(),
+                      // SizedBox(
+                      //   height: S.dimens.defaultPadding_16,
+                      // ),
+                      bottomButton(
+                        ref,
+                        uploadSwapSettingNotifierProvider,
+                        mainSwapSettingNotifierProvider,
+                      ),
                     ],
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget toyInfo() => Row(
+  Widget toyInfo(
+          WidgetRef ref,
+          StateNotifierProvider<UploadSwapSettingNotifier, UploadSwapSetting>
+              uploadSwapSettingNotifierProvider) =>
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
@@ -92,7 +160,12 @@ class SwapScreenTwo extends StatelessWidget {
                 width: S.dimens.defaultPadding_8,
               ),
               Text(
-                "New",
+                ref
+                    .watch(uploadSwapSettingNotifierProvider.notifier)
+                    .convertCondition(ref
+                        .watch(mainSwapSettingNotifierProvider)
+                        .groupButtonControllerCondition
+                        .selectedIndex!),
                 style: S.textStyles.titleLight,
               )
             ],
@@ -100,14 +173,19 @@ class SwapScreenTwo extends StatelessWidget {
           Row(
             children: [
               Icon(
-                FontAwesomeIcons.retweet,
+                FontAwesomeIcons.child,
                 color: S.colors.primary,
               ),
               SizedBox(
                 width: S.dimens.defaultPadding_8,
               ),
               Text(
-                "Swap",
+                ref
+                    .watch(uploadSwapSettingNotifierProvider.notifier)
+                    .convertGenderType(ref
+                        .watch(mainSwapSettingNotifierProvider)
+                        .groupButtonControllerGenderType
+                        .selectedIndex!),
                 style: S.textStyles.titleLight,
               )
             ],
@@ -115,23 +193,35 @@ class SwapScreenTwo extends StatelessWidget {
           Row(
             children: [
               Icon(
-                FontAwesomeIcons.eye,
+                FontAwesomeIcons.magento,
                 color: S.colors.primary,
               ),
               SizedBox(
                 width: S.dimens.defaultPadding_8,
               ),
               Text(
-                "New",
+                ref
+                    .watch(uploadSwapSettingNotifierProvider.notifier)
+                    .convertAgeGroup(ref
+                        .watch(mainSwapSettingNotifierProvider)
+                        .groupButtonControllerAgeGroup
+                        .selectedIndex!),
                 style: S.textStyles.titleLight,
               )
             ],
-          )
+          ),
         ],
       );
 
-  Widget bottomButton() => SizedBox(
-        height: S.dimens.defaultPadding_88,
+  Widget bottomButton(
+    WidgetRef ref,
+    StateNotifierProvider<UploadSwapSettingNotifier, UploadSwapSetting>
+        uploadSwapSettingNotifierProvider,
+    StateNotifierProvider<MainSwapSettingNotifier, MainSwapSetting>
+        mainSwapSettingNotifierProvider,
+  ) =>
+      SizedBox(
+        height: S.dimens.defaultPaddingVertical_88,
         child: Align(
           alignment: Alignment.topCenter,
           child: Row(
@@ -140,10 +230,48 @@ class SwapScreenTwo extends StatelessWidget {
                 child: CustomButton(
                   text: "Upload",
                   onPressed: () {
-                    NavigationService.push(
-                      page: RoutePaths.swapScreenDone,
-                      isNamed: true,
-                    );
+                    ref
+                        .watch(uploadSwapSettingNotifierProvider.notifier)
+                        .uploadToyToFirebase(
+                            imagePathOne: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .imagePathOne,
+                            imagePathTwo: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .imagePathTwo,
+                            imagePathThree: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .imagePathThree,
+                            title: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .titleController
+                                .text,
+                            description: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .descriptionController
+                                .text,
+                            categories: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerCategories
+                                .selectedIndexes,
+                            condition: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerCondition
+                                .selectedIndex!,
+                            genderType: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerGenderType
+                                .selectedIndex!,
+                            ageGroup: ref
+                                .watch(mainSwapSettingNotifierProvider)
+                                .groupButtonControllerAgeGroup
+                                .selectedIndex!,
+                            // address: address,
+                            userId: "userId");
+                    // NavigationService.push(
+                    //   page: RoutePaths.swapScreenDone,
+                    //   isNamed: true,
+                    // );
                   },
                 ),
               ),
