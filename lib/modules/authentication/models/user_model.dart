@@ -1,15 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
 class UserModel {
   final String id;
-  final String username;
+  final String? username;
   final String email;
-  final String phone;
+  final String? phone;
   final String? firstName;
   final String? lastName;
   final DateTime? birthday;
   final bool? gender;
-  final String? address;
+  final Address? address;
   final String? imageUrl;
   final DateTime? createDate;
   final DateTime? lastUpdateDate;
@@ -19,8 +21,8 @@ class UserModel {
   UserModel({
     required this.id,
     required this.email,
-    required this.phone,
-    required this.username,
+    this.phone,
+    this.username,
     this.firstName,
     this.lastName,
     this.birthday,
@@ -57,15 +59,21 @@ class UserModel {
       id: documentId,
       email: map['email'] ?? '',
       phone: map['phone'] ?? '',
-      username: map['username'] ?? '',
+      username: map['userName'] ?? '',
       firstName: map['firstName'] ?? '',
       lastName: map['lastName'] ?? '',
-      birthday: map['birthday'] ?? '',
-      gender: map['gender'] ?? '',
-      address: map['address'] ?? '',
-      imageUrl: map['imageUrl'] ?? '',
-      createDate: map['createDate'] ?? '',
-      lastUpdateDate: map['lastUpdateDate'] ?? '',
+      birthday: map['birthday'] != "" ? map['birthday'] : DateTime.now(),
+      gender: map['gender'] != "" ? map['gender'] : null,
+      address: map['address'] != ""
+          ? Address.fromMap(map['address'])
+          : Address(
+              address: "", detailAddress: "", latitude: "", longitude: ""),
+      imageUrl: map['imageUrl'] != "" ? map['imageUrl'] : '',
+      createDate: map['createDate'] != ""
+          ? DateFormat("dd-MM-yyyy HH:mm:ss").parse(map['createDate'])
+          : DateTime.now(),
+      lastUpdateDate:
+          map['lastUpdateDate'] != "" ? map['createDate'] : DateTime.now(),
       isActived: map['isActived'] ?? '',
       isEmailVerified: map['isEmailVerified'] ?? '',
     );
@@ -96,4 +104,10 @@ class UserModel {
   //     phone: phone ?? this.phone,
   //   );
   // }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return createDate.toString();
+  }
 }

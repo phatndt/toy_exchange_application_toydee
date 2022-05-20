@@ -142,6 +142,9 @@ class T {
   static const swapCheckBoxTwoContent = "Swap available";
   static const swapButtonContent = "Preview";
 
+  //swap welcome
+  static const swapWelcomeButton = "Upload a toy";
+
   //Reset password
   static const resetPasswordTitle = "Reset password";
   static const resetPasswordContent =

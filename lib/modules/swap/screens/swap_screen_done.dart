@@ -31,10 +31,10 @@ class SwappScreenThree extends StatelessWidget {
                       style: S.textStyles.h5,
                     ),
                     SizedBox(
-                      height: S.dimens.defaultPadding_8,
+                      height: S.dimens.defaultPaddingVertical_8,
                     ),
                     Text(
-                      "Thank you for suporting our causes! Your item will be visible soon",
+                      "Thank you for supporting our causes! Your item will be visible soon",
                       style: S.textStyles.titleHeavy,
                     ),
                     const Expanded(
@@ -52,10 +52,13 @@ class SwappScreenThree extends StatelessWidget {
   }
 
   Widget header() => SizedBox(
-        height: ScreenUtil().screenWidth * 1.2,
+        height: 500.h,
         child: Stack(
           children: [
-            Image.asset(R.images.swapUpload),
+            SizedBox(
+              height: 440.h,
+              child: Image.asset(R.images.swapUpload),
+            ),
             Positioned(
               top: 350.h,
               left: 0,
@@ -71,7 +74,7 @@ class SwappScreenThree extends StatelessWidget {
       );
 
   Widget bottomButton() => SizedBox(
-        height: S.dimens.defaultPadding_88,
+        height: S.dimens.defaultPaddingVertical_88,
         child: Align(
           alignment: Alignment.topCenter,
           child: Row(

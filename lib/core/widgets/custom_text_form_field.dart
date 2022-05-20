@@ -13,7 +13,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.onFieldSubmitted,
     this.inputType,
-    required this.controller,
+    this.controller,
     this.focusNode,
     this.width = double.infinity,
     this.height,
@@ -33,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final Function(String? value)? onFieldSubmitted;
   final TextInputType? inputType;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final double? width;
   final double? height;
   final int? maxLines;
@@ -62,7 +62,6 @@ class CustomTextFormField extends StatelessWidget {
         obscureText: obscureText,
         style: S.textStyles.titleHeavy,
         maxLength: maxLength,
-        minLines: 1,
         decoration: InputDecoration(
           counterText: "",
           isDense: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../styles/styles.dart';
 
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: (3850 / 69).h,
       width: width,
       child: ElevatedButton(
         onPressed: onPressed,

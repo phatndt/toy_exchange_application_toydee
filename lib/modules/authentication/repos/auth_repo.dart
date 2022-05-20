@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 
 import '../../../core/errors/exceptions.dart';
@@ -12,28 +13,35 @@ import '../models/user_model.dart';
 final authRepoProvider = Provider<AuthRepo>((ref) => AuthRepo());
 
 class AuthRepo {
-  Future<UserModel?> signInWithEmailAndPassword({
+  Future<UserCredential?> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
     try {
-      final userCredential = await FirebaseAuth.instance
+      UserCredential? userCredential;
+      // await FirebaseAuth.instance
+      //     .signInWithEmailAndPassword(email: email, password: password)
+      //     .then((value) async => {
+      //           if (value.user != null && !value.user!.emailVerified)
+      //             {
+      //               await value.user!.sendEmailVerification(),
+      //               Fluttertoast.showToast(msg: "Please verify your mail!"),
+      //             }
+      //           else
+      //             {
+      //               NavigationService.push(
+      //                   isNamed: true, page: RoutePaths.mainScreen)
+      //             }
+      //         });
+      // log(userCredential.toString());
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) async => {
-                if (value.user != null && !value.user!.emailVerified)
-                  {
-                    await value.user!.sendEmailVerification(),
-                    Fluttertoast.showToast(msg: "Please verify your mail!"),
-                  }
-                else
-                  {
-                    NavigationService.push(
-                        isNamed: true, page: RoutePaths.mainScreen)
-                  }
-              });
-      log(userCredential.toString());
-      //return UserModel.fromUserCredential(userCredential.user!);
+          .then(
+            (value) => userCredential = value,
+          );
+      return userCredential;
     } on FirebaseAuthException catch (e) {
+      log("message");
       final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     } catch (e) {
@@ -42,6 +50,21 @@ class AuthRepo {
       Fluttertoast.showToast(msg: _errorMessage);
     }
     return null;
+  }
+
+  Future<bool> sendEmailVerification(UserCredential value) async {
+    bool _result = false;
+    try {
+      await value.user!.sendEmailVerification().then((value) {
+        _result = true;
+      });
+      return _result;
+    } catch (e) {
+      log(e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
   }
 
   Future<UserModel?> signUpWithEmailAndPassword({
@@ -87,7 +110,8 @@ class AuthRepo {
           'gender': "",
           'address': "",
           'imageUrl': "",
-          'createDate': DateTime.now(),
+          'createDate':
+              DateFormat("dd-MM-yyyy HH:mm:ss").format(DateTime.now()),
           'lastUpdateDate': "",
         },
       ).then((value) => result = !result);
@@ -122,7 +146,7 @@ class AuthRepo {
       final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     } catch (e) {
-      log(e.toString());
+      log("1" + e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     }
@@ -172,7 +196,7 @@ class AuthRepo {
       final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     } catch (e) {
-      log(e.toString());
+      log("2" + e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     }
@@ -238,7 +262,7 @@ class AuthRepo {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: email)
           .then((value) async => {
-               _result = true,
+                _result = true,
               });
       return _result;
     } on FirebaseAuthException catch (e) {

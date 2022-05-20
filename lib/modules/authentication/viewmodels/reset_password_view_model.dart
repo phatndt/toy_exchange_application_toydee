@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';

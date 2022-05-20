@@ -24,8 +24,9 @@ class CustomIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: ScreenUtil().scaleHeight * 55.79710144927537,
-      width: width ?? ScreenUtil().scaleHeight * 55.79710144927537,
+      //default size is 50 in pixel 4a, it will be change
+      height: (3850 / 69).h,
+      width: width ?? (1265 / 24).w,
       child: Center(
         child: ElevatedButton(
           onPressed: onPressed,
@@ -36,14 +37,17 @@ class CustomIconButton extends StatelessWidget {
                     BorderRadius.circular(S.dimens.defaultBorderRadius),
               ),
             ),
+            padding:
+                MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
             elevation: MaterialStateProperty.all<double>(elevation),
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                const EdgeInsets.all(12)),
             backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
           ),
-          child: Icon(
-            text,
-            color: color,
+          child: Center(
+            child: Icon(
+              text,
+              color: color,
+              size: (1.h / 1.w) * 24,
+            ),
           ),
         ),
       ),
