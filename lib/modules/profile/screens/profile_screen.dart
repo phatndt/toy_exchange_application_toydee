@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/screens/profile_tab_2.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/screens/profile_tab_3.dart';
 
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
@@ -175,8 +177,8 @@ class ProfileScreenState extends State<ProfileScreen>
               controller: _tabController,
               children: [
                 ProfileTab1(),
-                ProfileTab1(),
-                ProfileTab1(),
+                ProfileTab2(),
+                ProfileTab3(),
               ],
             ),
           )

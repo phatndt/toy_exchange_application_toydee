@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:group_button/group_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
 
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
+import '../../../authentication/repos/user_repo.dart';
 
 class ConfigurationChangingNamesSetting {
   final TextEditingController firstNameEditingController;
@@ -33,19 +35,28 @@ class ConfigurationChangingNamesNotifier
             firstNameEditingController: TextEditingController(),
             lastNameEditingController: TextEditingController(),
           ),
-        ) {}
+        ) {
+    _userRepo = ref.watch(userRepoProvider);
+  }
 
   final Ref ref;
-
+  late UserRepo _userRepo;
   void saveChanges() {
-    ref.watch(configurationNotifierProvider).firstname =
-        state.firstNameEditingController.text;
-    ref.watch(configurationNotifierProvider).lastname =
-        state.lastNameEditingController.text;
-    NavigationService.goBack();
+    if (state.firstNameEditingController.text.isEmpty ||
+        state.lastNameEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Fill up the blank field!");
+    } else {
+      ref.watch(configurationNotifierProvider).firstname =
+          state.firstNameEditingController.text;
+      ref.watch(configurationNotifierProvider).lastname =
+          state.lastNameEditingController.text;
+      NavigationService.goBack();
+    }
   }
 
   void navigationBack() {
+    state.firstNameEditingController.clear();
+    state.lastNameEditingController.clear();
     NavigationService.goBack();
   }
 
