@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
 
@@ -73,43 +74,58 @@ class ConfigurationChangingTextNotifier
     state.addressEditingController.clear();
   }
 
-  void saveChangesPassword() {
-    NavigationService.goBack(result: state.passwordEditingController.text);
-    ref.watch(configurationNotifierProvider).password =
-        state.passwordEditingController.text;
-  }
+  // void saveChangesPassword() {
+  //   NavigationService.goBack(result: state.passwordEditingController.text);
+  //   ref.watch(configurationNotifierProvider).password =
+  //       state.passwordEditingController.text;
+  // }
 
-  void navigationBackPassword() {
-    NavigationService.goBack(result: state.passwordEditingController.text);
-  }
+  // void navigationBackPassword() {
+  //   NavigationService.goBack(result: state.passwordEditingController.text);
+  // }
 
   void saveChangesEmail() {
-    NavigationService.goBack();
-    ref.watch(configurationNotifierProvider).email =
-        state.emailEditingController.text;
+    if (state.emailEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Fill up the blank field");
+    } else {
+      NavigationService.goBack();
+      ref.watch(configurationNotifierProvider).email =
+          state.emailEditingController.text;
+    }
   }
 
   void navigationBackEmail() {
+    state.emailEditingController.clear();
     NavigationService.goBack(result: state.emailEditingController.text);
   }
 
   void saveChangesPhone() {
-    NavigationService.goBack();
-    ref.watch(configurationNotifierProvider).phone =
-        state.phoneEditingController.text;
+    if (state.phoneEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Fill up the blank field");
+    } else {
+      NavigationService.goBack();
+      ref.watch(configurationNotifierProvider).phone =
+          state.phoneEditingController.text;
+    }
   }
 
   void navigationBackPhone() {
+    state.phoneEditingController.clear();
     NavigationService.goBack(result: state.phoneEditingController.text);
   }
 
   void saveChangesAddress() {
-    NavigationService.goBack();
-    ref.watch(configurationNotifierProvider).address =
-        state.addressEditingController.text;
+    if (state.addressEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Fill up the blank field");
+    } else {
+      NavigationService.goBack();
+      ref.watch(configurationNotifierProvider).address =
+          state.addressEditingController.text;
+    }
   }
 
   void navigationBackAddress() {
+    state.addressEditingController.clear();
     NavigationService.goBack(result: state.addressEditingController.text);
   }
 

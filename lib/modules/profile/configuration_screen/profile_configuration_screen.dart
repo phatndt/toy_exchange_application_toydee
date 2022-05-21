@@ -5,11 +5,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_gender.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_names.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_password.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_text.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_item.dart';
 
 import 'package:intl/intl.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_names_view_models.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_password_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
 import '../../../core/routing/navigation_service.dart';
@@ -72,60 +74,77 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                 information: showPassword,
                 press: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ProfileConfigurationTextChanging(
-                      label: T.proConLabelPassword,
-                      information:
-                          ref.watch(configurationNotifierProvider).password,
+                    builder: (context) => ProfileConfigurationPasswordChanging(
+                      label1: T.proConLabelOldPassword,
+                      label2: T.proConLabelOldPasswordConfirm,
+                      label3: T.proConLabelNewPassword,
+                      oldPassword: '',
+                      oldPasswordConfirm: '',
+                      newPassword: '',
                       textInputType: TextInputType.visiblePassword,
                       backPress: ref
-                          .watch(configurationChangingTextNotifierProvider
+                          .watch(configurationChangingPasswordNotifierProvider
                               .notifier)
-                          .navigationBackPassword,
+                          .navigationBack,
                       savePress: ref
-                          .watch(configurationChangingTextNotifierProvider
+                          .watch(configurationChangingPasswordNotifierProvider
                               .notifier)
-                          .saveChangesPassword,
-                      clearPress: ref
-                          .watch(configurationChangingTextNotifierProvider
+                          .saveChanges,
+                      oldPasswordClearPress: ref
+                          .watch(configurationChangingPasswordNotifierProvider
                               .notifier)
-                          .clearTextPassword,
-                      textEditingController: ref
-                          .watch(configurationChangingTextNotifierProvider)
-                          .passwordEditingController,
+                          .oldPassClear,
+                      oldPasswordConfirmClearPress: ref
+                          .watch(configurationChangingPasswordNotifierProvider
+                              .notifier)
+                          .oldPassConfirmClear,
+                      newPasswordClearPress: ref
+                          .watch(configurationChangingPasswordNotifierProvider
+                              .notifier)
+                          .newPassClear,
+                      oldPasswordEditingController: ref
+                          .watch(configurationChangingPasswordNotifierProvider)
+                          .oldPasswordEdittingController,
+                      oldPasswordConfirmEditingController: ref
+                          .watch(configurationChangingPasswordNotifierProvider)
+                          .oldPasswordConfirmEdittingController,
+                      newPasswordEditingController: ref
+                          .watch(configurationChangingPasswordNotifierProvider)
+                          .newPasswordEditingController,
                     ),
                   ));
                 },
               ),
-              ProfileConfigurationItem(
-                icon: FontAwesomeIcons.user,
-                label: T.proConLabelEmail,
-                information: ref.watch(configurationNotifierProvider).email,
-                press: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ProfileConfigurationTextChanging(
-                      label: T.proConLabelEmail,
-                      information:
-                          ref.watch(configurationNotifierProvider).email,
-                      textInputType: TextInputType.emailAddress,
-                      backPress: ref
-                          .watch(configurationChangingTextNotifierProvider
-                              .notifier)
-                          .navigationBackEmail,
-                      savePress: ref
-                          .watch(configurationChangingTextNotifierProvider
-                              .notifier)
-                          .saveChangesEmail,
-                      clearPress: ref
-                          .watch(configurationChangingTextNotifierProvider
-                              .notifier)
-                          .clearTextEmail,
-                      textEditingController: ref
-                          .watch(configurationChangingTextNotifierProvider)
-                          .emailEditingController,
-                    ),
-                  ));
-                },
-              ),
+              // ProfileConfigurationItem(
+              //   icon: FontAwesomeIcons.user,
+              //   label: T.proConLabelEmail,
+              //   information: ref.watch(configurationNotifierProvider).email,
+              //   press: () {
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //       builder: (context) => ProfileConfigurationTextChanging(
+              //         label: T.proConLabelEmail,
+              //         information:
+              //             ref.watch(configurationNotifierProvider).email,
+              //         textInputType: TextInputType.emailAddress,
+              //         backPress: ref
+              //             .watch(configurationChangingTextNotifierProvider
+              //                 .notifier)
+              //             .navigationBackEmail,
+              //         savePress: ref
+              //             .watch(configurationChangingTextNotifierProvider
+              //                 .notifier)
+              //             .saveChangesEmail,
+              //         clearPress: ref
+              //             .watch(configurationChangingTextNotifierProvider
+              //                 .notifier)
+              //             .clearTextEmail,
+              //         textEditingController: ref
+              //             .watch(configurationChangingTextNotifierProvider)
+              //             .emailEditingController,
+              //       ),
+              //     ));
+              //   },
+              // ),
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.phone,
                 label: T.proConLabelPhone,
