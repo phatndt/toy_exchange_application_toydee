@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
-import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 
@@ -94,11 +93,10 @@ class SwapWelcomeScreen extends StatelessWidget {
             child: CustomButton(
               text: T.swapWelcomeButton,
               onPressed: () async {
-                NavigationService.push(
-                  page: RoutePaths.swapScreenMain,
-                  isNamed: true,
-                );
-
+                // NavigationService.push(
+                //   page: RoutePaths.swapScreenMain,
+                //   isNamed: true,
+                // );
                 // LocationPermission permission;
 
                 // permission = await Geolocator.checkPermission();

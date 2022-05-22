@@ -176,6 +176,7 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
           ),
         ) {
     _swapRepo = ref.watch(swapRepoRepoProvider);
+    _userRepo = ref.watch(userRepoProvider);
   }
 
   final Ref ref;
@@ -292,7 +293,6 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
     required int genderType,
     required int ageGroup,
     // required Address address,
-    required String userId,
   }) {
     Address address = Address(
       address: "1",
@@ -312,7 +312,7 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
 
     SwapToy swapToy = SwapToy(
       id: "",
-      userId: userId,
+      userId: _userRepo.userModel!.id,
       name: title,
       description: description,
       location: address,
@@ -320,7 +320,6 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
       isSwapped: false,
     );
     _swapRepo.uploadSwapToyToFireStore(swapToy: swapToy);
-    
   }
 }
 

@@ -265,9 +265,7 @@ class SwapScreenTwo extends ConsumerWidget {
                             ageGroup: ref
                                 .watch(mainSwapSettingNotifierProvider)
                                 .groupButtonControllerAgeGroup
-                                .selectedIndex!,
-                            // address: address,
-                            userId: "userId");
+                                .selectedIndex!);
                     // NavigationService.push(
                     //   page: RoutePaths.swapScreenDone,
                     //   isNamed: true,
