@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ import 'package:toy_exchange_application_toydee/modules/authentication/repos/use
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/styles.dart';
+import '../../../core/widgets/Toast.dart';
 import '../../authentication/repos/auth_repo.dart';
 
 class MainSwapSetting {
@@ -351,7 +353,7 @@ class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
     }
   }
 
-  void previewToy() {
+  void previewToy(BuildContext context) {
     if (checkFilters() && checkFilters() && checkRestOfCondition()) {
       log("message");
       NavigationService.push(
@@ -359,12 +361,12 @@ class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
         isNamed: true,
       );
     } else {
-      Fluttertoast.showToast(
-        gravity: ToastGravity.TOP,
-        msg: "Please enter full information!",
-        backgroundColor: S.colors.primary,
-        textColor: S.colors.textColor_1,
-      );
+      CustomToast.fToast.init(context);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: const CustomToastBuilder(
+              msg: "Please enter full information!",
+              icon: FontAwesomeIcons.exclamation));
     }
   }
 

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/Toast.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -127,11 +128,11 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     required String userName,
     required String password,
   }) async {
+    CustomToast.fToast.init(context);
     updateLoadingSignUp();
     _authRepo.checkExistUserInformation(email, userName).then(
       (value) {
         if (value != null) {
-          log(value.toString());
           if (!value) {
             signUpWithEmailAndPassword(context,
                 email: email, userName: userName, password: password);
@@ -158,8 +159,7 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
         .then(
       (value) {
         if (value != null) {
-          UserModel userModel = value;
-          submitSignUp(context, userModel, email, userName);
+          submitSignUp(context, value, email, userName);
         }
       },
     );
@@ -182,7 +182,6 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
         navigationToMainScreen(context);
       } else {
         updateLoadingSignUp();
-
         Fluttertoast.showToast(msg: "Please try later!");
       }
     }));

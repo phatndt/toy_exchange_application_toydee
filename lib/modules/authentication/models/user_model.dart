@@ -107,6 +107,6 @@ class UserModel {
   @override
   String toString() {
     // TODO: implement toString
-    return super.toString();
+    return id + " " + email + " " + username!;
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toy_exchange_application_toydee/core/services/converter.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/components/swap_profile_card.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/viewmodels/swap_main_view_model.dart';
@@ -108,13 +109,10 @@ class SwapScreenTwo extends ConsumerWidget {
                           ),
                           Expanded(
                             child: Text(
-                              ref
-                                  .watch(uploadSwapSettingNotifierProvider
-                                      .notifier)
-                                  .convertCategories(ref
-                                      .watch(mainSwapSettingNotifierProvider)
-                                      .groupButtonControllerCategories
-                                      .selectedIndexes),
+                              Converter.convertCategories(ref
+                                  .watch(mainSwapSettingNotifierProvider)
+                                  .groupButtonControllerCategories
+                                  .selectedIndexes),
                               style: S.textStyles.titleLight,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -160,12 +158,10 @@ class SwapScreenTwo extends ConsumerWidget {
                 width: S.dimens.defaultPadding_8,
               ),
               Text(
-                ref
-                    .watch(uploadSwapSettingNotifierProvider.notifier)
-                    .convertCondition(ref
-                        .watch(mainSwapSettingNotifierProvider)
-                        .groupButtonControllerCondition
-                        .selectedIndex!),
+                Converter.convertCondition(ref
+                    .watch(mainSwapSettingNotifierProvider)
+                    .groupButtonControllerCondition
+                    .selectedIndex!),
                 style: S.textStyles.titleLight,
               )
             ],
@@ -180,12 +176,10 @@ class SwapScreenTwo extends ConsumerWidget {
                 width: S.dimens.defaultPadding_8,
               ),
               Text(
-                ref
-                    .watch(uploadSwapSettingNotifierProvider.notifier)
-                    .convertGenderType(ref
-                        .watch(mainSwapSettingNotifierProvider)
-                        .groupButtonControllerGenderType
-                        .selectedIndex!),
+                Converter.convertGenderType(ref
+                    .watch(mainSwapSettingNotifierProvider)
+                    .groupButtonControllerGenderType
+                    .selectedIndex!),
                 style: S.textStyles.titleLight,
               )
             ],
@@ -200,12 +194,10 @@ class SwapScreenTwo extends ConsumerWidget {
                 width: S.dimens.defaultPadding_8,
               ),
               Text(
-                ref
-                    .watch(uploadSwapSettingNotifierProvider.notifier)
-                    .convertAgeGroup(ref
-                        .watch(mainSwapSettingNotifierProvider)
-                        .groupButtonControllerAgeGroup
-                        .selectedIndex!),
+                Converter.convertAgeGroup(ref
+                    .watch(mainSwapSettingNotifierProvider)
+                    .groupButtonControllerAgeGroup
+                    .selectedIndex!),
                 style: S.textStyles.titleLight,
               )
             ],

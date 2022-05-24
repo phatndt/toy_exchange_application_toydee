@@ -3,8 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/Toast.dart';
 
 import '../../../core/errors/exceptions.dart';
 import '../../../core/routing/route_paths.dart';
@@ -18,26 +20,28 @@ class AuthRepo {
     required String password,
   }) async {
     try {
-      //C1
       UserCredential? userCredential;
-      FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then(
-            (value) => userCredential = value,
-          );
-      //return userCredential;
+          .then(((value) {
+        userCredential = value;
+      }));
 
-      //C2
-      final test = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-
-      //return test
-
+      return userCredential;
     } on FirebaseAuthException catch (e) {
-      log("message");
       final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
-    } 
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
+    } catch (e) {
+      log(e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
+    }
     return null;
   }
 
@@ -51,7 +55,10 @@ class AuthRepo {
     } catch (e) {
       log(e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return _result;
   }
@@ -69,11 +76,17 @@ class AuthRepo {
               });
     } on FirebaseAuthException catch (e) {
       final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     } catch (e) {
       log(e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return userModel;
   }
@@ -106,7 +119,10 @@ class AuthRepo {
       return _result;
     } catch (e) {
       final _errorMessage = Exceptions.errorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return _result;
   }
@@ -121,13 +137,16 @@ class AuthRepo {
               _result = true;
             }
           }
-          _result = false;
         },
       );
+      _result ??= false;
       return _result;
     } catch (e) {
       final _errorMessage = Exceptions.errorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return null;
   }
@@ -160,25 +179,24 @@ class AuthRepo {
   Future<bool?> checkExistEmail(String email) async {
     bool? _result;
     try {
-      await FirebaseFirestore.instance.collection('users').get().then(
-        (QuerySnapshot querySnapshot) {
-          for (var doc in querySnapshot.docs) {
-            if (doc["email"].toString() == email.toString()) {
-              _result = true;
-            }
+      await FirebaseFirestore.instance
+          .collection('users')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          if (doc["email"].toString() == email.toString()) {
+            _result = true;
           }
-          _result = false;
-        },
-      );
+        }
+      });
+      _result ??= false;
       return _result;
-    } on FirebaseAuthException catch (e) {
-      log(e.toString());
-      final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
     } catch (e) {
-      log("2" + e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return null;
   }
@@ -190,10 +208,18 @@ class AuthRepo {
 
     if (_checkExistEmail != null && _checkExistUsername != null) {
       if (_checkExistEmail) {
-        Fluttertoast.showToast(msg: "Email already exists");
+        CustomToast.fToast.showToast(
+            gravity: ToastGravity.TOP,
+            child: const CustomToastBuilder(
+                msg: "Email already exists",
+                icon: FontAwesomeIcons.exclamation));
         _result = true;
       } else if (_checkExistUsername) {
-        Fluttertoast.showToast(msg: "Username already exists");
+        CustomToast.fToast.showToast(
+            gravity: ToastGravity.TOP,
+            child: const CustomToastBuilder(
+                msg: "Username already exists",
+                icon: FontAwesomeIcons.exclamation));
         _result = true;
       } else {
         _result = false;
@@ -216,13 +242,13 @@ class AuthRepo {
                 _result = true,
               });
       return _result;
-    } on FirebaseAuthException catch (e) {
-      final _errorMessage = Exceptions.firebaseAuthErrorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
     } catch (e) {
       log(e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
-      Fluttertoast.showToast(msg: _errorMessage);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return _result;
   }

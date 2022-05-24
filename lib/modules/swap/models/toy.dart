@@ -9,6 +9,7 @@ class Toy {
   final Address location;
   final ToyType toyType;
   final bool isSwapped;
+  final bool isValid;
 
   Toy({
     required this.id,
@@ -18,6 +19,7 @@ class Toy {
     required this.location,
     required this.toyType,
     required this.isSwapped,
+    required this.isValid,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,6 +31,7 @@ class Toy {
       'location': location.toMap(),
       'toyType': toyType.toMap(),
       'isSwapped': isSwapped,
+      'isValid': isValid,
     }..removeWhere((key, value) => value == null);
   }
 
@@ -41,6 +44,7 @@ class Toy {
       location: Address.fromMap(map['location'] ?? ''),
       toyType: ToyType.fromMap(map['toyType'] ?? ''),
       isSwapped: map['isSwapped'] ?? '',
+      isValid: map['isValid'] ?? '',
     );
   }
 }

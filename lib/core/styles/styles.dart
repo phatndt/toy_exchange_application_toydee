@@ -188,6 +188,13 @@ class _TextStyles {
     color: S.colors.primary,
     textBaseline: TextBaseline.alphabetic,
   );
+
+  final toastStyle = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(16),
+    fontWeight: FontWeight.bold,
+    color: S.colors.textColor_1,
+  );
 }
 
 class _Dimens {
@@ -209,6 +216,7 @@ class _Dimens {
 
   final defaultPaddingVertical_4 = 253 / 60 * ScreenUtil().scaleHeight;
   final defaultPaddingVertical_8 = 759 / 80 * ScreenUtil().scaleHeight;
+  final defaultPaddingVertical_12 = 253 / 20 * ScreenUtil().scaleHeight;
   final defaultPaddingVertical_16 = 253 / 15 * ScreenUtil().scaleHeight;
   final defaultPaddingVertical_24 = 253 / 10 * ScreenUtil().scaleHeight;
   final defaultPaddingVertical_32 = 506 / 15 * ScreenUtil().scaleHeight;

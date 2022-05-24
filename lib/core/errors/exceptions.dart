@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 abstract class Exceptions {
   static String errorMessage(dynamic e, {String? server}) {
@@ -50,12 +50,15 @@ abstract class Exceptions {
     // } else {
     //   return tr(NavigationService.context).pleaseTryAgainLater;
     // }
-     if (e.code == 'network-request-failed') {
-      return "pleaseTryAgainLater";
+    log("error code with firebase auth: " + e.code);
+    if (e.code == "user-not-found") {
+      return "Wrong email or pasword!";
+    } else if (e.code == 'network-request-failed') {
+      return "Please Try Again Later!";
     } else if (e.code == 'auth/invalid-email' || e.code == 'invalid-password') {
       return "emailOrPasswordIsInCorrect";
     } else {
-      return "pleaseTryAgainLater";
+      return "Please Try Again Later!";
     }
   }
 }

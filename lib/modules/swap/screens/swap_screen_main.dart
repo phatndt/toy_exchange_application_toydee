@@ -188,9 +188,7 @@ class SwapScreenOne extends ConsumerWidget {
                             Radius.circular(4.463768115942029.h),
                           ),
                         ),
-                        value: ref
-                            .watch(mainSwapSettingNotifierProvider)
-                            .swapAvailable,
+                        value: true,
                         onChanged: (value) {
                           ref
                               .watch(mainSwapSettingNotifierProvider.notifier)
@@ -211,8 +209,7 @@ class SwapScreenOne extends ConsumerWidget {
                   onPressed: () {
                     ref
                         .watch(mainSwapSettingNotifierProvider.notifier)
-                        .previewToy();
-
+                        .previewToy(context);
                   },
                 ),
               ],
@@ -240,18 +237,28 @@ class SwapScreenOne extends ConsumerWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(S.dimens.defaultBorderRadius),
               ),
+              image:
+                  ref.watch(mainSwapSettingNotifierProvider).imagePathOne != ""
+                      ? DecorationImage(
+                          image: FileImage(File(ref
+                              .watch(mainSwapSettingNotifierProvider)
+                              .imagePathOne)),
+                          fit: BoxFit.fill)
+                      : null,
             ),
             child: TextButton(
               onPressed: () async {
-                 ref
+                ref
                     .watch(mainSwapSettingNotifierProvider.notifier)
                     .showImageSourceActionSheet(context, 1);
               },
-              child: ref.watch(mainSwapSettingNotifierProvider).imagePathOne ==
-                      ""
-                  ? const Icon(FontAwesomeIcons.plus)
-                  : Image.file(File(
-                      ref.watch(mainSwapSettingNotifierProvider).imagePathOne)),
+              child:
+                  ref.watch(mainSwapSettingNotifierProvider).imagePathOne == ""
+                      ? const Icon(FontAwesomeIcons.plus)
+                      : const Icon(
+                          FontAwesomeIcons.plus,
+                          color: Colors.transparent,
+                        ),
             ),
           ),
           Container(
@@ -262,18 +269,28 @@ class SwapScreenOne extends ConsumerWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(S.dimens.defaultBorderRadius),
               ),
+              image:
+                  ref.watch(mainSwapSettingNotifierProvider).imagePathTwo != ""
+                      ? DecorationImage(
+                          image: FileImage(File(ref
+                              .watch(mainSwapSettingNotifierProvider)
+                              .imagePathTwo)),
+                          fit: BoxFit.fill)
+                      : null,
             ),
             child: TextButton(
               onPressed: () {
-                 ref
+                ref
                     .watch(mainSwapSettingNotifierProvider.notifier)
                     .showImageSourceActionSheet(context, 2);
               },
-              child: ref.watch(mainSwapSettingNotifierProvider).imagePathTwo ==
-                      ""
-                  ? const Icon(FontAwesomeIcons.plus)
-                  : Image.file(File(
-                      ref.watch(mainSwapSettingNotifierProvider).imagePathTwo)),
+              child:
+                  ref.watch(mainSwapSettingNotifierProvider).imagePathTwo == ""
+                      ? const Icon(FontAwesomeIcons.plus)
+                      : const Icon(
+                          FontAwesomeIcons.plus,
+                          color: Colors.transparent,
+                        ),
             ),
           ),
           Container(
@@ -284,6 +301,15 @@ class SwapScreenOne extends ConsumerWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(S.dimens.defaultBorderRadius),
               ),
+              image:
+                  ref.watch(mainSwapSettingNotifierProvider).imagePathThree !=
+                          ""
+                      ? DecorationImage(
+                          image: FileImage(File(ref
+                              .watch(mainSwapSettingNotifierProvider)
+                              .imagePathThree)),
+                          fit: BoxFit.fill)
+                      : null,
             ),
             child: TextButton(
               onPressed: () {
@@ -295,47 +321,12 @@ class SwapScreenOne extends ConsumerWidget {
                   ref.watch(mainSwapSettingNotifierProvider).imagePathThree ==
                           ""
                       ? const Icon(FontAwesomeIcons.plus)
-                      : Image.file(File(ref
-                          .watch(mainSwapSettingNotifierProvider)
-                          .imagePathThree)),
+                      : const Icon(
+                          FontAwesomeIcons.plus,
+                          color: Colors.transparent,
+                        ),
             ),
           ),
         ],
       );
 }
-
-
-// Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Text(
-//                       T.swapCheckBoxOneContent,
-//                       style: S.textStyles.titleHeavy,
-//                     ),
-//                     Transform.scale(
-//                       scale: 1.5,
-//                       child: Checkbox(
-//                         side: BorderSide(
-//                           width: 2.2318840579710146.h,
-//                           color: S.colors.gray_3,
-//                         ),
-//                         shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.all(
-//                             Radius.circular(4.463768115942029.h),
-//                           ),
-//                         ),
-//                         value: ref
-//                             .watch(mainSwapSettingNotifierProvider)
-//                             .phoneLocation,
-//                         onChanged: (value) {
-//                           ref
-//                               .watch(mainSwapSettingNotifierProvider.notifier)
-//                               .updatePhoneLocation(value);
-//                         },
-//                         checkColor: S.colors.background_1,
-//                         fillColor:
-//                             MaterialStateProperty.all<Color>(S.colors.primary),
-//                       ),
-//                     ),
-//                   ],
-//                 ),

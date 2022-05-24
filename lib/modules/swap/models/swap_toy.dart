@@ -10,7 +10,8 @@ class SwapToy extends Toy {
       required String description,
       required Address location,
       required ToyType toyType,
-      required bool isSwapped})
+      required bool isSwapped,
+      required bool isValid})
       : super(
             id: id,
             userId: userId,
@@ -18,5 +19,6 @@ class SwapToy extends Toy {
             description: description,
             location: location,
             toyType: toyType,
-            isSwapped: isSwapped);
+            isSwapped: isSwapped,
+            isValid: isValid);
 }
