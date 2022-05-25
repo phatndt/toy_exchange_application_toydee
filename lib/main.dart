@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +16,31 @@ import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
 import 'core/styles/styles.dart';
-// int? initScreen;
 
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   initScreen = preferences.getInt('initScreen');
-//   await preferences.setInt('initScreen', 1);
-//   runApp(const ProviderScope(child: Toydee()));
-// }
+int? initScreen;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: S.colors.background_1, // status bar color
   ));
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  initScreen = preferences.getInt('initScreen');
+  await preferences.setInt('initScreen', 1);
   runApp(const ProviderScope(child: Toydee()));
 }
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//     statusBarColor: S.colors.background_1, // status bar color
+//   ));
+//   runApp(const ProviderScope(child: Toydee()));
+// }
+
+final test = StreamProvider((ref) => FirebaseAuth.instance.authStateChanges());
 
 class Toydee extends ConsumerWidget {
   const Toydee({Key? key}) : super(key: key);
@@ -50,11 +59,22 @@ class Toydee extends ConsumerWidget {
         ),
         navigatorKey: NavigationService.navigationKey,
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutePaths.login,
+        // initialRoute: ref.watch(test).when(data: (value) {
+        //   log("data" + value!.uid.toString());
+        //   return RoutePaths.login;
+        // }, error: (e, stack) {
+        //   log("error");
+        //   return RoutePaths.login;
+        // }, loading: () {
+        //   log("loading");
+        //   return RoutePaths.home;
+        // }),
         onGenerateRoute: AppRouter.generateRoute,
-        // initialRoute: initScreen == 0 || initScreen == null
-        //     ? RoutePaths.onboardingpage
-        //     : RoutePaths.login,
+        initialRoute: initScreen == 0 || initScreen == null
+            ? RoutePaths.onboardingpage
+            : FirebaseAuth.instance.currentUser == null
+                ? RoutePaths.login
+                : RoutePaths.mainScreen,
       ),
     );
   }
