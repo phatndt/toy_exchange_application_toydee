@@ -46,11 +46,20 @@ class ConfigurationChangingNamesNotifier
         state.lastNameEditingController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Fill up the blank field!");
     } else {
-      ref.watch(configurationNotifierProvider).firstname =
-          state.firstNameEditingController.text;
-      ref.watch(configurationNotifierProvider).lastname =
-          state.lastNameEditingController.text;
-      NavigationService.goBack();
+      _userRepo
+          .updateUserNameToFireStore(state.firstNameEditingController.text,
+              state.lastNameEditingController.text)
+          .then((value) {
+        if (value) {
+          ref.watch(configurationNotifierProvider).firstname =
+              state.firstNameEditingController.text;
+          ref.watch(configurationNotifierProvider).lastname =
+              state.lastNameEditingController.text;
+          NavigationService.goBack();
+        } else {
+          Fluttertoast.showToast(msg: "Please try later!");
+        }
+      });
     }
   }
 

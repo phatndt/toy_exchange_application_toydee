@@ -33,6 +33,17 @@ class ProfileConfigurationScreen extends ConsumerWidget {
   List<String> names = ['1', '2'];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref
+        .watch(configurationNotifierProvider.notifier)
+        .getFirstNameFromFireStore();
+    ref
+        .watch(configurationNotifierProvider.notifier)
+        .getLastNameFromFireStore();
+    ref
+        .watch(configurationNotifierProvider.notifier)
+        .getBirthDateFromFireStore();
+    ref.watch(configurationNotifierProvider.notifier).getGenderFromFireStore();
+    ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
@@ -224,6 +235,10 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                       ref
                           .watch(configurationNotifierProvider.notifier)
                           .updateDate(DateFormat('dd/MM/yyyy').format(value));
+                      ref
+                          .watch(configurationNotifierProvider.notifier)
+                          .datetoFireStore(
+                              DateFormat('dd/MM/yyyy').format(value));
                     }
                   });
                   // Cancel

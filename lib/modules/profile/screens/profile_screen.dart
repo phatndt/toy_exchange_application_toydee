@@ -36,14 +36,14 @@ class ProfileScreenState extends State<ProfileScreen>
               right: S.dimens.defaultPadding_16,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomIconButton(
-                    backgroundColor: S.colors.accent_5,
-                    color: S.colors.primary,
-                    width: 50.0,
-                    text: Icons.arrow_back_rounded,
-                    onPressed: () {}),
+                // CustomIconButton(
+                //     backgroundColor: S.colors.accent_5,
+                //     color: S.colors.primary,
+                //     width: 50.0,
+                //     text: Icons.arrow_back_rounded,
+                //     onPressed: () {}),
                 CustomIconButton(
                   text: FontAwesomeIcons.gear,
                   onPressed: () {

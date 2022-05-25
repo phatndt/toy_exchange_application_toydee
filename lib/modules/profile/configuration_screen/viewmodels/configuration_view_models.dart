@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:group_button/group_button.dart';
 
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
+import '../../../authentication/repos/user_repo.dart';
 
 class ConfigurationSetting {
   String email;
@@ -66,9 +68,12 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
             datetime: '',
             initialDateTime: DateTime.now(),
           ),
-        ) {}
+        ) {
+    _userRepo = ref.watch(userRepoProvider);
+  }
 
   final Ref ref;
+  UserRepo? _userRepo;
 
   //   void updatePasswordVisible() {
   //   final newState = state.copy(isVisiblePassword: !state.isVisiblePassword);
@@ -80,6 +85,65 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
     state = newState;
   }
 
+  void getFirstNameFromFireStore() {
+    _userRepo!.getUserFirstNameFromFireStore().then((value) {
+      if (value != '') {
+        updateFirstNames(value);
+      } else {
+        updateFirstNames('');
+      }
+    });
+  }
+
+  void getLastNameFromFireStore() {
+    _userRepo!.getUserLastNameFromFireStore().then((value) {
+      if (value != '') {
+        updateLastNames(value);
+      } else {
+        updateLastNames('');
+      }
+    });
+  }
+
+  void getPhoneFromFireStore() {
+    _userRepo!.getUserPhoneFromFireStore().then((value) {
+      if (value != '') {
+        updatePhone(value);
+      } else {
+        updatePhone('');
+      }
+    });
+  }
+
+  void getBirthDateFromFireStore() {
+    _userRepo!.getUserBirthDateFromFireStore().then((value) {
+      if (value != '') {
+        updateBirth(value);
+      } else {
+        updateBirth('');
+      }
+    });
+  }
+
+  void getGenderFromFireStore() {
+    _userRepo!.getUserGenderFromFireStore().then((value) {
+      if (value != '') {
+        updateGender(value);
+      } else {
+        updateGender('');
+      }
+    });
+  }
+
+  void datetoFireStore(String birth) {
+    _userRepo!.updateUserBirthDateToFireStore(birth).then((value) {
+      if (value) {
+      } else {
+        Fluttertoast.showToast(msg: "Please try later!");
+      }
+    });
+  }
+
   void updateFirstNames(String a) {
     final newState = state.copy(firstname: a);
     state = newState;
@@ -87,6 +151,21 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
 
   void updateLastNames(String a) {
     final newState = state.copy(lastname: a);
+    state = newState;
+  }
+
+  void updatePhone(String a) {
+    final newState = state.copy(phone: a);
+    state = newState;
+  }
+
+  void updateBirth(String a) {
+    final newState = state.copy(datetime: a);
+    state = newState;
+  }
+
+  void updateGender(String a) {
+    final newState = state.copy(gender: a);
     state = newState;
   }
 

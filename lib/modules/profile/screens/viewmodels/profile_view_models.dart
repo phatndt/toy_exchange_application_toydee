@@ -4,31 +4,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../authentication/repos/user_repo.dart';
 
 class ProfileSetting {
-  final TextEditingController emailController;
-
-  FocusNode emailFocusNode = FocusNode();
+  final String imageURL;
 
   ProfileSetting({
-    required this.emailController,
+    required this.imageURL,
   });
 
   ProfileSetting copy({
-    TextEditingController? emailController,
+    String? imageUrl,
   }) =>
       ProfileSetting(
-        emailController: emailController ?? this.emailController,
+        imageURL: imageUrl ?? this.imageURL,
       );
-
-  void clearEmail() {
-    emailController.clear();
-  }
 }
 
 class ProfileNotifier extends StateNotifier<ProfileSetting> {
   ProfileNotifier(this.ref)
       : super(
           ProfileSetting(
-            emailController: TextEditingController(),
+            imageURL: "",
           ),
         ) {
     _userRepo = ref.watch(userRepoProvider);

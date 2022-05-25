@@ -6,6 +6,8 @@ import 'package:toy_exchange_application_toydee/modules/profile/configuration_sc
 
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
+import '../../../authentication/models/address.dart';
+import '../../../authentication/repos/user_repo.dart';
 
 class ConfigurationChangingTextSetting {
   final TextEditingController textEditingController;
@@ -54,9 +56,18 @@ class ConfigurationChangingTextNotifier
             phoneEditingController: TextEditingController(),
             addressEditingController: TextEditingController(),
           ),
-        ) {}
+        ) {
+    _userRepo = ref.watch(userRepoProvider);
+  }
 
+  Address address = Address(
+    address: "",
+    detailAddress: "",
+    latitude: "",
+    longitude: "",
+  );
   final Ref ref;
+  late UserRepo _userRepo;
 
   void clearTextPassword() {
     state.passwordEditingController.clear();
@@ -103,9 +114,17 @@ class ConfigurationChangingTextNotifier
     if (state.phoneEditingController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Fill up the blank field");
     } else {
-      NavigationService.goBack();
-      ref.watch(configurationNotifierProvider).phone =
-          state.phoneEditingController.text;
+      _userRepo
+          .updateUserPhoneToFireStore(state.phoneEditingController.text)
+          .then((value) {
+        if (value) {
+          NavigationService.goBack();
+          ref.watch(configurationNotifierProvider).phone =
+              state.phoneEditingController.text;
+        } else {
+          Fluttertoast.showToast(msg: "Please try later!");
+        }
+      });
     }
   }
 
@@ -118,9 +137,15 @@ class ConfigurationChangingTextNotifier
     if (state.addressEditingController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Fill up the blank field");
     } else {
-      NavigationService.goBack();
-      ref.watch(configurationNotifierProvider).address =
-          state.addressEditingController.text;
+      _userRepo.updateUserAddressToFireStore(address).then((value) {
+        if (value) {
+          NavigationService.goBack();
+          ref.watch(configurationNotifierProvider).address =
+              state.addressEditingController.text;
+        } else {
+          Fluttertoast.showToast(msg: "Please try later!");
+        }
+      });
     }
   }
 

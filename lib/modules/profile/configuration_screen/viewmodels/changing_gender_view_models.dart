@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:group_button/group_button.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
 
 import '../../../../core/routing/navigation_service.dart';
@@ -29,16 +31,35 @@ class ConfigurationChangingGenderNotifier
           ConfigurationChangingGenderSetting(
             groupButtonController: GroupButtonController(),
           ),
-        ) {}
+        ) {
+    _userRepo = ref.watch(userRepoProvider);
+  }
 
   final Ref ref;
+  UserRepo? _userRepo;
 
   void saveChanges() {
+    var userrepo = _userRepo;
     if (state.groupButtonController.selectedIndex != null) {
-      ref.watch(configurationNotifierProvider).gender =
-          genderChecking(state.groupButtonController.selectedIndex);
-      NavigationService.goBack();
-    } else {}
+      if (userrepo != null) {
+        userrepo
+            .updateUserGenderToFireStore(
+                genderChecking(state.groupButtonController.selectedIndex))
+            .then((value) {
+          if (value) {
+            ref.watch(configurationNotifierProvider).gender =
+                genderChecking(state.groupButtonController.selectedIndex);
+            NavigationService.goBack();
+          } else {
+            Fluttertoast.showToast(msg: "Choose gender!");
+          }
+        });
+      } else {
+        Fluttertoast.showToast(msg: "Try again later!");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Choose gender!");
+    }
   }
 
   void navigationBack() {
