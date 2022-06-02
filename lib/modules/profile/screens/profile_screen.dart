@@ -1,29 +1,36 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/screens/profile_tab_2.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/screens/profile_tab_3.dart';
 
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 
 import '../components/profile_widget.dart';
+import '../configuration_screen/viewmodels/configuration_view_models.dart';
 import 'profile_tab_1.dart';
+import 'viewmodels/profile_view_models.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
   @override
-  ProfileScreenState createState() => ProfileScreenState();
-}
-
-class ProfileScreenState extends State<ProfileScreen>
-    with TickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 3, vsync: this);
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref
+        .watch(configurationNotifierProvider.notifier)
+        .getFirstNameFromFireStore();
+    ref
+        .watch(configurationNotifierProvider.notifier)
+        .getLastNameFromFireStore();
+    ref
+        .watch(configurationNotifierProvider.notifier)
+        .getBirthDateFromFireStore();
+    ref.watch(configurationNotifierProvider.notifier).getGenderFromFireStore();
+    ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_2,
@@ -66,21 +73,33 @@ class ProfileScreenState extends State<ProfileScreen>
               ],
             ),
           ),
-          ProfileWidget(imagePath: T.imageProfilePath, onPressed: () {}),
+          ProfileWidget(
+            imagePath: T.imageProfilePath,
+            //ref.watch(profileNotifierProvider).imageURL,
+            onPressed: () {
+              ref
+                  .watch(profileNotifierProvider.notifier)
+                  .showImageSourceActionSheet(context);
+            },
+          ),
           SizedBox(
             height: S.dimens.defaultPadding_8,
           ),
           Column(
             children: [
               Text(
-                T.profileTextName,
+                ref
+                    .watch(profileNotifierProvider.notifier)
+                    .setUserFirstNameFromFireStore(),
                 style: S.textStyles.h3,
               ),
               SizedBox(
                 height: S.dimens.defaultPadding_4,
               ),
               Text(
-                T.profileTextEmail,
+                ref
+                    .watch(profileNotifierProvider.notifier)
+                    .setUserEmailFromFireStore(),
                 style: S.textStyles.titleLight,
               )
             ],
@@ -110,7 +129,7 @@ class ProfileScreenState extends State<ProfileScreen>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       ReviewWidget(
@@ -125,7 +144,7 @@ class ProfileScreenState extends State<ProfileScreen>
                         name: T.profileDonated,
                         point: '22',
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
@@ -140,48 +159,12 @@ class ProfileScreenState extends State<ProfileScreen>
               ],
             ),
           ),
-          Container(
-            child: TabBar(
-              unselectedLabelColor: S.colors.gray_3,
-              unselectedLabelStyle: S.textStyles.titleHeavy,
-              labelColor: S.colors.primary,
-              labelStyle: S.textStyles.titleHeavy,
-              indicatorColor: S.colors.primary,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorPadding: EdgeInsets.all(8.0),
-              indicatorWeight: 2.5,
-              controller: _tabController,
-              tabs: [
-                Tab(
-                  text: T.profileTabText1,
-                ),
-                Tab(
-                  text: T.profileTabText2,
-                  // icon: Icon(
-                  //   Icons.reviews,
-                  //   color: S.colors.primary,
-                  // ),
-                ),
-                Tab(
-                  text: T.profileTabText3,
-                  // icon: Icon(
-                  //   Icons.mail,
-                  //   color: S.colors.primary,
-                  // ),
-                )
-              ],
-            ),
+          SizedBox(
+            height: S.dimens.defaultPaddingVertical_16,
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                ProfileTab1(),
-                ProfileTab2(),
-                ProfileTab3(),
-              ],
-            ),
-          )
+          const Expanded(
+            child: ProfileTab1(),
+          ),
         ],
       ),
     ));

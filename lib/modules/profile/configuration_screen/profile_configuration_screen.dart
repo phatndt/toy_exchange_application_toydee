@@ -33,17 +33,6 @@ class ProfileConfigurationScreen extends ConsumerWidget {
   List<String> names = ['1', '2'];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref
-        .watch(configurationNotifierProvider.notifier)
-        .getFirstNameFromFireStore();
-    ref
-        .watch(configurationNotifierProvider.notifier)
-        .getLastNameFromFireStore();
-    ref
-        .watch(configurationNotifierProvider.notifier)
-        .getBirthDateFromFireStore();
-    ref.watch(configurationNotifierProvider.notifier).getGenderFromFireStore();
-    ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
@@ -261,7 +250,9 @@ class ProfileConfigurationScreen extends ConsumerWidget {
               ProfileConfigurationItem(
                 icon: FontAwesomeIcons.locationDot,
                 label: T.proConLabelAddress,
-                information: ref.watch(configurationNotifierProvider).address,
+                information: ref
+                    .watch(configurationNotifierProvider.notifier)
+                    .setUserAddressFromFireStore(),
                 press: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationTextChanging(

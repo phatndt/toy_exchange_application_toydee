@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -149,7 +150,6 @@ class UserRepo {
         .then((value) => check = !check)
         .catchError((onError) {
           Fluttertoast.showToast(msg: onError.toString());
-          print(onError.toString());
           return check;
         });
     return check;
@@ -217,7 +217,7 @@ class UserRepo {
     String result = '';
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(userModel!.id)
         .get()
         .then(
       (value) {
@@ -271,5 +271,31 @@ class UserRepo {
       Fluttertoast.showToast(msg: onError.toString());
     });
     return result;
+  }
+
+  Future<String> getUserEmailFromFireStore() async {
+    String result = '';
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then(
+      (value) {
+        if (value.data() != null) {
+          result = value.get("email");
+        } else {
+          result = '';
+        }
+      },
+    ).catchError((onError) {
+      Fluttertoast.showToast(msg: onError.toString());
+    });
+    return result;
+  }
+
+  Future uploadImageToStorage(String imagePath) async {
+    final path =
+        'avatarURL/${FirebaseAuth.instance.currentUser!.uid}/${imagePath}';
+    final file = File(imagePath);
   }
 }
