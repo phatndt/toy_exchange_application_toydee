@@ -104,10 +104,9 @@ class UserModel {
   //     phone: phone ?? this.phone,
   //   );
   // }
-
   @override
   String toString() {
     // TODO: implement toString
-    return createDate.toString();
+    return id + " " + email + " " + username!;
   }
 }

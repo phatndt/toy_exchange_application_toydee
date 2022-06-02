@@ -2,11 +2,13 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_form_field.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/viewmodels/tesst.dart';
+import 'package:toy_exchange_application_toydee/modules/home/view_models/home_view_model.dart';
 
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
@@ -175,6 +177,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       R.images.homeSwiper_2,
       R.images.homeSwiper_3,
     ];
+
     TabController tabController = TabController(length: 2, vsync: this);
     if (MediaQuery.of(context).viewInsets.bottom == 0) {
       myFocusNode.unfocus();
@@ -387,193 +390,127 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       children: [
                         RefreshIndicator(
                           onRefresh: () async {},
-                          child: GridView.builder(
-                            itemCount: 10,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: S.dimens.defaultPadding_4,
-                              mainAxisSpacing: S.dimens.defaultPadding_4,
-                              childAspectRatio: 0.725,
-                            ),
-                            itemBuilder: (context, index) => Card(
-                              elevation: 0.3,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  S.dimens.defaultBorderRadius,
-                                ),
-                              ),
-                              color: S.colors.background_1,
-                              child: InkWell(
-                                onTap: () {
-                                  NavigationService.push(
-                                    page: RoutePaths.toyDetailScreen,
-                                    isNamed: true,
-                                  );
-                                },
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: ScreenUtil().scaleHeight * 180,
-                                      child: Image.asset(R.images.homeToy_1),
-                                    ),
-                                    SizedBox(
-                                      height: S.dimens.defaultPadding_8,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: S.dimens.defaultPadding_4),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width:
-                                                ScreenUtil().scaleWidth * 110,
-                                            child: Text(
-                                              "Helicoptersdsdsdádasdadasdassdsd",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: S.textStyles
-                                                  .titleHeavyBoldPrimary,
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 50.w,
-                                            height: 40.h,
-                                            decoration: BoxDecoration(
-                                              color: S.colors.accent_5,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(
-                                                  S.dimens.defaultPadding_16,
-                                                ),
-                                                bottomLeft: Radius.circular(
-                                                  S.dimens.defaultPadding_16,
-                                                ),
-                                              ),
-                                            ),
-                                            child: Icon(
-                                              FontAwesomeIcons.retweet,
-                                              color: S.colors.primary,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: S.dimens.defaultPadding_4,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              S.dimens.defaultPadding_4),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Icon(
-                                            FontAwesomeIcons.faceSmile,
-                                            size: 20.w,
-                                          ),
-                                          Text(
-                                            "15 Km",
-                                            overflow: TextOverflow.ellipsis,
-                                            style:
-                                                S.textStyles.titleHeavyPrimary,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: S.dimens.defaultPadding_4,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          child: Text(""),
+                          // child: GridView.builder(
+                          //   itemCount: 10,
+                          //   gridDelegate:
+                          //       SliverGridDelegateWithFixedCrossAxisCount(
+                          //     crossAxisCount: 2,
+                          //     crossAxisSpacing: S.dimens.defaultPadding_4,
+                          //     mainAxisSpacing: S.dimens.defaultPadding_4,
+                          //     childAspectRatio: 0.725,
+                          //   ),
+                          //   itemBuilder: (context, index) => Card(
+                          //     elevation: 0.3,
+                          //     shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(
+                          //         S.dimens.defaultBorderRadius,
+                          //       ),
+                          //     ),
+                          //     color: S.colors.background_1,
+                          //     child: InkWell(
+                          //       onTap: () {
+                          //         NavigationService.push(
+                          //           page: RoutePaths.toyDetailScreen,
+                          //           isNamed: true,
+                          //         );
+                          //       },
+                          //       child: Column(
+                          //         children: [
+                          //           SizedBox(
+                          //             height: ScreenUtil().scaleHeight * 180,
+                          //             child: Image.asset(R.images.homeToy_1),
+                          //           ),
+                          //           SizedBox(
+                          //             height: S.dimens.defaultPadding_8,
+                          //           ),
+                          //           Padding(
+                          //             padding: EdgeInsets.only(
+                          //                 left: S.dimens.defaultPadding_4),
+                          //             child: Row(
+                          //               mainAxisAlignment:
+                          //                   MainAxisAlignment.spaceBetween,
+                          //               children: [
+                          //                 SizedBox(
+                          //                   width:
+                          //                       ScreenUtil().scaleWidth * 110,
+                          //                   child: Text(
+                          //                     "Helicoptersdsdsdádasdadasdassdsd",
+                          //                     overflow: TextOverflow.ellipsis,
+                          //                     style: S.textStyles
+                          //                         .titleHeavyBoldPrimary,
+                          //                   ),
+                          //                 ),
+                          //                 Container(
+                          //                   width: 50.w,
+                          //                   height: 40.h,
+                          //                   decoration: BoxDecoration(
+                          //                     color: S.colors.accent_5,
+                          //                     borderRadius: BorderRadius.only(
+                          //                       topLeft: Radius.circular(
+                          //                         S.dimens.defaultPadding_16,
+                          //                       ),
+                          //                       bottomLeft: Radius.circular(
+                          //                         S.dimens.defaultPadding_16,
+                          //                       ),
+                          //                     ),
+                          //                   ),
+                          //                   child: Icon(
+                          //                     FontAwesomeIcons.retweet,
+                          //                     color: S.colors.primary,
+                          //                   ),
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //           SizedBox(
+                          //             height: S.dimens.defaultPadding_4,
+                          //           ),
+                          //           Padding(
+                          //             padding: EdgeInsets.symmetric(
+                          //                 horizontal:
+                          //                     S.dimens.defaultPadding_4),
+                          //             child: Row(
+                          //               mainAxisAlignment:
+                          //                   MainAxisAlignment.spaceBetween,
+                          //               children: [
+                          //                 Icon(
+                          //                   FontAwesomeIcons.faceSmile,
+                          //                   size: 20.w,
+                          //                 ),
+                          //                 Text(
+                          //                   "15 Km",
+                          //                   overflow: TextOverflow.ellipsis,
+                          //                   style:
+                          //                       S.textStyles.titleHeavyPrimary,
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           ),
+                          //           SizedBox(
+                          //             height: S.dimens.defaultPadding_4,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
-                        GridView.builder(
-                          itemCount: 10,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: S.dimens.defaultPadding_4,
-                            mainAxisSpacing: S.dimens.defaultPadding_4,
-                            childAspectRatio: 0.6,
-                          ),
-                          itemBuilder: (context, index) => Card(
-                            elevation: 0.3,
-                            color: S.colors.background_1,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: ScreenUtil().scaleHeight * 180,
-                                  child: Image.asset(R.images.homeToy_1),
-                                ),
-                                SizedBox(
-                                  height: S.dimens.defaultPadding_8,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: S.dimens.defaultPadding_4),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: ScreenUtil().scaleWidth * 110,
-                                        child: Text(
-                                          "Helicoptersdsdsdádasdadasdassdsd",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: S
-                                              .textStyles.titleHeavyBoldPrimary,
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 50.w,
-                                        height: 40.h,
-                                        decoration: BoxDecoration(
-                                          color: S.colors.accent_5,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                              S.dimens.defaultPadding_16,
-                                            ),
-                                            bottomLeft: Radius.circular(
-                                              S.dimens.defaultPadding_16,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Icon(
-                                          FontAwesomeIcons.retweet,
-                                          color: S.colors.primary,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: S.dimens.defaultPadding_4),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Icon(FontAwesomeIcons.faceSmile),
-                                      SizedBox(
-                                        width: ScreenUtil().scaleWidth * 110,
-                                        child: Text(
-                                          "dsdsd",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: S
-                                              .textStyles.titleHeavyBoldPrimary,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                        Consumer(
+                          builder: (BuildContext context, WidgetRef ref,
+                              Widget? child) {
+                            final future = ref.watch(swapToysProvider);
+                            return RefreshIndicator(
+                                onRefresh: () async {},
+                                child: future.when(
+                                    data: (data) {
+                                      return Text("data");
+                                    },
+                                    error: (e, stack) {
+                                      return Text(e.toString());
+                                    },
+                                    loading: () => Text("loading")));
+                          },
                         ),
                       ],
                     ),
@@ -593,3 +530,199 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 }
+
+// child: GridView.builder(
+//                             itemCount: 10,
+//                             gridDelegate:
+//                                 SliverGridDelegateWithFixedCrossAxisCount(
+//                               crossAxisCount: 2,
+//                               crossAxisSpacing: S.dimens.defaultPadding_4,
+//                               mainAxisSpacing: S.dimens.defaultPadding_4,
+//                               childAspectRatio: 0.725,
+//                             ),
+//                             itemBuilder: (context, index) => Card(
+//                               elevation: 0.3,
+//                               shape: RoundedRectangleBorder(
+//                                 borderRadius: BorderRadius.circular(
+//                                   S.dimens.defaultBorderRadius,
+//                                 ),
+//                               ),
+//                               color: S.colors.background_1,
+//                               child: InkWell(
+//                                 onTap: () {
+//                                   NavigationService.push(
+//                                     page: RoutePaths.toyDetailScreen,
+//                                     isNamed: true,
+//                                   );
+//                                 },
+//                                 child: Column(
+//                                   children: [
+//                                     SizedBox(
+//                                       height: ScreenUtil().scaleHeight * 180,
+//                                       child: Image.asset(R.images.homeToy_1),
+//                                     ),
+//                                     SizedBox(
+//                                       height: S.dimens.defaultPadding_8,
+//                                     ),
+//                                     Padding(
+//                                       padding: EdgeInsets.only(
+//                                           left: S.dimens.defaultPadding_4),
+//                                       child: Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.spaceBetween,
+//                                         children: [
+//                                           SizedBox(
+//                                             width:
+//                                                 ScreenUtil().scaleWidth * 110,
+//                                             child: Text(
+//                                               "Helicoptersdsdsdádasdadasdassdsd",
+//                                               overflow: TextOverflow.ellipsis,
+//                                               style: S.textStyles
+//                                                   .titleHeavyBoldPrimary,
+//                                             ),
+//                                           ),
+//                                           Container(
+//                                             width: 50.w,
+//                                             height: 40.h,
+//                                             decoration: BoxDecoration(
+//                                               color: S.colors.accent_5,
+//                                               borderRadius: BorderRadius.only(
+//                                                 topLeft: Radius.circular(
+//                                                   S.dimens.defaultPadding_16,
+//                                                 ),
+//                                                 bottomLeft: Radius.circular(
+//                                                   S.dimens.defaultPadding_16,
+//                                                 ),
+//                                               ),
+//                                             ),
+//                                             child: Icon(
+//                                               FontAwesomeIcons.retweet,
+//                                               color: S.colors.primary,
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ),
+//                                     SizedBox(
+//                                       height: S.dimens.defaultPadding_4,
+//                                     ),
+//                                     Padding(
+//                                       padding: EdgeInsets.symmetric(
+//                                           horizontal:
+//                                               S.dimens.defaultPadding_4),
+//                                       child: Row(
+//                                         mainAxisAlignment:
+//                                             MainAxisAlignment.spaceBetween,
+//                                         children: [
+//                                           Icon(
+//                                             FontAwesomeIcons.faceSmile,
+//                                             size: 20.w,
+//                                           ),
+//                                           Text(
+//                                             "15 Km",
+//                                             overflow: TextOverflow.ellipsis,
+//                                             style:
+//                                                 S.textStyles.titleHeavyPrimary,
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ),
+//                                     SizedBox(
+//                                       height: S.dimens.defaultPadding_4,
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+
+// RefreshIndicator(
+//                               onRefresh: () async {},
+//                               child: GridView.builder(
+//                                 itemCount: 10,
+//                                 gridDelegate:
+//                                     SliverGridDelegateWithFixedCrossAxisCount(
+//                                   crossAxisCount: 2,
+//                                   crossAxisSpacing: S.dimens.defaultPadding_4,
+//                                   mainAxisSpacing: S.dimens.defaultPadding_4,
+//                                   childAspectRatio: 0.6,
+//                                 ),
+//                                 itemBuilder: (context, index) => Card(
+//                                   elevation: 0.3,
+//                                   color: S.colors.background_1,
+//                                   child: Column(
+//                                     children: [
+//                                       SizedBox(
+//                                         height: ScreenUtil().scaleHeight * 180,
+//                                         child: Image.asset(R.images.homeToy_1),
+//                                       ),
+//                                       SizedBox(
+//                                         height: S.dimens.defaultPadding_8,
+//                                       ),
+//                                       Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: S.dimens.defaultPadding_4),
+//                                         child: Row(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.spaceBetween,
+//                                           children: [
+//                                             SizedBox(
+//                                               width:
+//                                                   ScreenUtil().scaleWidth * 110,
+//                                               child: Text(
+//                                                 "Helicoptersdsdsdádasdadasdassdsd",
+//                                                 overflow: TextOverflow.ellipsis,
+//                                                 style: S.textStyles
+//                                                     .titleHeavyBoldPrimary,
+//                                               ),
+//                                             ),
+//                                             Container(
+//                                               width: 50.w,
+//                                               height: 40.h,
+//                                               decoration: BoxDecoration(
+//                                                 color: S.colors.accent_5,
+//                                                 borderRadius: BorderRadius.only(
+//                                                   topLeft: Radius.circular(
+//                                                     S.dimens.defaultPadding_16,
+//                                                   ),
+//                                                   bottomLeft: Radius.circular(
+//                                                     S.dimens.defaultPadding_16,
+//                                                   ),
+//                                                 ),
+//                                               ),
+//                                               child: Icon(
+//                                                 FontAwesomeIcons.retweet,
+//                                                 color: S.colors.primary,
+//                                               ),
+//                                             ),
+//                                           ],
+//                                         ),
+//                                       ),
+//                                       Padding(
+//                                         padding: EdgeInsets.symmetric(
+//                                             horizontal:
+//                                                 S.dimens.defaultPadding_4),
+//                                         child: Row(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.spaceBetween,
+//                                           children: [
+//                                             const Icon(
+//                                                 FontAwesomeIcons.faceSmile),
+//                                             SizedBox(
+//                                               width:
+//                                                   ScreenUtil().scaleWidth * 110,
+//                                               child: Text(
+//                                                 "dsdsd",
+//                                                 overflow: TextOverflow.ellipsis,
+//                                                 style: S.textStyles
+//                                                     .titleHeavyBoldPrimary,
+//                                               ),
+//                                             ),
+//                                           ],
+//                                         ),
+//                                       )
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
+//                             );

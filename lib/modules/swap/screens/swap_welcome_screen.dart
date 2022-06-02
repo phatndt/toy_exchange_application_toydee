@@ -98,7 +98,6 @@ class SwapWelcomeScreen extends StatelessWidget {
                   page: RoutePaths.swapScreenMain,
                   isNamed: true,
                 );
-
                 // LocationPermission permission;
 
                 // permission = await Geolocator.checkPermission();
@@ -109,8 +108,10 @@ class SwapWelcomeScreen extends StatelessWidget {
                 //     return Future.error('Location Permissions are denied');
                 //   }
                 // }
-                // Position position = await Geolocator.getCurrentPosition();
-                // log('1');
+
+                
+                // Position position = await Geolocator.getCurrentPosition(
+                //     desiredAccuracy: LocationAccuracy.high);
                 // List<Placemark> placemarks = await placemarkFromCoordinates(
                 //     position.latitude, position.longitude);
                 // Placemark place = placemarks[0];
@@ -119,7 +120,6 @@ class SwapWelcomeScreen extends StatelessWidget {
                 //     place.locality! +
                 //     place.administrativeArea! +
                 //     place.country!);
-                // log('2');
               },
             ),
           ),

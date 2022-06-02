@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/Toast.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -24,6 +26,8 @@ class RegisterSetting {
   FocusNode repeatPasswordFocusNode = FocusNode();
   FocusNode usernameFocusNode = FocusNode();
 
+  bool isLoadingSignUp = false;
+
   RegisterSetting({
     required this.isVisiblePassword,
     required this.isVisibleRepeatPassword,
@@ -32,6 +36,7 @@ class RegisterSetting {
     required this.repeatPasswordController,
     required this.phoneController,
     required this.usernameController,
+    this.isLoadingSignUp = false,
   });
 
   RegisterSetting copy({
@@ -42,9 +47,10 @@ class RegisterSetting {
     TextEditingController? repeatPasswordController,
     TextEditingController? phoneController,
     TextEditingController? usernameController,
+    bool? isLoadingSignUp,
   }) =>
       RegisterSetting(
-        isVisiblePassword: isVisiblePassword ?? !this.isVisiblePassword,
+        isVisiblePassword: isVisiblePassword ?? this.isVisiblePassword,
         isVisibleRepeatPassword:
             isVisibleRepeatPassword ?? this.isVisibleRepeatPassword,
         emailController: emailController ?? this.emailController,
@@ -53,6 +59,7 @@ class RegisterSetting {
             repeatPasswordController ?? this.repeatPasswordController,
         phoneController: phoneController ?? this.phoneController,
         usernameController: usernameController ?? this.usernameController,
+        isLoadingSignUp: isLoadingSignUp ?? this.isLoadingSignUp,
       );
 
   void clearEmail() {
@@ -110,6 +117,33 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     state.clearUsername();
   }
 
+  void updateLoadingSignUp() {
+    final newState = state.copy(isLoadingSignUp: !state.isLoadingSignUp);
+    state = newState;
+  }
+
+  checkExistUserInformation(
+    BuildContext context, {
+    required String email,
+    required String userName,
+    required String password,
+  }) async {
+    CustomToast.fToast.init(context);
+    updateLoadingSignUp();
+    _authRepo.checkExistUserInformation(email, userName).then(
+      (value) {
+        if (value != null) {
+          if (!value) {
+            signUpWithEmailAndPassword(context,
+                email: email, userName: userName, password: password);
+          } else {
+            updateLoadingSignUp();
+          }
+        }
+      },
+    );
+  }
+
   signUpWithEmailAndPassword(
     BuildContext context, {
     required String email,
@@ -117,15 +151,18 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     required String password,
   }) async {
     NavigationService.removeAllFocus();
-    final _result = await _authRepo.signUpWithEmailAndPassword(
+    _authRepo
+        .signUpWithEmailAndPassword(
       email: email,
       password: password,
+    )
+        .then(
+      (value) {
+        if (value != null) {
+          submitSignUp(context, value, email, userName);
+        }
+      },
     );
-
-    if (_result != null) {
-      UserModel userModel = _result;
-      await submitSignUp(context, userModel, email, userName);
-    }
   }
 
   Future submitSignUp(
@@ -141,27 +178,21 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
       uuid: userModel.id,
     )
         .then(((value) {
-      if (value != null) {
-        if (value) {
-          navigationToMainScreen(context);
-        }
+      if (value) {
+        navigationToMainScreen(context);
+      } else {
+        updateLoadingSignUp();
+        Fluttertoast.showToast(msg: "Please try later!");
       }
     }));
   }
 
   navigationToMainScreen(BuildContext context) {
+    updateLoadingSignUp();
     NavigationService.pushReplacementAll(
       isNamed: true,
       page: RoutePaths.mainScreen,
     );
-  }
-
-  checkExistUserInformation({
-    required String email,
-    required String userName,
-  }) async {
-    final _result = await _authRepo.checkExistUserInformation(email, userName);
-    return _result;
   }
 
   String? phoneNumber(text) {

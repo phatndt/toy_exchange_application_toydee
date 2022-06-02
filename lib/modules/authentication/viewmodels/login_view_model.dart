@@ -4,10 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
+import 'package:toy_exchange_application_toydee/core/styles/styles.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
 
 import '../../../core/routing/navigation_service.dart';
+import '../../../core/widgets/Toast.dart';
 import '../repos/auth_repo.dart';
 
 class LoginSetting {
@@ -103,6 +106,11 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
   }) async {
     updateLoadingLogin();
     NavigationService.removeAllFocus();
+    CustomToast.fToast.init(context);
+    // CustomToast.fToast.showToast(
+    //     gravity: ToastGravity.TOP,
+    //     child: const CustomToastBuilder(
+    //         msg: "Here", icon: FontAwesomeIcons.exclamation));
     await _authRepo
         .signInWithEmailAndPassword(email: email, password: password)
         .then(
@@ -111,14 +119,20 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
           if (value.user != null && value.user!.emailVerified) {
             _authRepo.sendEmailVerification(value).then(
               (value) {
-                if (value == true) {
+                if (value) {
                   updateLoadingLogin();
-                  Fluttertoast.showToast(msg: "Please verify your mail!");
-                  log("verify email");
+                  Fluttertoast.showToast(
+                    msg: "Please verify your mail!",
+                    backgroundColor: S.colors.primary,
+                    textColor: S.colors.textColor_1,
+                  );
                 } else {
                   updateLoadingLogin();
-                  Fluttertoast.showToast(msg: "Please try later!");
-                  log("verify email error");
+                  Fluttertoast.showToast(
+                    msg: "Please try later!",
+                    backgroundColor: S.colors.primary,
+                    textColor: S.colors.textColor_1,
+                  );
                 }
               },
             );
@@ -127,19 +141,15 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
               if (value) {
                 updateLoadingLogin();
                 navigationToMainScreen(context);
-                log("get user profile ok");
                 log(_userRepo.userModel.toString());
               } else {
                 updateLoadingLogin();
                 Fluttertoast.showToast(msg: "Please try later!");
-
-                log("get user profile error");
               }
             });
           }
         } else {
           updateLoadingLogin();
-          Fluttertoast.showToast(msg: "Please try later!");
         }
       },
     );

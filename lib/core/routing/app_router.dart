@@ -218,7 +218,7 @@ class AppRouter {
 
       default:
         return MaterialPageRoute(
-          builder: (_) => const SplashScreen(),
+          builder: (_) => const OnBoarding1(),
           settings: settings,
         );
     }

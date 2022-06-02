@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/Toast.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 
@@ -317,19 +319,19 @@ class SwapFilterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int _index = 0;
+    // int _index = 0;
 
-    void minusIndex() {
-      // setState(() {
-      //   _index <= 0 ? _index = 0 : _index--;
-      // });
-    }
+    // void minusIndex() {
+    //   // setState(() {
+    //   //   _index <= 0 ? _index = 0 : _index--;
+    //   // });
+    // }
 
-    void plusIndex() {
-      // setState(() {
-      //   _index++;
-      // });
-    }
+    // void plusIndex() {
+    //   // setState(() {
+    //   //   _index++;
+    //   // });
+    // }
 
     return SafeArea(
       child: Scaffold(
@@ -481,52 +483,52 @@ class SwapFilterScreen extends ConsumerWidget {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_16,
-                      ),
-                      Text(
-                        T.filterPriceRange,
-                        style: S.textStyles.h4,
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_8,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(100)),
-                          color: S.colors.background_1,
-                        ),
-                        padding: EdgeInsets.zero,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              onPressed: minusIndex,
-                              child: const Icon(FontAwesomeIcons.minus),
-                              style: ElevatedButton.styleFrom(
-                                elevation: 2.0,
-                                shape: const CircleBorder(),
-                                primary: S.colors.accent_5,
-                                onPrimary: S.colors.primary,
-                              ),
-                            ),
-                            Text(
-                              '$_index',
-                              style: S.textStyles.titleHeavy,
-                            ),
-                            ElevatedButton(
-                              onPressed: plusIndex,
-                              child: const Icon(FontAwesomeIcons.plus),
-                              style: ElevatedButton.styleFrom(
-                                elevation: 2.0,
-                                shape: const CircleBorder(),
-                                primary: S.colors.accent_5,
-                                onPrimary: S.colors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: S.dimens.defaultPadding_16,
+                      // ),
+                      // Text(
+                      //   T.filterPriceRange,
+                      //   style: S.textStyles.h4,
+                      // ),
+                      // SizedBox(
+                      //   height: S.dimens.defaultPadding_8,
+                      // ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.all(Radius.circular(100)),
+                      //     color: S.colors.background_1,
+                      //   ),
+                      //   padding: EdgeInsets.zero,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       ElevatedButton(
+                      //         onPressed: minusIndex,
+                      //         child: const Icon(FontAwesomeIcons.minus),
+                      //         style: ElevatedButton.styleFrom(
+                      //           elevation: 2.0,
+                      //           shape: const CircleBorder(),
+                      //           primary: S.colors.accent_5,
+                      //           onPrimary: S.colors.primary,
+                      //         ),
+                      //       ),
+                      //       Text(
+                      //         '$_index',
+                      //         style: S.textStyles.titleHeavy,
+                      //       ),
+                      //       ElevatedButton(
+                      //         onPressed: plusIndex,
+                      //         child: const Icon(FontAwesomeIcons.plus),
+                      //         style: ElevatedButton.styleFrom(
+                      //           elevation: 2.0,
+                      //           shape: const CircleBorder(),
+                      //           primary: S.colors.accent_5,
+                      //           onPrimary: S.colors.primary,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Container(
                         alignment: Alignment.topRight,
                         padding: EdgeInsets.symmetric(
@@ -547,30 +549,38 @@ class SwapFilterScreen extends ConsumerWidget {
                           child: CustomButton(
                             text: T.filterApply,
                             onPressed: () {
-                              print("a" +
-                                  ref
+                              if (ref
                                       .watch(mainSwapSettingNotifierProvider)
                                       .groupButtonControllerCategories
                                       .selectedIndexes
-                                      .toString());
-                              print("b" +
+                                      .isEmpty ||
                                   ref
-                                      .watch(mainSwapSettingNotifierProvider)
-                                      .groupButtonControllerCondition
-                                      .selectedIndex
-                                      .toString());
-                              print("c" +
+                                          .watch(
+                                              mainSwapSettingNotifierProvider)
+                                          .groupButtonControllerCondition
+                                          .selectedIndex ==
+                                      null ||
                                   ref
-                                      .watch(mainSwapSettingNotifierProvider)
-                                      .groupButtonControllerCondition
-                                      .selectedIndex
-                                      .toString());
-                              print("d" +
+                                          .watch(
+                                              mainSwapSettingNotifierProvider)
+                                          .groupButtonControllerGenderType
+                                          .selectedIndex ==
+                                      null ||
                                   ref
-                                      .watch(mainSwapSettingNotifierProvider)
-                                      .groupButtonControllerAgeGroup
-                                      .selectedIndex
-                                      .toString());
+                                          .watch(
+                                              mainSwapSettingNotifierProvider)
+                                          .groupButtonControllerAgeGroup
+                                          .selectedIndex ==
+                                      null) {
+                                CustomToast.fToast.init(context);
+                                CustomToast.fToast.showToast(
+                                    gravity: ToastGravity.TOP,
+                                    child: const CustomToastBuilder(
+                                        msg: "Please select all filters",
+                                        icon: FontAwesomeIcons.exclamation));
+                              } else {
+                                NavigationService.goBack();
+                              }
                             },
                           ),
                         ),
