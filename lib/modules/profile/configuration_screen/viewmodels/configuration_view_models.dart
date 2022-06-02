@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:group_button/group_button.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
@@ -11,7 +12,7 @@ class ConfigurationSetting {
   String email;
   String password;
   String phone;
-  String address;
+  Address address;
   String gender;
   String firstname;
   String lastname;
@@ -34,7 +35,7 @@ class ConfigurationSetting {
     String? email,
     String? password,
     String? phone,
-    String? address,
+    Address? address,
     String? datetime,
     String? gender,
     DateTime? initialDateTime,
@@ -62,7 +63,8 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
             email: '',
             password: '',
             phone: '',
-            address: '',
+            address: Address(
+                address: '', detailAddress: '', latitude: '', longitude: ''),
             firstname: '',
             lastname: '',
             datetime: '',
@@ -73,7 +75,7 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
   }
 
   final Ref ref;
-  UserRepo? _userRepo;
+  late UserRepo _userRepo;
 
   //   void updatePasswordVisible() {
   //   final newState = state.copy(isVisiblePassword: !state.isVisiblePassword);
@@ -86,7 +88,7 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
   }
 
   void getFirstNameFromFireStore() {
-    _userRepo!.getUserFirstNameFromFireStore().then((value) {
+    _userRepo.getUserFirstNameFromFireStore().then((value) {
       if (value != '') {
         updateFirstNames(value);
       } else {
@@ -96,7 +98,7 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
   }
 
   void getLastNameFromFireStore() {
-    _userRepo!.getUserLastNameFromFireStore().then((value) {
+    _userRepo.getUserLastNameFromFireStore().then((value) {
       if (value != '') {
         updateLastNames(value);
       } else {
@@ -105,8 +107,16 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
     });
   }
 
+  String setUserAddressFromFireStore() {
+    return _userRepo.userModel!.address!.address;
+  }
+
+  String setUserEmailFromFireStore() {
+    return _userRepo.userModel!.email;
+  }
+
   void getPhoneFromFireStore() {
-    _userRepo!.getUserPhoneFromFireStore().then((value) {
+    _userRepo.getUserPhoneFromFireStore().then((value) {
       if (value != '') {
         updatePhone(value);
       } else {
@@ -116,7 +126,7 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
   }
 
   void getBirthDateFromFireStore() {
-    _userRepo!.getUserBirthDateFromFireStore().then((value) {
+    _userRepo.getUserBirthDateFromFireStore().then((value) {
       if (value != '') {
         updateBirth(value);
       } else {
@@ -126,7 +136,7 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
   }
 
   void getGenderFromFireStore() {
-    _userRepo!.getUserGenderFromFireStore().then((value) {
+    _userRepo.getUserGenderFromFireStore().then((value) {
       if (value != '') {
         updateGender(value);
       } else {
@@ -136,7 +146,7 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
   }
 
   void datetoFireStore(String birth) {
-    _userRepo!.updateUserBirthDateToFireStore(birth).then((value) {
+    _userRepo.updateUserBirthDateToFireStore(birth).then((value) {
       if (value) {
       } else {
         Fluttertoast.showToast(msg: "Please try later!");

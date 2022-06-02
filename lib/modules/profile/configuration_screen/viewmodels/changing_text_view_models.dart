@@ -140,7 +140,7 @@ class ConfigurationChangingTextNotifier
       _userRepo.updateUserAddressToFireStore(address).then((value) {
         if (value) {
           NavigationService.goBack();
-          ref.watch(configurationNotifierProvider).address =
+          ref.watch(configurationNotifierProvider).address.address =
               state.addressEditingController.text;
         } else {
           Fluttertoast.showToast(msg: "Please try later!");
