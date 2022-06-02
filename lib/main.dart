@@ -54,6 +54,7 @@ class Toydee extends StatelessWidget {
         ),
         navigatorKey: NavigationService.navigationKey,
         debugShowCheckedModeBanner: false,
+
         initialRoute: RoutePaths.login,
         onGenerateRoute: AppRouter.generateRoute,
         // initialRoute: initScreen == 0 || initScreen == null
