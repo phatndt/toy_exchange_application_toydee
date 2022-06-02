@@ -15,30 +15,27 @@ class CustomTextOuntlineButton extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_32),
-      child: SizedBox(
-        height: 50,
-        width: width,
-        child: OutlinedButton(
-          onPressed: onPressed,
-          style: OutlinedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(S.dimens.defaultBorderRadius),
-              ),
+    return SizedBox(
+      height: 50,
+      width: width,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(S.dimens.defaultBorderRadius),
             ),
-            side: BorderSide(
-              width: 2.0,
-              color: S.colors.primary,
-            ),
-            primary: S.colors.gray_2,
           ),
-          child: Center(
-            child: Text(
-              text,
-              style: S.textStyles.h4,
-            ),
+          side: BorderSide(
+            width: 2.0,
+            color: S.colors.primary,
+          ),
+          primary: S.colors.gray_2,
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: S.textStyles.h4,
           ),
         ),
       ),
