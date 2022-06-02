@@ -1,8 +1,8 @@
 class Address {
-  final String address;
-  final String detailAddress;
-  final String latitude;
-  final String longitude;
+  String address;
+  String detailAddress;
+  String latitude;
+  String longitude;
 
   Address({
     required this.address,

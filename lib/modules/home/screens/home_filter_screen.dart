@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
+import 'package:toy_exchange_application_toydee/modules/home/viewmodels/home_filter_view_model.dart';
 
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 
-final _groupButtonController1 = GroupButtonController();
-final _groupButtonController2 = GroupButtonController();
-final _groupButtonController3 = GroupButtonController();
-final _groupButtonController4 = GroupButtonController();
-
-class HomeFilterScreen extends StatelessWidget {
+class HomeFilterScreen extends ConsumerWidget {
   const HomeFilterScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
           backgroundColor: S.colors.background_1,
@@ -53,8 +50,9 @@ class HomeFilterScreen extends StatelessWidget {
                       text: FontAwesomeIcons.arrowLeft,
                       onPressed: () {
                         //print(ScreenUtil().scaleHeight * 55.79710144927537);
-                        NavigationService.push(
-                            isNamed: true, page: RoutePaths.mainScreen);
+                        ref
+                            .watch(homeFilterNotifierProvider.notifier)
+                            .navigationBack(context);
                       },
                     ),
                     SizedBox(
@@ -116,8 +114,14 @@ class HomeFilterScreen extends StatelessWidget {
                       height: S.dimens.defaultPadding_8,
                     ),
                     Center(
-                      child: buildGroupButton(T.listCategories, 150, false,
-                          _groupButtonController1),
+                      child: buildGroupButton(
+                        T.listCategories,
+                        150,
+                        false,
+                        ref
+                            .watch(homeFilterNotifierProvider)
+                            .groupButtonController1,
+                      ),
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_16,
@@ -135,8 +139,13 @@ class HomeFilterScreen extends StatelessWidget {
                       height: S.dimens.defaultPadding_8,
                     ),
                     Center(
-                        child: buildGroupButton(T.listCondition, 150, true,
-                            _groupButtonController2)),
+                        child: buildGroupButton(
+                            T.listCondition,
+                            150,
+                            true,
+                            ref
+                                .watch(homeFilterNotifierProvider)
+                                .groupButtonController2)),
                     SizedBox(
                       height: S.dimens.defaultPadding_16,
                     ),
@@ -154,7 +163,12 @@ class HomeFilterScreen extends StatelessWidget {
                     ),
                     Center(
                       child: buildGroupButton(
-                          T.listSuitable, 100, true, _groupButtonController3),
+                          T.listSuitable,
+                          100,
+                          true,
+                          ref
+                              .watch(homeFilterNotifierProvider)
+                              .groupButtonController3),
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_16,
@@ -174,7 +188,9 @@ class HomeFilterScreen extends StatelessWidget {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: GroupButton(
-                          controller: _groupButtonController4,
+                          controller: ref
+                              .watch(homeFilterNotifierProvider)
+                              .groupButtonController4,
                           isRadio: true,
                           buttons: T.listAge,
                           options: GroupButtonOptions(
@@ -205,7 +221,9 @@ class HomeFilterScreen extends StatelessWidget {
                           horizontal: S.dimens.defaultPadding_16,
                           vertical: S.dimens.defaultPadding_8),
                       child: TextButton(
-                          onPressed: () => cleanFilters(),
+                          onPressed: ref
+                              .watch(homeFilterNotifierProvider.notifier)
+                              .clearFilter,
                           child: Text(
                             T.filterClean,
                             style: S.textStyles.titleLight,
@@ -220,7 +238,9 @@ class HomeFilterScreen extends StatelessWidget {
                               horizontal: S.dimens.defaultPadding_32),
                           child: CustomButton(
                             text: T.filterApply,
-                            onPressed: () {},
+                            onPressed: () => ref
+                                .watch(homeFilterNotifierProvider.notifier)
+                                .applyFilter(context),
                           ),
                         ),
                       ),
@@ -261,12 +281,5 @@ class HomeFilterScreen extends StatelessWidget {
         enableDeselect: true,
         buttons: list,
         onSelected: (index, isSelected) {});
-  }
-
-  void cleanFilters() {
-    _groupButtonController1.unselectAll();
-    _groupButtonController2.unselectAll();
-    _groupButtonController3.unselectAll();
-    _groupButtonController4.unselectAll();
   }
 }

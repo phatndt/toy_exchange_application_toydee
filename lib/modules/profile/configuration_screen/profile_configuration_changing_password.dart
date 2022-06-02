@@ -10,22 +10,36 @@ import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
-class ProfileConfigurationTextChanging extends ConsumerWidget {
-  final String label;
-  final String information;
+class ProfileConfigurationPasswordChanging extends ConsumerWidget {
+  final String label1, label2, label3;
+  final String oldPassword;
+  final String oldPasswordConfirm;
+  final String newPassword;
   final TextInputType? textInputType;
-  final TextEditingController textEditingController;
+  final TextEditingController oldPasswordEditingController;
+  final TextEditingController oldPasswordConfirmEditingController;
+  final TextEditingController newPasswordEditingController;
   final VoidCallback backPress;
   final VoidCallback savePress;
-  final VoidCallback clearPress;
-  ProfileConfigurationTextChanging({
+  final VoidCallback oldPasswordClearPress;
+  final VoidCallback oldPasswordConfirmClearPress;
+  final VoidCallback newPasswordClearPress;
+  ProfileConfigurationPasswordChanging({
     Key? key,
-    required this.label,
-    required this.information,
-    required this.textEditingController,
+    required this.label1,
+    required this.label2,
+    required this.label3,
+    required this.newPassword,
+    required this.oldPassword,
+    required this.oldPasswordConfirm,
+    required this.newPasswordEditingController,
+    required this.oldPasswordEditingController,
+    required this.oldPasswordConfirmEditingController,
     required this.backPress,
     required this.savePress,
-    required this.clearPress,
+    required this.oldPasswordClearPress,
+    required this.oldPasswordConfirmClearPress,
+    required this.newPasswordClearPress,
     this.textInputType,
   }) : super(key: key);
 
@@ -70,7 +84,7 @@ class ProfileConfigurationTextChanging extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    label,
+                    label1,
                     style: S.textStyles.h4,
                   ),
                   SizedBox(
@@ -79,11 +93,57 @@ class ProfileConfigurationTextChanging extends ConsumerWidget {
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: information,
-                      obscureText: false,
-                      controller: textEditingController,
+                      hintText: '',
+                      obscureText: true,
+                      controller: oldPasswordEditingController,
                       suffixIconData: GestureDetector(
-                        onTap: clearPress,
+                        onTap: oldPasswordClearPress,
+                        child: const Icon(FontAwesomeIcons.xmark),
+                      ),
+                      inputType: textInputType,
+                    ),
+                  ),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_32,
+                  ),
+                  Text(
+                    label2,
+                    style: S.textStyles.h4,
+                  ),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_16,
+                  ),
+                  Center(
+                    child: CustomTextFormField(
+                      height: 60,
+                      hintText: '',
+                      obscureText: true,
+                      controller: oldPasswordConfirmEditingController,
+                      suffixIconData: GestureDetector(
+                        onTap: oldPasswordConfirmClearPress,
+                        child: const Icon(FontAwesomeIcons.xmark),
+                      ),
+                      inputType: textInputType,
+                    ),
+                  ),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_32,
+                  ),
+                  Text(
+                    label3,
+                    style: S.textStyles.h4,
+                  ),
+                  SizedBox(
+                    height: S.dimens.defaultPadding_16,
+                  ),
+                  Center(
+                    child: CustomTextFormField(
+                      height: 60,
+                      hintText: '',
+                      obscureText: true,
+                      controller: newPasswordEditingController,
+                      suffixIconData: GestureDetector(
+                        onTap: newPasswordClearPress,
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
                       inputType: textInputType,

@@ -30,6 +30,6 @@ class RoutePaths {
   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
       '/profile_configuration_changing_text';
-  static const profileconfigurationchangingdate =
-      '/profile_configuration_changing_date';
+  static const profileconfigurationchanginggender =
+      '/profile_configuration_changing_gender';
 }

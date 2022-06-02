@@ -26,6 +26,9 @@ class T {
   static const proConScreenLabel = 'Configuration';
   static const proConLabelEmail = 'Email';
   static const proConLabelPassword = 'Password';
+  static const proConLabelOldPassword = 'Old password';
+  static const proConLabelOldPasswordConfirm = 'Confirm old password';
+  static const proConLabelNewPassword = 'New password';
   static const proConLabelBirth = 'Date of birth';
   static const proConLabelGender = 'Gender';
   static const proConLabelFirstName = 'First Name';

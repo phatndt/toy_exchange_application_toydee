@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_names_view_models.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/styles/styles.dart';
@@ -8,32 +10,29 @@ import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
-class ProfileConfigurationNamesChanging extends StatefulWidget {
+class ProfileConfigurationNamesChanging extends ConsumerWidget {
   final String label1, label2;
   final String information1, information2;
   final TextInputType? textInputType;
-  final List names;
-  const ProfileConfigurationNamesChanging({
+  final String firstName;
+  final String lastName;
+  final TextEditingController firstNameController;
+  final TextEditingController lastNameController;
+  ProfileConfigurationNamesChanging({
     Key? key,
     this.textInputType,
-    required this.names,
+    required this.firstName,
+    required this.lastName,
     required this.label1,
     required this.label2,
     required this.information1,
     required this.information2,
+    required this.lastNameController,
+    required this.firstNameController,
   }) : super(key: key);
 
   @override
-  State<ProfileConfigurationNamesChanging> createState() =>
-      _ProfileConfigurationNamesChangingState();
-}
-
-class _ProfileConfigurationNamesChangingState
-    extends State<ProfileConfigurationNamesChanging> {
-  TextEditingController e = TextEditingController();
-  TextEditingController f = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_1,
@@ -61,8 +60,10 @@ class _ProfileConfigurationNamesChangingState
                 text: FontAwesomeIcons.angleLeft,
                 color: S.colors.primary,
                 onPressed: () {
-                  NavigationService.goBack(
-                      result: [widget.information1, widget.information2]);
+                  ref
+                      .watch(
+                          configurationChangingNamesNotifierProvider.notifier)
+                      .navigationBack();
                 },
                 backgroundColor: S.colors.accent_5,
               ),
@@ -76,7 +77,7 @@ class _ProfileConfigurationNamesChangingState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.label1,
+                    label1,
                     style: S.textStyles.h4,
                   ),
                   SizedBox(
@@ -85,23 +86,23 @@ class _ProfileConfigurationNamesChangingState
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: widget.information1,
+                      hintText: information1,
                       obscureText: false,
-                      controller: e,
+                      controller: firstNameController,
                       suffixIconData: GestureDetector(
                         onTap: () {
-                          e.text = '';
+                          firstNameController.clear();
                         },
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
-                      inputType: widget.textInputType,
+                      inputType: textInputType,
                     ),
                   ),
                   SizedBox(
                     height: S.dimens.defaultPadding_16,
                   ),
                   Text(
-                    widget.label2,
+                    label2,
                     style: S.textStyles.h4,
                   ),
                   SizedBox(
@@ -110,16 +111,16 @@ class _ProfileConfigurationNamesChangingState
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: widget.information2,
+                      hintText: information2,
                       obscureText: false,
-                      controller: f,
+                      controller: lastNameController,
                       suffixIconData: GestureDetector(
                         onTap: () {
-                          f.text = '';
+                          lastNameController.clear();
                         },
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
-                      inputType: widget.textInputType,
+                      inputType: textInputType,
                     ),
                   ),
                   SizedBox(
@@ -129,8 +130,10 @@ class _ProfileConfigurationNamesChangingState
                     child: CustomButton(
                       text: T.proConfigurationSave,
                       onPressed: () {
-                        Navigator.of(context)
-                            .pop([e.text.toString(), f.text.toString()]);
+                        ref
+                            .watch(configurationChangingNamesNotifierProvider
+                                .notifier)
+                            .saveChanges();
                       },
                     ),
                   )

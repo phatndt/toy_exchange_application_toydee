@@ -123,20 +123,24 @@ class AppRouter {
         );
       case RoutePaths.profileconfiguration:
         return MaterialPageRoute(
-          builder: (_) => const ProfileConfigurationScreen(),
+          builder: (_) => ProfileConfigurationScreen(),
           settings: settings,
         );
       case RoutePaths.profileconfigurationchangingtext:
         return MaterialPageRoute(
-          builder: (_) => const ProfileConfigurationTextChanging(
+          builder: (_) => ProfileConfigurationTextChanging(
             label: '',
             information: '',
+            textEditingController: TextEditingController(),
+            savePress: () {},
+            backPress: () {},
+            clearPress: () {},
           ),
           settings: settings,
         );
-      case RoutePaths.profileconfigurationchangingdate:
+      case RoutePaths.profileconfigurationchanginggender:
         return MaterialPageRoute(
-          builder: (_) => const ProfileConfigurationGenderChanging(
+          builder: (_) => ProfileConfigurationGenderChanging(
             label: '',
             information: '',
           ),
