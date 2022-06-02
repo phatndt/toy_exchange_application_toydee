@@ -73,6 +73,9 @@ class CustomBottomAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(stateProvider);
+
+    int currentTab = 0;
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 10,
