@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:group_button/group_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
@@ -194,7 +195,7 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
     required int genderType,
     required int ageGroup,
     // required Address address,
-  }) {
+  }) async {
     Address address = Address(
       address: "1",
       detailAddress: "2",
@@ -209,6 +210,8 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
       ageGroup: ageGroup,
     );
 
+    List<String> images = [imagePathOne, imagePathTwo, imagePathThree];
+
     SwapToy swapToy = SwapToy(
       id: "",
       userId: _userRepo.userModel!.id,
@@ -216,10 +219,22 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
       description: description,
       location: address,
       toyType: toyType,
+      image: images,
+      createDate: DateTime.now(),
       isSwapped: false,
       isValid: true,
     );
-    _swapRepo.uploadSwapToyToFireStore(swapToy: swapToy);
+
+    final String swapToyId =
+        await _swapRepo.uploadSwapToyToFireStore(swapToy: swapToy);
+
+    if (swapToyId.isNotEmpty) {
+      final List<String> firebaseImagesPath =
+          await _swapRepo.uploadImageToStorage(images, swapToyId);
+      if (firebaseImagesPath.isNotEmpty) {
+        _swapRepo.updateSwapToyImages(swapToyId, firebaseImagesPath);
+      }
+    } else {}
   }
 }
 

@@ -113,10 +113,8 @@ class MainScreen extends ConsumerWidget {
             backgroundColor: S.colors.primary,
             child: const Icon(FontAwesomeIcons.plus),
             onPressed: () {
-              log(FirebaseAuth.instance.currentUser!.uid);
-              FirebaseAuth.instance.signOut();
-              // NavigationService.push(
-              //     page: RoutePaths.swapWelcomeScreen, isNamed: true);
+              NavigationService.push(
+                  page: RoutePaths.swapWelcomeScreen, isNamed: true);
             },
           ),
           floatingActionButtonLocation:

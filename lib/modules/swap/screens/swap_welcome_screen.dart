@@ -108,6 +108,8 @@ class SwapWelcomeScreen extends StatelessWidget {
                 //     return Future.error('Location Permissions are denied');
                 //   }
                 // }
+
+                
                 // Position position = await Geolocator.getCurrentPosition(
                 //     desiredAccuracy: LocationAccuracy.high);
                 // List<Placemark> placemarks = await placemarkFromCoordinates(

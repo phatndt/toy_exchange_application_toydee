@@ -72,7 +72,7 @@ dependencies:
   firebase_core: ^1.15.0
   firebase_auth: ^3.3.16
   cloud_firestore: ^3.1.13
-
+  firebase_storage: ^10.2.17
   dartz: ^0.10.1
 
   ##
