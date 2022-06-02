@@ -9,8 +9,8 @@ class UserModel {
   final String? phone;
   final String? firstName;
   final String? lastName;
-  final DateTime? birthday;
-  final bool? gender;
+  final String? birthday;
+  final String? gender;
   final Address? address;
   final String? imageUrl;
   final DateTime? createDate;

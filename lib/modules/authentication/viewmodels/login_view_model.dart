@@ -116,7 +116,7 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
         .then(
       (value) {
         if (value != null) {
-          if (value.user != null && !value.user!.emailVerified) {
+          if (value.user != null && value.user!.emailVerified) {
             _authRepo.sendEmailVerification(value).then(
               (value) {
                 if (value) {

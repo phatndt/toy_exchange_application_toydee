@@ -59,16 +59,6 @@ class Toydee extends ConsumerWidget {
         ),
         navigatorKey: NavigationService.navigationKey,
         debugShowCheckedModeBanner: false,
-        // initialRoute: ref.watch(test).when(data: (value) {
-        //   log("data" + value!.uid.toString());
-        //   return RoutePaths.login;
-        // }, error: (e, stack) {
-        //   log("error");
-        //   return RoutePaths.login;
-        // }, loading: () {
-        //   log("loading");
-        //   return RoutePaths.home;
-        // }),
         onGenerateRoute: AppRouter.generateRoute,
         initialRoute: initScreen == 0 || initScreen == null
             ? RoutePaths.onboardingpage

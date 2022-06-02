@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_gender_view_models.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/styles/styles.dart';
@@ -8,27 +10,20 @@ import '../../../core/styles/text.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_elevated_button.dart';
 
-class ProfileConfigurationGenderChanging extends StatefulWidget {
+class ProfileConfigurationGenderChanging extends ConsumerWidget {
   final String label;
   final String information;
-  const ProfileConfigurationGenderChanging({
+  ProfileConfigurationGenderChanging({
     Key? key,
     required this.label,
     required this.information,
   }) : super(key: key);
 
-  @override
-  State<ProfileConfigurationGenderChanging> createState() =>
-      _ProfileConfigurationGenderChangingState();
-}
-
-class _ProfileConfigurationGenderChangingState
-    extends State<ProfileConfigurationGenderChanging> {
   final groupButtonController = GroupButtonController();
   String selectedGenderValue = '0';
   bool _isButtonDisabled = true;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
           backgroundColor: S.colors.background_1,
@@ -53,9 +48,10 @@ class _ProfileConfigurationGenderChangingState
                   text: FontAwesomeIcons.angleLeft,
                   color: S.colors.primary,
                   onPressed: () {
-                    NavigationService.goBack(
-                      result: widget.information,
-                    );
+                    ref
+                        .watch(configurationChangingGenderNotifierProvider
+                            .notifier)
+                        .navigationBack();
                   },
                   backgroundColor: S.colors.accent_5,
                 ),
@@ -73,15 +69,19 @@ class _ProfileConfigurationGenderChangingState
                           vertical: S.dimens.defaultPadding_16,
                           horizontal: S.dimens.defaultPadding_16),
                       child: Text(
-                        widget.label,
+                        label,
                         style: S.textStyles.h4,
                       ),
                     ),
                     Center(
                       child: GroupButton(
                           buttons: T.listGender,
-                          controller: groupButtonController,
-                          enableDeselect: false,
+                          isRadio: true,
+                          controller: ref
+                              .watch(
+                                  configurationChangingGenderNotifierProvider)
+                              .groupButtonController,
+                          enableDeselect: true,
                           options: GroupButtonOptions(
                             selectedTextStyle: S.textStyles.titleLight,
                             unselectedTextStyle: S.textStyles.titleLight,
@@ -100,10 +100,7 @@ class _ProfileConfigurationGenderChangingState
                             buttonWidth: 120,
                             buttonHeight: 60,
                           ),
-                          onSelected: (index, isSelected) {
-                            selectedGenderValue = '$index';
-                            _isButtonDisabled = false;
-                          }),
+                          onSelected: (index, isSelected) {}),
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_32,
@@ -115,10 +112,10 @@ class _ProfileConfigurationGenderChangingState
                       child: CustomButton(
                         text: T.proConfigurationSave,
                         onPressed: () {
-                          _isButtonDisabled
-                              ? null
-                              : Navigator.of(context)
-                                  .pop(int.parse(selectedGenderValue));
+                          ref
+                              .watch(configurationChangingGenderNotifierProvider
+                                  .notifier)
+                              .saveChanges();
                         },
                       ),
                     )
