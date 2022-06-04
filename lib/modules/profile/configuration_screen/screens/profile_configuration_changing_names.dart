@@ -2,45 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_names_view_models.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/styles/styles.dart';
-import '../../../core/styles/text.dart';
-import '../../../core/widgets/custom_icon_button.dart';
-import '../../../core/widgets/custom_text_form_field.dart';
+import '../../../../core/styles/styles.dart';
+import '../../../../core/styles/text.dart';
+import '../../../../core/widgets/custom_icon_button.dart';
+import '../../../../core/widgets/custom_text_elevated_button.dart';
+import '../../../../core/widgets/custom_text_form_field.dart';
 
-class ProfileConfigurationPasswordChanging extends ConsumerWidget {
-  final String label1, label2, label3;
-  final String oldPassword;
-  final String oldPasswordConfirm;
-  final String newPassword;
+class ProfileConfigurationNamesChanging extends ConsumerWidget {
+  final String label1, label2;
+  final String information1, information2;
   final TextInputType? textInputType;
-  final TextEditingController oldPasswordEditingController;
-  final TextEditingController oldPasswordConfirmEditingController;
-  final TextEditingController newPasswordEditingController;
-  final VoidCallback backPress;
-  final VoidCallback savePress;
-  final VoidCallback oldPasswordClearPress;
-  final VoidCallback oldPasswordConfirmClearPress;
-  final VoidCallback newPasswordClearPress;
-  ProfileConfigurationPasswordChanging({
+  final String firstName;
+  final String lastName;
+  final TextEditingController firstNameController;
+  final TextEditingController lastNameController;
+  ProfileConfigurationNamesChanging({
     Key? key,
+    this.textInputType,
+    required this.firstName,
+    required this.lastName,
     required this.label1,
     required this.label2,
-    required this.label3,
-    required this.newPassword,
-    required this.oldPassword,
-    required this.oldPasswordConfirm,
-    required this.newPasswordEditingController,
-    required this.oldPasswordEditingController,
-    required this.oldPasswordConfirmEditingController,
-    required this.backPress,
-    required this.savePress,
-    required this.oldPasswordClearPress,
-    required this.oldPasswordConfirmClearPress,
-    required this.newPasswordClearPress,
-    this.textInputType,
+    required this.information1,
+    required this.information2,
+    required this.lastNameController,
+    required this.firstNameController,
   }) : super(key: key);
 
   @override
@@ -71,7 +59,12 @@ class ProfileConfigurationPasswordChanging extends ConsumerWidget {
               child: CustomIconButton(
                 text: FontAwesomeIcons.angleLeft,
                 color: S.colors.primary,
-                onPressed: backPress,
+                onPressed: () {
+                  ref
+                      .watch(
+                          configurationChangingNamesNotifierProvider.notifier)
+                      .navigationBack();
+                },
                 backgroundColor: S.colors.accent_5,
               ),
             ),
@@ -93,18 +86,20 @@ class ProfileConfigurationPasswordChanging extends ConsumerWidget {
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: '',
-                      obscureText: true,
-                      controller: oldPasswordEditingController,
+                      hintText: information1,
+                      obscureText: false,
+                      controller: firstNameController,
                       suffixIconData: GestureDetector(
-                        onTap: oldPasswordClearPress,
+                        onTap: () {
+                          firstNameController.clear();
+                        },
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
                       inputType: textInputType,
                     ),
                   ),
                   SizedBox(
-                    height: S.dimens.defaultPadding_32,
+                    height: S.dimens.defaultPadding_16,
                   ),
                   Text(
                     label2,
@@ -116,34 +111,13 @@ class ProfileConfigurationPasswordChanging extends ConsumerWidget {
                   Center(
                     child: CustomTextFormField(
                       height: 60,
-                      hintText: '',
-                      obscureText: true,
-                      controller: oldPasswordConfirmEditingController,
+                      hintText: information2,
+                      obscureText: false,
+                      controller: lastNameController,
                       suffixIconData: GestureDetector(
-                        onTap: oldPasswordConfirmClearPress,
-                        child: const Icon(FontAwesomeIcons.xmark),
-                      ),
-                      inputType: textInputType,
-                    ),
-                  ),
-                  SizedBox(
-                    height: S.dimens.defaultPadding_32,
-                  ),
-                  Text(
-                    label3,
-                    style: S.textStyles.h4,
-                  ),
-                  SizedBox(
-                    height: S.dimens.defaultPadding_16,
-                  ),
-                  Center(
-                    child: CustomTextFormField(
-                      height: 60,
-                      hintText: '',
-                      obscureText: true,
-                      controller: newPasswordEditingController,
-                      suffixIconData: GestureDetector(
-                        onTap: newPasswordClearPress,
+                        onTap: () {
+                          lastNameController.clear();
+                        },
                         child: const Icon(FontAwesomeIcons.xmark),
                       ),
                       inputType: textInputType,
@@ -155,7 +129,12 @@ class ProfileConfigurationPasswordChanging extends ConsumerWidget {
                   Center(
                     child: CustomButton(
                       text: T.proConfigurationSave,
-                      onPressed: savePress,
+                      onPressed: () {
+                        ref
+                            .watch(configurationChangingNamesNotifierProvider
+                                .notifier)
+                            .saveChanges();
+                      },
                     ),
                   )
                 ],

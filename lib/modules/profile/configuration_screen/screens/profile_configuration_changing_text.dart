@@ -4,11 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/styles/styles.dart';
-import '../../../core/styles/text.dart';
-import '../../../core/widgets/custom_icon_button.dart';
-import '../../../core/widgets/custom_text_form_field.dart';
+import '../../../../core/styles/styles.dart';
+import '../../../../core/styles/text.dart';
+import '../../../../core/widgets/custom_icon_button.dart';
+import '../../../../core/widgets/custom_text_elevated_button.dart';
+import '../../../../core/widgets/custom_text_form_field.dart';
 
 class ProfileConfigurationTextChanging extends ConsumerWidget {
   final String label;

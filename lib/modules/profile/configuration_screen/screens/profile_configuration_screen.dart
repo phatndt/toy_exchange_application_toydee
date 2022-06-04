@@ -3,34 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_gender.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_names.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_password.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_changing_text.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/profile_configuration_item.dart';
 
 import 'package:intl/intl.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_names.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_password.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_text.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_item.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_gender.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_names_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_password_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/styles/styles.dart';
-import '../../../core/styles/text.dart';
+import '../../../../core/routing/navigation_service.dart';
+import '../../../../core/styles/styles.dart';
+import '../../../../core/styles/text.dart';
+import '../../../../core/widgets/custom_icon_button.dart';
+import '../../../../core/widgets/custom_text_elevated_button.dart';
+import '../../../../core/widgets/custom_text_form_field.dart';
 
 class ProfileConfigurationScreen extends ConsumerWidget {
   ProfileConfigurationScreen({Key? key}) : super(key: key);
 
   String _datetime = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime dateTime = DateTime.now();
-  String email = '';
-  String password = '';
   String showPassword = '******';
-  String phone = '';
-  String address = '';
-  String gender = '0';
-  List<String> names = ['1', '2'];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
@@ -76,10 +72,10 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationPasswordChanging(
                       label1: T.proConLabelOldPassword,
-                      label2: T.proConLabelOldPasswordConfirm,
-                      label3: T.proConLabelNewPassword,
+                      label2: T.proConLabelNewPassword,
+                      label3: T.proConLabelNewPasswordConfirm,
                       oldPassword: '',
-                      oldPasswordConfirm: '',
+                      newPasswordConfirm: '',
                       newPassword: '',
                       textInputType: TextInputType.visiblePassword,
                       backPress: ref
@@ -94,10 +90,10 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                           .watch(configurationChangingPasswordNotifierProvider
                               .notifier)
                           .oldPassClear,
-                      oldPasswordConfirmClearPress: ref
+                      newPasswordConfirmClearPress: ref
                           .watch(configurationChangingPasswordNotifierProvider
                               .notifier)
-                          .oldPassConfirmClear,
+                          .newPassConfirmClear,
                       newPasswordClearPress: ref
                           .watch(configurationChangingPasswordNotifierProvider
                               .notifier)
@@ -105,9 +101,9 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                       oldPasswordEditingController: ref
                           .watch(configurationChangingPasswordNotifierProvider)
                           .oldPasswordEdittingController,
-                      oldPasswordConfirmEditingController: ref
+                      newPasswordConfirmEditingController: ref
                           .watch(configurationChangingPasswordNotifierProvider)
-                          .oldPasswordConfirmEdittingController,
+                          .newPasswordConfirmEdittingController,
                       newPasswordEditingController: ref
                           .watch(configurationChangingPasswordNotifierProvider)
                           .newPasswordEditingController,
@@ -115,6 +111,7 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                   ));
                 },
               ),
+
               // ProfileConfigurationItem(
               //   icon: FontAwesomeIcons.user,
               //   label: T.proConLabelEmail,
@@ -215,7 +212,7 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                   showDatePicker(
                     context: context,
                     initialDate: dateTime,
-                    firstDate: DateTime(2021),
+                    firstDate: DateTime(1990),
                     lastDate: DateTime(2023),
                   ).then((value) {
                     if (value != null) {
@@ -228,6 +225,9 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                           .watch(configurationNotifierProvider.notifier)
                           .datetoFireStore(
                               DateFormat('dd/MM/yyyy').format(value));
+                      ref
+                          .watch(configurationNotifierProvider.notifier)
+                          .updateLastUpdateDateBirthDate();
                     }
                   });
                   // Cancel
@@ -251,13 +251,17 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                 icon: FontAwesomeIcons.locationDot,
                 label: T.proConLabelAddress,
                 information: ref
-                    .watch(configurationNotifierProvider.notifier)
-                    .setUserAddressFromFireStore(),
+                    .watch(configurationNotifierProvider)
+                    .address
+                    .detailAddress,
                 press: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ProfileConfigurationTextChanging(
                       label: T.proConLabelAddress,
-                      information: address,
+                      information: ref
+                          .watch(configurationNotifierProvider)
+                          .address
+                          .detailAddress,
                       textInputType: TextInputType.streetAddress,
                       backPress: ref
                           .watch(configurationChangingTextNotifierProvider
@@ -276,6 +280,16 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                           .addressEditingController,
                     ),
                   ));
+                },
+              ),
+              ProfileConfigurationItem(
+                icon: FontAwesomeIcons.rightFromBracket,
+                label: T.proConLabelLogOut,
+                information: T.proConLabelLogOutDetail,
+                press: () {
+                  ref.watch(configurationNotifierProvider.notifier).logOut();
+                  // NavigationService.pushReplacement(
+                  //     isNamed: true, page: RoutePaths.login);
                 },
               ),
             ],

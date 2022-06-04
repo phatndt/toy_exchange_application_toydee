@@ -8,27 +8,28 @@ import 'package:toy_exchange_application_toydee/modules/profile/configuration_sc
 
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
+import '../../../authentication/repos/user_repo.dart';
 
 class ConfigurationChangingPasswordSetting {
   final TextEditingController oldPasswordEdittingController;
-  final TextEditingController oldPasswordConfirmEdittingController;
   final TextEditingController newPasswordEditingController;
+  final TextEditingController newPasswordConfirmEdittingController;
 
   ConfigurationChangingPasswordSetting({
     required this.oldPasswordEdittingController,
-    required this.oldPasswordConfirmEdittingController,
     required this.newPasswordEditingController,
+    required this.newPasswordConfirmEdittingController,
   });
 
   ConfigurationChangingPasswordSetting copy({
     TextEditingController? oldPasswordEdittingController,
-    TextEditingController? oldPasswordConfirmEdittingController,
     TextEditingController? newPasswordEditingController,
+    TextEditingController? newPasswordConfirmEdittingController,
   }) =>
       ConfigurationChangingPasswordSetting(
         oldPasswordEdittingController: TextEditingController(),
-        oldPasswordConfirmEdittingController: TextEditingController(),
         newPasswordEditingController: TextEditingController(),
+        newPasswordConfirmEdittingController: TextEditingController(),
       );
 }
 
@@ -37,34 +38,45 @@ class ConfigurationChangingPasswordNotifier
   ConfigurationChangingPasswordNotifier(this.ref)
       : super(
           ConfigurationChangingPasswordSetting(
-            oldPasswordConfirmEdittingController: TextEditingController(),
             oldPasswordEdittingController: TextEditingController(),
             newPasswordEditingController: TextEditingController(),
+            newPasswordConfirmEdittingController: TextEditingController(),
           ),
-        ) {}
+        ) {
+    _userRepo = ref.watch(userRepoProvider);
+  }
 
   final Ref ref;
+  late UserRepo _userRepo;
 
   void saveChanges() {
-    if (checkPasswordIsEmty(state.newPasswordEditingController)) {
-      Fluttertoast.showToast(msg: "Type in your new password!");
-    }
     if (checkPasswordIsEmty(state.oldPasswordEdittingController)) {
       Fluttertoast.showToast(msg: "Type in your old password!");
-    }
-    if (checkPasswordIsEmty(state.oldPasswordConfirmEdittingController)) {
-      Fluttertoast.showToast(msg: "Type in your old password one more time!");
+    } else if (checkPasswordIsEmty(state.newPasswordEditingController)) {
+      Fluttertoast.showToast(msg: "Type in your new password!");
+    } else if (checkPasswordIsEmty(
+        state.newPasswordConfirmEdittingController)) {
+      Fluttertoast.showToast(msg: "Type in your new password one more time!");
     }
     if (!checkPasswordIsEmty(state.newPasswordEditingController) &&
-        !checkPasswordIsEmty(state.oldPasswordConfirmEdittingController) &&
-        !checkPasswordIsEmty(state.oldPasswordConfirmEdittingController)) {
-      if (state.oldPasswordEdittingController.text ==
-          state.oldPasswordConfirmEdittingController.text) {
+        !checkPasswordIsEmty(state.newPasswordConfirmEdittingController) &&
+        !checkPasswordIsEmty(state.oldPasswordEdittingController)) {
+      if (state.newPasswordEditingController.text ==
+          state.newPasswordConfirmEdittingController.text) {
         ref.watch(configurationNotifierProvider).password =
             state.newPasswordEditingController.text;
+        _userRepo.changePassword(state.newPasswordEditingController.text,
+            state.oldPasswordEdittingController.text);
         oldPassClear();
-        oldPassConfirmClear();
         newPassClear();
+        newPassConfirmClear();
+
+        _userRepo.updateUserLastUpdateToFireStore().then((value) {
+          if (value) {
+          } else {
+            Fluttertoast.showToast(msg: "Please try later!");
+          }
+        });
         NavigationService.goBack();
       } else {
         Fluttertoast.showToast(msg: "Can't confirm your password!");
@@ -85,8 +97,8 @@ class ConfigurationChangingPasswordNotifier
     state.oldPasswordEdittingController.clear();
   }
 
-  void oldPassConfirmClear() {
-    state.oldPasswordConfirmEdittingController.clear();
+  void newPassConfirmClear() {
+    state.newPasswordConfirmEdittingController.clear();
   }
 
   void newPassClear() {
@@ -95,8 +107,8 @@ class ConfigurationChangingPasswordNotifier
 
   void navigationBack() {
     oldPassClear();
-    oldPassConfirmClear();
     newPassClear();
+    newPassConfirmClear();
     NavigationService.goBack();
   }
 
