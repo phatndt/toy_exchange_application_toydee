@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
 
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
+import '../../../core/styles/text.dart';
 
-class SwapProductCard extends StatelessWidget {
+class SwapProductCard extends ConsumerWidget {
   const SwapProductCard({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       child: Row(
         children: [
-          SizedBox(
-            child: Image.asset(R.images.logo),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(S.dimens.defaultBorderRadius),
+              ),
+              image: DecorationImage(image: NetworkImage(T.imageProfilePath)),
+            ),
             height: 60,
             width: 60,
           ),
@@ -24,7 +32,9 @@ class SwapProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Phat Nguyen",
+                ref.watch(userRepoProvider).userModel!.lastName! +
+                    " " +
+                    ref.watch(userRepoProvider).userModel!.lastName!,
                 style: S.textStyles.titleHeavy,
               ),
               RatingBarIndicator(
