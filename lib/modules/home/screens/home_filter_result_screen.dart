@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:toy_exchange_application_toydee/modules/home/view_models/home_view_model.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/models/toy_type.dart';
 
 import '../../../core/routing/navigation_service.dart';
-import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../components/swap_top_item.dart';
+import '../viewmodels/home_filter_view_model.dart';
 
-class HomeAllToyScreen extends ConsumerWidget {
-  const HomeAllToyScreen({Key? key}) : super(key: key);
+class HomeFilterResultScreen extends ConsumerWidget {
+  const HomeFilterResultScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final args = ModalRoute.of(context)!.settings.arguments as ToyType;
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -39,9 +39,7 @@ class HomeAllToyScreen extends ConsumerWidget {
                   height: S.dimens.defaultPadding_8,
                 ),
                 Expanded(
-                    child: RefreshIndicator(
-                  onRefresh: () async => ref.refresh(allSwapToysProvider),
-                  child: ref.watch(allSwapToysProvider).when(
+                  child: ref.watch(homeFilterProvider(args)).when(
                         data: (data) {
                           return GridView.builder(
                             itemCount: data.length,
@@ -66,7 +64,7 @@ class HomeAllToyScreen extends ConsumerWidget {
                         loading: () =>
                             const Center(child: CircularProgressIndicator()),
                       ),
-                )),
+                ),
                 SizedBox(
                   height: S.dimens.defaultPadding_8,
                 ),

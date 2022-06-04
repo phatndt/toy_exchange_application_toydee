@@ -1,6 +1,13 @@
+import 'dart:developer';
+
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:toy_exchange_application_toydee/core/services/converter.dart';
+import 'package:toy_exchange_application_toydee/modules/home/view_models/home_view_model.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -10,157 +17,224 @@ import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_elevated_button.dart';
 import '../../profile/components/swap_profile_card.dart';
 
-class HomeToyDetailScreen extends StatelessWidget {
+class HomeToyDetailScreen extends ConsumerWidget {
   const HomeToyDetailScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+    final future = ref.watch(swapToyProvider(args));
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: S.colors.background_2,
-        body: Column(
-          children: [
-            SizedBox(
-              height: ScreenUtil().screenWidth - 10,
-              child: Stack(children: [
-                Image.asset(R.images.homeToy_1),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: S.dimens.defaultPadding_16),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: S.dimens.defaultPadding_48,
-                      ),
-                      CustomIconButton(
-                        text: FontAwesomeIcons.angleLeft,
-                        backgroundColor: S.colors.background_2,
-                        color: S.colors.primary,
-                        onPressed: () {
-                          NavigationService.goBack();
+        child: Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: S.colors.background_2,
+      body: future.when(
+          data: (data) {
+            return Column(
+              children: [
+                SizedBox(
+                  height: ScreenUtil().screenWidth - 20,
+                  child: Stack(children: [
+                    SizedBox(
+                      child: Swiper(
+                        autoplay: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: S.dimens.defaultPaddingVertical_4),
+                            child: Container(
+                              height: ScreenUtil().scaleHeight * 180,
+                              decoration: BoxDecoration(
+                                color: S.colors.lavender,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(S.dimens.defaultBorderRadius),
+                                ),
+                                image: DecorationImage(
+                                    image: NetworkImage(data!.image[index]),
+                                    fit: BoxFit.fill),
+                              ),
+                            ),
+                          );
                         },
-                      ),
-                    ],
-                  ),
-                ),
-              ]),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: S.colors.background_1,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(S.dimens.defaultBorderRadius),
-                    topRight: Radius.circular(S.dimens.defaultBorderRadius),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: S.dimens.defaultPadding_32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: S.dimens.defaultPadding_32,
-                      ),
-                      Text(
-                        "Tobbie the futuristic Robot",
-                        style: S.textStyles.h3,
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_8,
-                      ),
-                      SizedBox(
-                        width: 323.6231884057971.h,
-                        child: Text(
-                          "A huggable plush Bear in the height of 25 cm, durable, resistant to stains, and easy to maintain. Made with the finest ultra-soft plush materials and premium stuffing.",
-                          style: S.textStyles.titleLight,
+                        itemCount: 3,
+                        pagination: SwiperPagination(
+                          alignment: Alignment.bottomCenter,
+                          builder: DotSwiperPaginationBuilder(
+                            activeColor: S.colors.primary,
+                            color: S.colors.accent_5,
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_16,
-                      ),
-                      const SwapProductCard(),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: S.dimens.defaultPadding_16),
+                      child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.faceGrin,
-                                color: S.colors.primary,
-                              ),
-                              SizedBox(
-                                width: S.dimens.defaultPadding_8,
-                              ),
-                              Text(
-                                "New",
-                                style: S.textStyles.titleLight,
-                              )
-                            ],
+                          SizedBox(
+                            height: S.dimens.defaultPadding_48,
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.retweet,
-                                color: S.colors.primary,
-                              ),
-                              SizedBox(
-                                width: S.dimens.defaultPadding_8,
-                              ),
-                              Text(
-                                "Swap",
-                                style: S.textStyles.titleLight,
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.eye,
-                                color: S.colors.primary,
-                              ),
-                              SizedBox(
-                                width: S.dimens.defaultPadding_8,
-                              ),
-                              Text(
-                                "New",
-                                style: S.textStyles.titleLight,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      const Expanded(
-                        child: SizedBox(),
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPadding_88,
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: CustomButton(
-                            text: "Request swap",
+                          CustomIconButton(
+                            text: FontAwesomeIcons.angleLeft,
+                            backgroundColor: S.colors.background_2,
+                            color: S.colors.primary,
                             onPressed: () {
-                              NavigationService.push(
-                                page: RoutePaths.swapScreenDone,
-                                isNamed: true,
-                              );
+                              NavigationService.goBack();
                             },
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ]),
                 ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: S.colors.background_1,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(S.dimens.defaultBorderRadius),
+                        topRight: Radius.circular(S.dimens.defaultBorderRadius),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: S.dimens.defaultPadding_32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: S.dimens.defaultPadding_16,
+                          ),
+                          Text(
+                            data!.name,
+                            style: S.textStyles.h3,
+                          ),
+                          SizedBox(
+                            height: S.dimens.defaultPadding_8,
+                          ),
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: 80.h,
+                            ),
+                            child: Text(
+                              data.description,
+                              overflow: TextOverflow.ellipsis,
+                              style: S.textStyles.titleLight,
+                              maxLines: 4,
+                            ),
+                          ),
+                          SizedBox(
+                            height: S.dimens.defaultPadding_16,
+                          ),
+                          const SwapProductCard(),
+                          SizedBox(
+                            height: S.dimens.defaultPadding_16,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    data.toyType.condition == 0
+                                        ? FontAwesomeIcons.faceGrin
+                                        : FontAwesomeIcons.faceFrown,
+                                    color: S.colors.primary,
+                                  ),
+                                  SizedBox(
+                                    width: S.dimens.defaultPadding_8,
+                                  ),
+                                  Text(
+                                    Converter.convertCondition(
+                                        data.toyType.condition),
+                                    style: S.textStyles.titleLight,
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.child,
+                                    color: S.colors.primary,
+                                  ),
+                                  SizedBox(
+                                    width: S.dimens.defaultPadding_8,
+                                  ),
+                                  Text(
+                                    Converter.convertGenderType(
+                                        data.toyType.genderType),
+                                    style: S.textStyles.titleLight,
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.magento,
+                                    color: S.colors.primary,
+                                  ),
+                                  SizedBox(
+                                    width: S.dimens.defaultPadding_8,
+                                  ),
+                                  Text(
+                                    Converter.convertAgeGroup(
+                                        data.toyType.ageGroup),
+                                    style: S.textStyles.titleLight,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: S.dimens.defaultPadding_16,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.typo3,
+                                color: S.colors.primary,
+                              ),
+                              SizedBox(
+                                width: S.dimens.defaultPadding_8,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  Converter.convertCategories(
+                                      data.toyType.categories.toSet()),
+                                  style: S.textStyles.titleLight,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )
+                            ],
+                          ),
+                          const Expanded(
+                            child: SizedBox(),
+                          ),
+                          SizedBox(
+                            height: S.dimens.defaultPadding_88,
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: CustomButton(
+                                text: "Request swap",
+                                onPressed: () {
+                                  NavigationService.push(
+                                    page: RoutePaths.swapScreenDone,
+                                    isNamed: true,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
+          error: (error, stack) => Text(""),
+          loading: () => Text("")),
+    ));
   }
 }

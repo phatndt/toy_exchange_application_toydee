@@ -7,6 +7,7 @@ import 'package:toy_exchange_application_toydee/core/routing/navigation_service.
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/modules/home/viewmodels/home_filter_view_model.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/models/toy_type.dart';
 
 import '../../../core/routing/route_paths.dart';
 import '../../../core/styles/styles.dart';
@@ -49,7 +50,6 @@ class HomeFilterScreen extends ConsumerWidget {
                       elevation: 0.5,
                       text: FontAwesomeIcons.arrowLeft,
                       onPressed: () {
-                        //print(ScreenUtil().scaleHeight * 55.79710144927537);
                         ref
                             .watch(homeFilterNotifierProvider.notifier)
                             .navigationBack(context);
@@ -120,7 +120,7 @@ class HomeFilterScreen extends ConsumerWidget {
                         false,
                         ref
                             .watch(homeFilterNotifierProvider)
-                            .groupButtonController1,
+                            .groupButtonControllerCategories,
                       ),
                     ),
                     SizedBox(
@@ -139,13 +139,14 @@ class HomeFilterScreen extends ConsumerWidget {
                       height: S.dimens.defaultPadding_8,
                     ),
                     Center(
-                        child: buildGroupButton(
-                            T.listCondition,
-                            150,
-                            true,
-                            ref
-                                .watch(homeFilterNotifierProvider)
-                                .groupButtonController2)),
+                      child: buildGroupButton(
+                          T.listCondition,
+                          150,
+                          true,
+                          ref
+                              .watch(homeFilterNotifierProvider)
+                              .groupButtonControllerCondition),
+                    ),
                     SizedBox(
                       height: S.dimens.defaultPadding_16,
                     ),
@@ -168,7 +169,7 @@ class HomeFilterScreen extends ConsumerWidget {
                           true,
                           ref
                               .watch(homeFilterNotifierProvider)
-                              .groupButtonController3),
+                              .groupButtonControllerGenderType),
                     ),
                     SizedBox(
                       height: S.dimens.defaultPadding_16,
@@ -190,7 +191,7 @@ class HomeFilterScreen extends ConsumerWidget {
                       child: GroupButton(
                           controller: ref
                               .watch(homeFilterNotifierProvider)
-                              .groupButtonController4,
+                              .groupButtonControllerAgeGroup,
                           isRadio: true,
                           buttons: T.listAge,
                           options: GroupButtonOptions(
@@ -238,9 +239,29 @@ class HomeFilterScreen extends ConsumerWidget {
                               horizontal: S.dimens.defaultPadding_32),
                           child: CustomButton(
                             text: T.filterApply,
-                            onPressed: () => ref
-                                .watch(homeFilterNotifierProvider.notifier)
-                                .applyFilter(context),
+                            onPressed: () => NavigationService.push(
+                              page: RoutePaths.homeFilterResultScreen,
+                              isNamed: true,
+                              arguments: ToyType(
+                                categories: ref
+                                    .watch(homeFilterNotifierProvider)
+                                    .groupButtonControllerCategories
+                                    .selectedIndexes
+                                    .toList(),
+                                condition: ref
+                                    .watch(homeFilterNotifierProvider)
+                                    .groupButtonControllerCondition
+                                    .selectedIndex ?? -1,
+                                genderType: ref
+                                    .watch(homeFilterNotifierProvider)
+                                    .groupButtonControllerGenderType
+                                    .selectedIndex?? -1,
+                                ageGroup: ref
+                                    .watch(homeFilterNotifierProvider)
+                                    .groupButtonControllerAgeGroup
+                                    .selectedIndex?? -1,
+                              ),
+                            ),
                           ),
                         ),
                       ),
