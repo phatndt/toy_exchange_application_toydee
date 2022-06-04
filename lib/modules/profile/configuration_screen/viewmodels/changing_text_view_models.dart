@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
 
@@ -60,12 +64,6 @@ class ConfigurationChangingTextNotifier
     _userRepo = ref.watch(userRepoProvider);
   }
 
-  Address address = Address(
-    address: "",
-    detailAddress: "",
-    latitude: "",
-    longitude: "",
-  );
   final Ref ref;
   late UserRepo _userRepo;
 
@@ -121,6 +119,18 @@ class ConfigurationChangingTextNotifier
           NavigationService.goBack();
           ref.watch(configurationNotifierProvider).phone =
               state.phoneEditingController.text;
+          _userRepo.updateUserLastUpdateToFireStore().then((value) {
+            if (value) {
+            } else {
+              Fluttertoast.showToast(msg: "Please try later!");
+            }
+          });
+        } else {
+          Fluttertoast.showToast(msg: "Please try later!");
+        }
+      });
+      _userRepo.updateUserLastUpdateToFireStore().then((value) {
+        if (value) {
         } else {
           Fluttertoast.showToast(msg: "Please try later!");
         }
@@ -133,15 +143,32 @@ class ConfigurationChangingTextNotifier
     NavigationService.goBack(result: state.phoneEditingController.text);
   }
 
-  void saveChangesAddress() {
+  Future<void> saveChangesAddress() async {
     if (state.addressEditingController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Fill up the blank field");
     } else {
+      var position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      Address address = Address(
+        address: place.administrativeArea! + ' ' + place.country!,
+        detailAddress: state.addressEditingController.text,
+        latitude: position.latitude.toString(),
+        longitude: position.longitude.toString(),
+      );
       _userRepo.updateUserAddressToFireStore(address).then((value) {
         if (value) {
           NavigationService.goBack();
-          ref.watch(configurationNotifierProvider).address.address =
+          ref.watch(configurationNotifierProvider).address.detailAddress =
               state.addressEditingController.text;
+          _userRepo.updateUserLastUpdateToFireStore().then((value) {
+            if (value) {
+            } else {
+              Fluttertoast.showToast(msg: "Please try later!");
+            }
+          });
         } else {
           Fluttertoast.showToast(msg: "Please try later!");
         }

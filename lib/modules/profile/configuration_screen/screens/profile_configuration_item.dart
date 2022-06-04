@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../core/styles/styles.dart';
+import '../../../../core/styles/styles.dart';
+import '../../../../core/styles/text.dart';
+import '../../../../core/widgets/custom_icon_button.dart';
+import '../../../../core/widgets/custom_text_elevated_button.dart';
 
 class ProfileConfigurationItem extends StatelessWidget {
   const ProfileConfigurationItem({

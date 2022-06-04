@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:group_button/group_button.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
 import '../../../../core/routing/navigation_service.dart';
@@ -97,6 +102,30 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
     });
   }
 
+  void updateLastUpdateDateBirthDate() {
+    _userRepo.updateUserLastUpdateToFireStore().then((value) {
+      if (value) {
+      } else {
+        Fluttertoast.showToast(msg: "Please try later!");
+      }
+    });
+  }
+
+  void getAddressFromFireStore() {
+    _userRepo.getUserAdressFromFireStore().then((value) {
+      if (value != null) {
+        updateAdress(value);
+      } else {
+        updateAdress(Address(
+          address: '',
+          detailAddress: '',
+          latitude: '',
+          longitude: '',
+        ));
+      }
+    });
+  }
+
   void getLastNameFromFireStore() {
     _userRepo.getUserLastNameFromFireStore().then((value) {
       if (value != '') {
@@ -154,6 +183,16 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
     });
   }
 
+  void updatePassword(String a) {
+    final newState = state.copy(password: a);
+    state = newState;
+  }
+
+  void updateAdress(Address a) {
+    final newState = state.copy(address: a);
+    state = newState;
+  }
+
   void updateFirstNames(String a) {
     final newState = state.copy(firstname: a);
     state = newState;
@@ -179,34 +218,12 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationSetting> {
     state = newState;
   }
 
-  // void saveChanges() {
-  //   if (state.groupButtonController.selectedIndex == null) {
-  //     return;
-  //   } else {
-  //     NavigationService.goBack(
-  //         result: state.groupButtonController.selectedIndex);
-  //   }
-  // }
-
-  // void navigationBack() {
-  //   state.groupButtonController.unselectAll();
-  //   NavigationService.goBack();
-  // }
-
-  // navigationToDone(BuildContext context) {
-  //   NavigationService.push(
-  //     page: RoutePaths.home,
-  //     isNamed: true,
-  //   );
-  // }
-
-  // navigationToLogin(BuildContext context) {
-  //   NavigationService.pushAndRemoveUntil(
-  //     isNamed: true,
-  //     page: RoutePaths.login,
-  //     predicate: (Route<dynamic> route) => false,
-  //   );
-  // }
+  void logOut() {
+    _userRepo.logOut().then((value) {
+      NavigationService.pushReplacementAll(
+          isNamed: true, page: RoutePaths.login);
+    });
+  }
 }
 
 final configurationNotifierProvider =

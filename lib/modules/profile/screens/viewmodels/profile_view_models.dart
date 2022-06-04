@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../authentication/repos/user_repo.dart';
@@ -27,7 +28,8 @@ class ProfileNotifier extends StateNotifier<ProfileSetting> {
   ProfileNotifier(this.ref)
       : super(
           ProfileSetting(
-            imageURL: "",
+            imageURL:
+                "https://firebasestorage.googleapis.com/v0/b/toyexchangeapplication.appspot.com/o/avatarURL%2Fdefault%2F1.png?alt=media&token=c7989660-75d5-4c0b-8141-93938a299d8e",
           ),
         ) {
     _userRepo = ref.watch(userRepoProvider);
@@ -106,11 +108,34 @@ class ProfileNotifier extends StateNotifier<ProfileSetting> {
     if (pickedImage == null) {
       return;
     }
-
-    updateImageURL(pickedImage.path);
+    log(pickedImage.name);
+    uploadImageToStorage(pickedImage.path);
   }
 
-  void uploadImageToStorage(String imagePath, File imageFile) {}
+  void uploadImageToStorage(String imagePath) {
+    _userRepo.uploadAndGetImageStorage(imagePath).then((value) {
+      if (value != '') {
+        _userRepo.updateUserURLToFireStore(value).then((value2) {
+          if (value2) {
+          } else {
+            Fluttertoast.showToast(msg: 'Try later!');
+          }
+        });
+      } else {
+        Fluttertoast.showToast(msg: 'Try later!');
+      }
+    });
+  }
+
+  void getImageFromStorage() {
+    _userRepo.getUserURLFromFireStore().then((value) {
+      if (value != '') {
+        updateImageURL(value);
+      } else {
+        updateImageURL('');
+      }
+    });
+  }
 }
 
 final profileNotifierProvider =

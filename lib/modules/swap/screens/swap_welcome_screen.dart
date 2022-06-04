@@ -109,13 +109,14 @@ class SwapWelcomeScreen extends StatelessWidget {
                 //   }
                 // }
 
-                
                 // Position position = await Geolocator.getCurrentPosition(
                 //     desiredAccuracy: LocationAccuracy.high);
                 // List<Placemark> placemarks = await placemarkFromCoordinates(
                 //     position.latitude, position.longitude);
                 // Placemark place = placemarks[0];
                 // log(place.toString());
+                // log(position.altitude.toString() +
+                //     position.latitude.toString());
                 // log(place.thoroughfare! +
                 //     place.locality! +
                 //     place.administrativeArea! +

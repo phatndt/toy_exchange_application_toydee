@@ -25,9 +25,11 @@ class T {
   static const proConfigurationSave = 'Save Changes';
   static const proConScreenLabel = 'Configuration';
   static const proConLabelEmail = 'Email';
+  static const proConLabelLogOut = 'Log Out';
+  static const proConLabelLogOutDetail = 'Sign Out Your Account';
   static const proConLabelPassword = 'Password';
   static const proConLabelOldPassword = 'Old password';
-  static const proConLabelOldPasswordConfirm = 'Confirm old password';
+  static const proConLabelNewPasswordConfirm = 'Confirm your new password';
   static const proConLabelNewPassword = 'New password';
   static const proConLabelBirth = 'Date of birth';
   static const proConLabelGender = 'Gender';
@@ -42,8 +44,11 @@ class T {
     'Other',
   ];
 
+  static const eventListTitle = "Events";
+  static const eventMyListTitle = "Your Events";
+
   static const imageProfilePath =
-      'https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80';
+      'https://firebasestorage.googleapis.com/v0/b/toyexchangeapplication.appspot.com/o/avatarURL%2Fdefault%2F1.png?alt=media&token=c7989660-75d5-4c0b-8141-93938a299d8e';
   static const imageProfilePath2 = 'assets/images/avatar/avatar1.jpg';
   static const profileTabText1 = 'Wishlist';
   static const profileTabText2 = 'My toys';

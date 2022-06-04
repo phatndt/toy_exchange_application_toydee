@@ -11,6 +11,12 @@ import 'package:toy_exchange_application_toydee/modules/home/screens/home_all_to
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_filter_result_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_search_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_toy_detail_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_gender.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_text.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_events_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_my_events_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_done.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_upload.dart';
@@ -20,10 +26,9 @@ import '../../modules/authentication/screens/reset_password_done_screen.dart';
 import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
-import '../../modules/profile/configuration_screen/profile_configuration_changing_gender.dart';
-import '../../modules/profile/configuration_screen/profile_configuration_changing_text.dart';
+
 import '../../modules/profile/screens/profile_screen.dart';
-import '../../modules/profile/configuration_screen/profile_configuration_screen.dart';
+
 import '../../modules/swap/screens/swap_screen_filter.dart';
 import '../screens/onboarding/onboarding2.dart';
 import '../screens/onboarding/onboarding3.dart';
@@ -145,6 +150,21 @@ class AppRouter {
             label: '',
             information: '',
           ),
+          settings: settings,
+        );
+      case RoutePaths.listEvents:
+        return MaterialPageRoute(
+          builder: (_) => ListEvents(),
+          settings: settings,
+        );
+      case RoutePaths.listMyEvents:
+        return MaterialPageRoute(
+          builder: (_) => ListMyEvents(),
+          settings: settings,
+        );
+      case RoutePaths.uploadEvents:
+        return MaterialPageRoute(
+          builder: (_) => UploadEvents(),
           settings: settings,
         );
 

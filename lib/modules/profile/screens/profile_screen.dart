@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,17 +21,26 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref
-        .watch(configurationNotifierProvider.notifier)
-        .getFirstNameFromFireStore();
-    ref
-        .watch(configurationNotifierProvider.notifier)
-        .getLastNameFromFireStore();
-    ref
-        .watch(configurationNotifierProvider.notifier)
-        .getBirthDateFromFireStore();
-    ref.watch(configurationNotifierProvider.notifier).getGenderFromFireStore();
-    ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
+    if (FirebaseAuth.instance.currentUser != null) {
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getFirstNameFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getLastNameFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getBirthDateFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getAddressFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getGenderFromFireStore();
+      ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
+      ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
+      log('======================================');
+    }
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_2,
@@ -74,7 +84,7 @@ class ProfileScreen extends ConsumerWidget {
             ),
           ),
           ProfileWidget(
-            imagePath: T.imageProfilePath,
+            imagePath: ref.watch(profileNotifierProvider).imageURL,
             //ref.watch(profileNotifierProvider).imageURL,
             onPressed: () {
               ref
@@ -88,9 +98,7 @@ class ProfileScreen extends ConsumerWidget {
           Column(
             children: [
               Text(
-                ref
-                    .watch(profileNotifierProvider.notifier)
-                    .setUserFirstNameFromFireStore(),
+                ref.watch(configurationNotifierProvider).firstname,
                 style: S.textStyles.h3,
               ),
               SizedBox(
@@ -115,8 +123,11 @@ class ProfileScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomIconButton(
-                  text: FontAwesomeIcons.envelope,
-                  onPressed: () {},
+                  text: FontAwesomeIcons.calendar,
+                  onPressed: () {
+                    NavigationService.push(
+                        isNamed: true, page: RoutePaths.listEvents);
+                  },
                   color: S.colors.primary,
                   backgroundColor: S.colors.accent_5,
                 ),
@@ -131,10 +142,6 @@ class ProfileScreen extends ConsumerWidget {
                     children: [
                       const SizedBox(
                         width: 10,
-                      ),
-                      ReviewWidget(
-                        name: T.profileRating,
-                        point: '5',
                       ),
                       ReviewWidget(
                         name: T.profileSwap,

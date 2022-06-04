@@ -55,6 +55,12 @@ class ConfigurationChangingNamesNotifier
               state.firstNameEditingController.text;
           ref.watch(configurationNotifierProvider).lastname =
               state.lastNameEditingController.text;
+          _userRepo.updateUserLastUpdateToFireStore().then((value) {
+            if (value) {
+            } else {
+              Fluttertoast.showToast(msg: "Please try later!");
+            }
+          });
           NavigationService.goBack();
         } else {
           Fluttertoast.showToast(msg: "Please try later!");

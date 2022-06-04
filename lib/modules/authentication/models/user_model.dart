@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
+import '../../../core/styles/text.dart';
+
 class UserModel {
   final String id;
   final String? username;
@@ -14,7 +16,7 @@ class UserModel {
   final Address? address;
   final String? imageUrl;
   final DateTime? createDate;
-  final DateTime? lastUpdateDate;
+  final String? lastUpdateDate;
   final bool? isActived;
   final bool? isEmailVerified;
 
@@ -46,7 +48,7 @@ class UserModel {
       'birthday': birthday ?? '',
       'gender': gender ?? '',
       'address': address ?? '',
-      'imageUrl': imageUrl,
+      'imageUrl': imageUrl ?? 'T.imageProfilePath',
       'createDate': createDate ?? '',
       'lastUpdateDate': lastUpdateDate ?? '',
       'isActived': isActived ?? '',
@@ -62,18 +64,17 @@ class UserModel {
       username: map['userName'] ?? '',
       firstName: map['firstName'] ?? '',
       lastName: map['lastName'] ?? '',
-      birthday: map['birthday'] != "" ? map['birthday'] : "",
+      birthday: map['birthday'] != "" ? map['birthday'] : '',
       gender: map['gender'] != "" ? map['gender'] : null,
       address: map['address'] != ""
           ? Address.fromMap(map['address'])
           : Address(
               address: "", detailAddress: "", latitude: "", longitude: ""),
-      imageUrl: map['imageUrl'] != "" ? map['imageUrl'] : '',
+      imageUrl: map['imageUrl'] != "" ? map['imageUrl'] : T.imageProfilePath,
       createDate: map['createDate'] != ""
           ? DateFormat("dd-MM-yyyy HH:mm:ss").parse(map['createDate'])
           : DateTime.now(),
-      lastUpdateDate:
-          map['lastUpdateDate'] != "" ? map['createDate'] : DateTime.now(),
+      lastUpdateDate: map['lastUpdateDate'] != "" ? map['createDate'] : '',
       isActived: map['isActived'] ?? '',
       isEmailVerified: map['isEmailVerified'] ?? '',
     );

@@ -64,7 +64,7 @@ class Toydee extends ConsumerWidget {
             ? RoutePaths.onboardingpage
             : FirebaseAuth.instance.currentUser == null
                 ? RoutePaths.login
-                : RoutePaths.mainScreen,
+                : RoutePaths.login,
       ),
     );
   }
