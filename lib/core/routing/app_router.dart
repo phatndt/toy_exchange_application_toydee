@@ -8,6 +8,7 @@ import 'package:toy_exchange_application_toydee/modules/authentication/screens/r
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_all_toy_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/home/screens/home_filter_result_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_search_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_toy_detail_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
@@ -207,6 +208,11 @@ class AppRouter {
       case RoutePaths.resetPasswordDone:
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordDoneScreen(),
+          settings: settings,
+        );      
+        case RoutePaths.homeFilterResultScreen:
+        return MaterialPageRoute(
+          builder: (_) => const HomeFilterResultScreen(),
           settings: settings,
         );
       //Map

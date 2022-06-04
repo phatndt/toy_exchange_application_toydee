@@ -62,7 +62,7 @@ class UserModel {
       username: map['userName'] ?? '',
       firstName: map['firstName'] ?? '',
       lastName: map['lastName'] ?? '',
-      birthday: map['birthday'] != "" ? map['birthday'] : DateTime.now(),
+      birthday: map['birthday'] != "" ? map['birthday'] : "",
       gender: map['gender'] != "" ? map['gender'] : null,
       address: map['address'] != ""
           ? Address.fromMap(map['address'])

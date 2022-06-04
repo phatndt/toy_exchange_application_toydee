@@ -1,17 +1,25 @@
+import 'dart:developer';
+
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_form_field.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/viewmodels/tesst.dart';
+import 'package:toy_exchange_application_toydee/modules/home/repos/home_repo.dart';
 import 'package:toy_exchange_application_toydee/modules/home/view_models/home_view_model.dart';
 
 import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
+import '../../swap/models/toy_type.dart';
+import '../components/swap_top_item.dart';
 
 // class HomeScreen extends StatelessWidget {
 //   const HomeScreen({Key? key}) : super(key: key);
@@ -263,55 +271,60 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           height: 165.h,
                           width: double.infinity,
                           child: Swiper(
+                            autoplay: true,
                             itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: color[index],
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(
-                                        S.dimens.defaultBorderRadius),
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    right: S.dimens.defaultBorderRadius / 2),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: color[index],
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                          S.dimens.defaultBorderRadius),
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(
-                                      S.dimens.defaultPadding_16),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width:
-                                                  ScreenUtil().scaleWidth * 200,
-                                              child: Text(
-                                                text[index],
-                                                style: S.textStyles.h4,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
+                                        S.dimens.defaultPadding_16),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: ScreenUtil().scaleWidth *
+                                                    200,
+                                                child: Text(
+                                                  text[index],
+                                                  style: S.textStyles.h4,
+                                                ),
                                               ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {},
-                                              child: Text(
-                                                "Learn more",
-                                                style: S.textStyles
-                                                    .titleLightUnderline,
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Text(
+                                                  "Learn more",
+                                                  style: S.textStyles
+                                                      .titleLightUnderline,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                          flex: 2,
-                                          child: Center(
-                                              child:
-                                                  Image.asset(image[index]))),
-                                    ],
+                                        Expanded(
+                                            flex: 2,
+                                            child: Center(
+                                                child:
+                                                    Image.asset(image[index]))),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -388,128 +401,94 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: TabBarView(
                       controller: tabController,
                       children: [
-                        RefreshIndicator(
-                          onRefresh: () async {},
-                          child: Text(""),
-                          // child: GridView.builder(
-                          //   itemCount: 10,
-                          //   gridDelegate:
-                          //       SliverGridDelegateWithFixedCrossAxisCount(
-                          //     crossAxisCount: 2,
-                          //     crossAxisSpacing: S.dimens.defaultPadding_4,
-                          //     mainAxisSpacing: S.dimens.defaultPadding_4,
-                          //     childAspectRatio: 0.725,
-                          //   ),
-                          //   itemBuilder: (context, index) => Card(
-                          //     elevation: 0.3,
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(
-                          //         S.dimens.defaultBorderRadius,
-                          //       ),
-                          //     ),
-                          //     color: S.colors.background_1,
-                          //     child: InkWell(
-                          //       onTap: () {
-                          //         NavigationService.push(
-                          //           page: RoutePaths.toyDetailScreen,
-                          //           isNamed: true,
-                          //         );
-                          //       },
-                          //       child: Column(
-                          //         children: [
-                          //           SizedBox(
-                          //             height: ScreenUtil().scaleHeight * 180,
-                          //             child: Image.asset(R.images.homeToy_1),
-                          //           ),
-                          //           SizedBox(
-                          //             height: S.dimens.defaultPadding_8,
-                          //           ),
-                          //           Padding(
-                          //             padding: EdgeInsets.only(
-                          //                 left: S.dimens.defaultPadding_4),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.spaceBetween,
-                          //               children: [
-                          //                 SizedBox(
-                          //                   width:
-                          //                       ScreenUtil().scaleWidth * 110,
-                          //                   child: Text(
-                          //                     "Helicoptersdsdsdádasdadasdassdsd",
-                          //                     overflow: TextOverflow.ellipsis,
-                          //                     style: S.textStyles
-                          //                         .titleHeavyBoldPrimary,
-                          //                   ),
-                          //                 ),
-                          //                 Container(
-                          //                   width: 50.w,
-                          //                   height: 40.h,
-                          //                   decoration: BoxDecoration(
-                          //                     color: S.colors.accent_5,
-                          //                     borderRadius: BorderRadius.only(
-                          //                       topLeft: Radius.circular(
-                          //                         S.dimens.defaultPadding_16,
-                          //                       ),
-                          //                       bottomLeft: Radius.circular(
-                          //                         S.dimens.defaultPadding_16,
-                          //                       ),
-                          //                     ),
-                          //                   ),
-                          //                   child: Icon(
-                          //                     FontAwesomeIcons.retweet,
-                          //                     color: S.colors.primary,
-                          //                   ),
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //           SizedBox(
-                          //             height: S.dimens.defaultPadding_4,
-                          //           ),
-                          //           Padding(
-                          //             padding: EdgeInsets.symmetric(
-                          //                 horizontal:
-                          //                     S.dimens.defaultPadding_4),
-                          //             child: Row(
-                          //               mainAxisAlignment:
-                          //                   MainAxisAlignment.spaceBetween,
-                          //               children: [
-                          //                 Icon(
-                          //                   FontAwesomeIcons.faceSmile,
-                          //                   size: 20.w,
-                          //                 ),
-                          //                 Text(
-                          //                   "15 Km",
-                          //                   overflow: TextOverflow.ellipsis,
-                          //                   style:
-                          //                       S.textStyles.titleHeavyPrimary,
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //           SizedBox(
-                          //             height: S.dimens.defaultPadding_4,
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                        Consumer(
+                          builder: (BuildContext context, WidgetRef ref,
+                              Widget? child) {
+                            var future = ref.watch(latestSwapToysProvider);
+                            return RefreshIndicator(
+                              onRefresh: () async {
+                                future = ref.refresh(latestSwapToysProvider);
+                              },
+                              child: future.when(
+                                data: (data) {
+                                  return GridView.builder(
+                                    itemCount: data.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing:
+                                          S.dimens.defaultPadding_4,
+                                      mainAxisSpacing:
+                                          S.dimens.defaultPadding_4,
+                                      childAspectRatio: 0.725,
+                                    ),
+                                    itemBuilder: (context, index) =>
+                                        SwapToyCard(
+                                      name: data[index].name,
+                                      condition: data[index].toyType.condition,
+                                      showingImage: data[index].image.first,
+                                      uid: data[index].id,
+                                    ),
+                                  );
+                                },
+                                error: (e, stack) {
+                                  return Center(
+                                    child: LottieBuilder.network(
+                                        'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                                  );
+                                },
+                                loading: () => Center(
+                                  child: CircularProgressIndicator(
+                                    color: S.colors.primary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         Consumer(
                           builder: (BuildContext context, WidgetRef ref,
                               Widget? child) {
-                            final future = ref.watch(swapToysProvider);
+                            var future = ref.watch(swapToysProvider);
                             return RefreshIndicator(
-                                onRefresh: () async {},
-                                child: future.when(
-                                    data: (data) {
-                                      return Text("data");
-                                    },
-                                    error: (e, stack) {
-                                      return Text(e.toString());
-                                    },
-                                    loading: () => Text("loading")));
+                              onRefresh: () async {
+                                future = ref.refresh(swapToysProvider);
+                              },
+                              child: future.when(
+                                data: (data) {
+                                  return GridView.builder(
+                                    itemCount: data.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing:
+                                          S.dimens.defaultPadding_4,
+                                      mainAxisSpacing:
+                                          S.dimens.defaultPadding_4,
+                                      childAspectRatio: 0.725,
+                                    ),
+                                    itemBuilder: (context, index) =>
+                                        SwapToyCard(
+                                      name: data[index].name,
+                                      condition: data[index].toyType.condition,
+                                      showingImage: data[index].image.first,
+                                      uid: data[index].id,
+                                    ),
+                                  );
+                                },
+                                error: (e, stack) {
+                                  return Center(
+                                    child: LottieBuilder.network(
+                                        'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                                  );
+                                },
+                                loading: () => Center(
+                                  child: CircularProgressIndicator(
+                                    color: S.colors.primary,
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ],
@@ -531,198 +510,46 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 }
 
-// child: GridView.builder(
-//                             itemCount: 10,
-//                             gridDelegate:
-//                                 SliverGridDelegateWithFixedCrossAxisCount(
-//                               crossAxisCount: 2,
-//                               crossAxisSpacing: S.dimens.defaultPadding_4,
-//                               mainAxisSpacing: S.dimens.defaultPadding_4,
-//                               childAspectRatio: 0.725,
-//                             ),
-//                             itemBuilder: (context, index) => Card(
-//                               elevation: 0.3,
-//                               shape: RoundedRectangleBorder(
-//                                 borderRadius: BorderRadius.circular(
-//                                   S.dimens.defaultBorderRadius,
-//                                 ),
-//                               ),
-//                               color: S.colors.background_1,
-//                               child: InkWell(
-//                                 onTap: () {
-//                                   NavigationService.push(
-//                                     page: RoutePaths.toyDetailScreen,
-//                                     isNamed: true,
-//                                   );
-//                                 },
-//                                 child: Column(
-//                                   children: [
-//                                     SizedBox(
-//                                       height: ScreenUtil().scaleHeight * 180,
-//                                       child: Image.asset(R.images.homeToy_1),
-//                                     ),
-//                                     SizedBox(
-//                                       height: S.dimens.defaultPadding_8,
-//                                     ),
-//                                     Padding(
-//                                       padding: EdgeInsets.only(
-//                                           left: S.dimens.defaultPadding_4),
-//                                       child: Row(
-//                                         mainAxisAlignment:
-//                                             MainAxisAlignment.spaceBetween,
-//                                         children: [
-//                                           SizedBox(
-//                                             width:
-//                                                 ScreenUtil().scaleWidth * 110,
-//                                             child: Text(
-//                                               "Helicoptersdsdsdádasdadasdassdsd",
-//                                               overflow: TextOverflow.ellipsis,
-//                                               style: S.textStyles
-//                                                   .titleHeavyBoldPrimary,
-//                                             ),
-//                                           ),
-//                                           Container(
-//                                             width: 50.w,
-//                                             height: 40.h,
-//                                             decoration: BoxDecoration(
-//                                               color: S.colors.accent_5,
-//                                               borderRadius: BorderRadius.only(
-//                                                 topLeft: Radius.circular(
-//                                                   S.dimens.defaultPadding_16,
-//                                                 ),
-//                                                 bottomLeft: Radius.circular(
-//                                                   S.dimens.defaultPadding_16,
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                             child: Icon(
-//                                               FontAwesomeIcons.retweet,
-//                                               color: S.colors.primary,
-//                                             ),
-//                                           ),
-//                                         ],
-//                                       ),
-//                                     ),
-//                                     SizedBox(
-//                                       height: S.dimens.defaultPadding_4,
-//                                     ),
-//                                     Padding(
-//                                       padding: EdgeInsets.symmetric(
-//                                           horizontal:
-//                                               S.dimens.defaultPadding_4),
-//                                       child: Row(
-//                                         mainAxisAlignment:
-//                                             MainAxisAlignment.spaceBetween,
-//                                         children: [
-//                                           Icon(
-//                                             FontAwesomeIcons.faceSmile,
-//                                             size: 20.w,
-//                                           ),
-//                                           Text(
-//                                             "15 Km",
-//                                             overflow: TextOverflow.ellipsis,
-//                                             style:
-//                                                 S.textStyles.titleHeavyPrimary,
-//                                           ),
-//                                         ],
-//                                       ),
-//                                     ),
-//                                     SizedBox(
-//                                       height: S.dimens.defaultPadding_4,
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-
-// RefreshIndicator(
-//                               onRefresh: () async {},
-//                               child: GridView.builder(
-//                                 itemCount: 10,
-//                                 gridDelegate:
-//                                     SliverGridDelegateWithFixedCrossAxisCount(
-//                                   crossAxisCount: 2,
-//                                   crossAxisSpacing: S.dimens.defaultPadding_4,
-//                                   mainAxisSpacing: S.dimens.defaultPadding_4,
-//                                   childAspectRatio: 0.6,
-//                                 ),
-//                                 itemBuilder: (context, index) => Card(
-//                                   elevation: 0.3,
-//                                   color: S.colors.background_1,
-//                                   child: Column(
-//                                     children: [
-//                                       SizedBox(
-//                                         height: ScreenUtil().scaleHeight * 180,
-//                                         child: Image.asset(R.images.homeToy_1),
-//                                       ),
-//                                       SizedBox(
-//                                         height: S.dimens.defaultPadding_8,
-//                                       ),
-//                                       Padding(
-//                                         padding: EdgeInsets.only(
-//                                             left: S.dimens.defaultPadding_4),
-//                                         child: Row(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.spaceBetween,
-//                                           children: [
-//                                             SizedBox(
-//                                               width:
-//                                                   ScreenUtil().scaleWidth * 110,
-//                                               child: Text(
-//                                                 "Helicoptersdsdsdádasdadasdassdsd",
-//                                                 overflow: TextOverflow.ellipsis,
-//                                                 style: S.textStyles
-//                                                     .titleHeavyBoldPrimary,
-//                                               ),
-//                                             ),
-//                                             Container(
-//                                               width: 50.w,
-//                                               height: 40.h,
-//                                               decoration: BoxDecoration(
-//                                                 color: S.colors.accent_5,
-//                                                 borderRadius: BorderRadius.only(
-//                                                   topLeft: Radius.circular(
-//                                                     S.dimens.defaultPadding_16,
-//                                                   ),
-//                                                   bottomLeft: Radius.circular(
-//                                                     S.dimens.defaultPadding_16,
-//                                                   ),
-//                                                 ),
-//                                               ),
-//                                               child: Icon(
-//                                                 FontAwesomeIcons.retweet,
-//                                                 color: S.colors.primary,
-//                                               ),
-//                                             ),
-//                                           ],
+//  Consumer(
+//                           builder: (BuildContext context, WidgetRef ref,
+//                               Widget? child) {
+//                             var future = ref.watch(swapToysStreamProvider);
+//                             return RefreshIndicator(
+//                                 onRefresh: () async {},
+//                                 child: future.when(
+//                                     data: (data) {
+//                                       return GridView.builder(
+//                                         itemCount: data.size,
+//                                         gridDelegate:
+//                                             SliverGridDelegateWithFixedCrossAxisCount(
+//                                           crossAxisCount: 2,
+//                                           crossAxisSpacing:
+//                                               S.dimens.defaultPadding_4,
+//                                           mainAxisSpacing:
+//                                               S.dimens.defaultPadding_4,
+//                                           childAspectRatio: 0.725,
 //                                         ),
-//                                       ),
-//                                       Padding(
-//                                         padding: EdgeInsets.symmetric(
-//                                             horizontal:
-//                                                 S.dimens.defaultPadding_4),
-//                                         child: Row(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.spaceBetween,
-//                                           children: [
-//                                             const Icon(
-//                                                 FontAwesomeIcons.faceSmile),
-//                                             SizedBox(
-//                                               width:
-//                                                   ScreenUtil().scaleWidth * 110,
-//                                               child: Text(
-//                                                 "dsdsd",
-//                                                 overflow: TextOverflow.ellipsis,
-//                                                 style: S.textStyles
-//                                                     .titleHeavyBoldPrimary,
-//                                               ),
-//                                             ),
-//                                           ],
-//                                         ),
-//                                       )
-//                                     ],
-//                                   ),
-//                                 ),
-//                               ),
-//                             );
+//                                         itemBuilder: (context, index) {
+//                                           DocumentSnapshot doc =
+//                                               data.docs[index];
+//                                           return SwapToyCard(
+//                                             name: doc['name'],
+//                                             condition:
+//                                                 ToyType.fromMap(doc['toyType'])
+//                                                     .condition,
+//                                             showingImage:
+//                                                 List<String>.from(doc['image'])
+//                                                     .first,
+//                                           );
+//                                         },
+//                                       );
+//                                     },
+//                                     error: (e, stack) {
+//                                       return Center(
+//                                           child: Lottie.network(
+//                                               'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'));
+//                                     },
+//                                     loading: () =>
+//                                         const CircularProgressIndicator()));
+//                           },
+//                         ),

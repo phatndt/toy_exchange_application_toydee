@@ -26,6 +26,7 @@ class RoutePaths {
   static const seeAllToy = '/home_all_toy_screen';
   static const toyDetailScreen = '/toy_detail_screen';
   static const searchScreen = '/home_search_screen';
+  static const homeFilterResultScreen = '/home_filter_result_screen';
 
   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
