@@ -21,26 +21,6 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (FirebaseAuth.instance.currentUser != null) {
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getFirstNameFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getLastNameFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getBirthDateFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getAddressFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getGenderFromFireStore();
-      ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
-      ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
-      log('======================================');
-    }
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_2,
@@ -98,7 +78,9 @@ class ProfileScreen extends ConsumerWidget {
           Column(
             children: [
               Text(
-                ref.watch(configurationNotifierProvider).firstname,
+                ref
+                    .watch(profileNotifierProvider.notifier)
+                    .setUserUserNameFromFireStore(),
                 style: S.textStyles.h3,
               ),
               SizedBox(

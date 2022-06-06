@@ -49,6 +49,10 @@ class ProfileNotifier extends StateNotifier<ProfileSetting> {
     return _userRepo.userModel!.email;
   }
 
+  String setUserUserNameFromFireStore() {
+    return _userRepo.userModel!.username!;
+  }
+
   String setUserFirstNameFromFireStore() {
     return _userRepo.userModel!.firstName!;
   }

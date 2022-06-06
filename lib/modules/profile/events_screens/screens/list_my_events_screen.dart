@@ -50,10 +50,10 @@ class ListMyEvents extends StatelessWidget {
                   CustomIconButton(
                     color: S.colors.primary,
                     backgroundColor: S.colors.accent_5,
-                    text: FontAwesomeIcons.calendar,
+                    text: FontAwesomeIcons.plus,
                     onPressed: () {
                       NavigationService.push(
-                          isNamed: true, page: RoutePaths.listMyEvents);
+                          isNamed: true, page: RoutePaths.uploadEvents);
                     },
                   ),
                 ],
