@@ -17,6 +17,10 @@ import 'package:toy_exchange_application_toydee/modules/profile/configuration_sc
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_my_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_events_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_done.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_filter.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_main_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/request/screens/request_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_done.dart';
@@ -28,6 +32,7 @@ import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
 
+import '../../modules/profile/events_screens/screens/list_toy_events.dart';
 import '../../modules/profile/screens/profile_screen.dart';
 
 import '../../modules/swap/screens/swap_screen_filter.dart';
@@ -156,6 +161,31 @@ class AppRouter {
       case RoutePaths.listEvents:
         return MaterialPageRoute(
           builder: (_) => ListEvents(),
+          settings: settings,
+        );
+      case RoutePaths.eventToyList:
+        return MaterialPageRoute(
+          builder: (_) => ListToyEvents(),
+          settings: settings,
+        );
+      case RoutePaths.uploadToyEvents:
+        return MaterialPageRoute(
+          builder: (_) => UploadToyEvents(),
+          settings: settings,
+        );
+      case RoutePaths.uploadToyEventsFilter:
+        return MaterialPageRoute(
+          builder: (_) => UploadToyEventsFilter(),
+          settings: settings,
+        );
+      case RoutePaths.uploadToyEventsMain:
+        return MaterialPageRoute(
+          builder: (_) => UploadToyEventsMain(),
+          settings: settings,
+        );
+      case RoutePaths.uploadToyEventsDone:
+        return MaterialPageRoute(
+          builder: (_) => UploadToyEventsDone(),
           settings: settings,
         );
       case RoutePaths.listMyEvents:

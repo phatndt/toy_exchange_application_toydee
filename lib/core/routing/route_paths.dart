@@ -32,6 +32,12 @@ class RoutePaths {
   static const homeFilterResultScreen = '/home_filter_result_screen';
   static const requestScreen = '/request_screen';
 
+  static const eventToyList = '/list_toy_events';
+  static const uploadToyEvents = '/upload_toy_events_screen';
+  static const uploadToyEventsMain = '/upload_toy_events_main_screen';
+  static const uploadToyEventsFilter = 'upload_toy_events_filter';
+  static const uploadToyEventsDone = '/upload_toy_events_done';
+
   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
       '/profile_configuration_changing_text';

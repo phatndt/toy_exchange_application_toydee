@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/events_item.dart';
 
 import '../../../../core/routing/route_paths.dart';
 import '../../../../core/styles/styles.dart';
 import '../../../../core/styles/text.dart';
 
-class ListMyEvents extends StatelessWidget {
-  const ListMyEvents({Key? key}) : super(key: key);
+class ListToyEvents extends StatelessWidget {
+  const ListToyEvents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class ListMyEvents extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    T.eventMyListTitle,
+                    T.eventToyListTitle,
                     style: S.textStyles.h3,
                   )
                 ],
@@ -51,29 +50,17 @@ class ListMyEvents extends StatelessWidget {
                   CustomIconButton(
                     color: S.colors.primary,
                     backgroundColor: S.colors.accent_5,
-                    text: FontAwesomeIcons.plus,
+                    text: FontAwesomeIcons.circleDollarToSlot,
                     onPressed: () {
                       NavigationService.push(
-                          isNamed: true, page: RoutePaths.uploadEvents);
+                        page: RoutePaths.uploadToyEventsMain,
+                        isNamed: true,
+                      );
                     },
                   ),
                 ],
               ),
             ),
-            EventsItem(
-              eventName: 'Thoi dai moi da den',
-              startDate: '01 / 0 / 2022',
-              endDate: '12 / 03 / 2022',
-              description: 'ok con de keu xcxcxc',
-              userId: '',
-              eventId: '',
-              onPress: () {
-                NavigationService.push(
-                  isNamed: true,
-                  page: RoutePaths.eventToyList,
-                );
-              },
-            )
           ],
         ),
       ),

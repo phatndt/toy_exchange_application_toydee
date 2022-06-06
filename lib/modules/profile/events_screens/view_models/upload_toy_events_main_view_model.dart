@@ -9,16 +9,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:group_button/group_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/Toast.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/repos/auth_repo.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/styles/styles.dart';
-import '../../../core/widgets/Toast.dart';
-import '../../authentication/repos/auth_repo.dart';
-
-class MainSwapSetting {
+class MainToyEventSetting {
   String imagePathOne;
   String imagePathTwo;
   String imagePathThree;
@@ -43,7 +41,7 @@ class MainSwapSetting {
   bool phoneLocation;
   bool swapAvailable;
 
-  MainSwapSetting(
+  MainToyEventSetting(
       {required this.imagePathOne,
       required this.imagePathTwo,
       required this.imagePathThree,
@@ -61,7 +59,7 @@ class MainSwapSetting {
       required this.phoneLocation,
       required this.swapAvailable});
 
-  MainSwapSetting copy({
+  MainToyEventSetting copy({
     String? imagePathOne,
     String? imagePathTwo,
     String? imagePathThree,
@@ -79,7 +77,7 @@ class MainSwapSetting {
     bool? phoneLocation,
     bool? swapAvailable,
   }) =>
-      MainSwapSetting(
+      MainToyEventSetting(
         imagePathOne: imagePathOne ?? this.imagePathOne,
         imagePathTwo: imagePathTwo ?? this.imagePathTwo,
         imagePathThree: imagePathThree ?? this.imagePathThree,
@@ -151,10 +149,10 @@ class MainSwapSetting {
   }
 }
 
-class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
-  MainSwapSettingNotifier(this.ref)
+class MainToyEventSettingNotifier extends StateNotifier<MainToyEventSetting> {
+  MainToyEventSettingNotifier(this.ref)
       : super(
-          MainSwapSetting(
+          MainToyEventSetting(
             imagePathOne: "",
             imagePathTwo: "",
             imagePathThree: "",
@@ -353,23 +351,6 @@ class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
     }
   }
 
-  void previewToy(BuildContext context) {
-    if (checkFilters() && checkFilters() && checkRestOfCondition()) {
-      log("message");
-      NavigationService.push(
-        page: RoutePaths.swapScreenUpload,
-        isNamed: true,
-      );
-    } else {
-      CustomToast.fToast.init(context);
-      CustomToast.fToast.showToast(
-          gravity: ToastGravity.TOP,
-          child: const CustomToastBuilder(
-              msg: "Please enter full information!",
-              icon: FontAwesomeIcons.exclamation));
-    }
-  }
-
   void previewToyForEvent(BuildContext context) {
     if (checkFilters() && checkFilters() && checkRestOfCondition()) {
       log("message");
@@ -415,6 +396,16 @@ class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
     return true;
   }
 
+  cleanAllFilter() {
+    state.clearFilters();
+    state.titleController.clear();
+    state.descriptionController.clear();
+    state.locationController.clear();
+    state.imagePathOne = '';
+    state.imagePathTwo = '';
+    state.imagePathThree = '';
+  }
+
   List<String> getList() {
     List<String> lists = [];
     lists.add(state.imagePathOne);
@@ -424,9 +415,9 @@ class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
   }
 }
 
-final mainSwapSettingNotifierProvider =
-    StateNotifierProvider<MainSwapSettingNotifier, MainSwapSetting>(
-        ((ref) => MainSwapSettingNotifier(ref)));
+final mainToyEventSettingNotifierProvider =
+    StateNotifierProvider<MainToyEventSettingNotifier, MainToyEventSetting>(
+        ((ref) => MainToyEventSettingNotifier(ref)));
 
 
 //  LocationPermission permission;

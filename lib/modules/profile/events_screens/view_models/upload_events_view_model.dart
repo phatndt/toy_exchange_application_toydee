@@ -152,7 +152,7 @@ class UploadEventsNotifier extends StateNotifier<UploadEventsSetting> {
       if (eventNameChecked != null) {
         {
           if (!eventNameChecked) {
-            uploadToyToFirebase(
+            uploadEventToFirebase(
                 name: name,
                 description: description,
                 startDate: startDate,
@@ -170,7 +170,7 @@ class UploadEventsNotifier extends StateNotifier<UploadEventsSetting> {
     }
   }
 
-  Future uploadToyToFirebase({
+  Future uploadEventToFirebase({
     required String name,
     String? description,
     required String startDate,

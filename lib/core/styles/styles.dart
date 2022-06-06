@@ -173,6 +173,13 @@ class _TextStyles {
     fontWeight: FontWeight.bold,
   );
 
+  final description = TextStyle(
+    fontFamily: 'Lato',
+    fontSize: ScreenUtil().setSp(16),
+    fontWeight: FontWeight.normal,
+    color: S.colors.textColor_1,
+  );
+
   final titleLightBoldNoSpacing = TextStyle(
     fontFamily: 'Lato',
     fontSize: ScreenUtil().setSp(15),
