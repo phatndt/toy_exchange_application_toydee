@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:badges/badges.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
@@ -21,26 +23,26 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (FirebaseAuth.instance.currentUser != null) {
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getFirstNameFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getLastNameFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getBirthDateFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getAddressFromFireStore();
-      ref
-          .watch(configurationNotifierProvider.notifier)
-          .getGenderFromFireStore();
-      ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
-      ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
-      log('======================================');
-    }
+    // if (FirebaseAuth.instance.currentUser != null) {
+    //   ref
+    //       .watch(configurationNotifierProvider.notifier)
+    //       .getFirstNameFromFireStore();
+    //   ref
+    //       .watch(configurationNotifierProvider.notifier)
+    //       .getLastNameFromFireStore();
+    //   ref
+    //       .watch(configurationNotifierProvider.notifier)
+    //       .getBirthDateFromFireStore();
+    //   ref
+    //       .watch(configurationNotifierProvider.notifier)
+    //       .getAddressFromFireStore();
+    //   ref
+    //       .watch(configurationNotifierProvider.notifier)
+    //       .getGenderFromFireStore();
+    //   ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
+    //   ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
+    //   log('======================================');
+    // }
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_2,
@@ -157,11 +159,17 @@ class ProfileScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                CustomIconButton(
-                  text: Icons.phone,
-                  onPressed: () {},
+                CustomBadgeIconButton(
+                  text: FontAwesomeIcons.solidBell,
+                  onPressed: () {
+                    NavigationService.push(
+                      page: RoutePaths.requestScreen,
+                      isNamed: true,
+                    );
+                  },
                   color: S.colors.primary,
                   backgroundColor: S.colors.accent_5,
+                  counter: 11,
                 ),
               ],
             ),
@@ -214,6 +222,68 @@ class ReviewWidget extends StatelessWidget {
             ],
           ))
         ],
+      ),
+    );
+  }
+}
+
+class CustomBadgeIconButton extends StatelessWidget {
+  const CustomBadgeIconButton({
+    Key? key,
+    this.width,
+    required this.text,
+    required this.onPressed,
+    this.color,
+    required this.backgroundColor,
+    this.elevation = 1,
+    required this.counter,
+  }) : super(key: key);
+
+  final double? width;
+  final IconData text;
+  final VoidCallback onPressed;
+  final Color? color;
+  final Color backgroundColor;
+  final double elevation;
+  final int counter;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      //default size is 50 in pixel 4a, it will be change
+      height: (3850 / 69).h,
+      width: width ?? (1265 / 24).w,
+      child: Center(
+        child: Badge(
+          badgeContent: Text(
+            counter.toString(),
+            style: TextStyle(color: S.colors.textColor_1),
+          ),
+          badgeColor: S.colors.primary,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(S.dimens.defaultBorderRadius),
+                ),
+              ),
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                  EdgeInsets.zero),
+              elevation: MaterialStateProperty.all<double>(elevation),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(backgroundColor),
+            ),
+            child: Center(
+              child: Icon(
+                text,
+                color: color,
+                size: (1.h / 1.w) * 24,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

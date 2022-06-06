@@ -143,7 +143,6 @@ class SwapScreenTwo extends ConsumerWidget {
 
   Widget toyInfo(
           WidgetRef ref,
-          StateNotifierProvider<UploadSwapSettingNotifier, UploadSwapSetting>
               uploadSwapSettingNotifierProvider) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,9 +206,7 @@ class SwapScreenTwo extends ConsumerWidget {
 
   Widget bottomButton(
     WidgetRef ref,
-    StateNotifierProvider<UploadSwapSettingNotifier, UploadSwapSetting>
         uploadSwapSettingNotifierProvider,
-    StateNotifierProvider<MainSwapSettingNotifier, MainSwapSetting>
         mainSwapSettingNotifierProvider,
   ) =>
       SizedBox(
