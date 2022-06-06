@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -9,12 +10,13 @@ import '../../../core/styles/resources.dart';
 import '../../../core/styles/styles.dart';
 import '../../../core/widgets/custom_icon_button.dart';
 import '../../../core/widgets/custom_text_elevated_button.dart';
+import '../viewmodels/swap_upload_view_model.dart';
 
-class SwappScreenThree extends StatelessWidget {
+class SwappScreenThree extends ConsumerWidget {
   const SwappScreenThree({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -40,7 +42,7 @@ class SwappScreenThree extends StatelessWidget {
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    bottomButton(),
+                    bottomButton(ref),
                   ],
                 ),
               ),
@@ -73,38 +75,24 @@ class SwappScreenThree extends StatelessWidget {
         ),
       );
 
-  Widget bottomButton() => SizedBox(
+  Widget bottomButton(WidgetRef ref) => SizedBox(
         height: S.dimens.defaultPaddingVertical_88,
         child: Align(
           alignment: Alignment.topCenter,
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomButton(
-                  text: "Show my items",
-                  onPressed: () {
-                    NavigationService.push(
-                      page: RoutePaths.swapScreenDone,
-                      isNamed: true,
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: S.dimens.defaultPadding_8),
-                child: CustomIconButton(
-                  text: FontAwesomeIcons.house,
-                  onPressed: () {
-                    NavigationService.pushAndRemoveUntil(
-                        isNamed: true,
-                        page: RoutePaths.mainScreen,
-                        predicate: (Route<dynamic> route) => false);
-                  },
-                  backgroundColor: S.colors.accent_5,
-                  color: S.colors.primary,
-                ),
-              )
-            ],
+          child: Padding(
+            padding: EdgeInsets.only(left: S.dimens.defaultPadding_8),
+            child: CustomIconButton(
+              width: double.infinity,
+              text: FontAwesomeIcons.house,
+              onPressed: () {
+                NavigationService.pushAndRemoveUntil(
+                    isNamed: true,
+                    page: RoutePaths.mainScreen,
+                    predicate: (Route<dynamic> route) => false);
+              },
+              backgroundColor: S.colors.accent_5,
+              color: S.colors.primary,
+            ),
           ),
         ),
       );

@@ -84,25 +84,27 @@ class SwapRepo {
     return firebaseImagePath;
   }
 
-  Future<void> updateSwapToyImages(
+  Future<bool> updateSwapToyImages(
     String swapToyId,
     List<String> images,
   ) async {
+    bool _result = false;
     try {
       await FirebaseFirestore.instance
           .collection('swapToy')
           .doc(swapToyId)
           .update({
-            "image": images,
-          })
-          .then((value) => log("Images successfully updated!"))
-          .onError((error, stackTrace) =>
-              log("ToyId failed updated: " + error.toString()));
+        "image": images,
+      }).then((value) {
+        _result = true;
+        log("Images successfully updated!");
+      });
     } catch (e) {
       log("update images to firestore" + e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     }
+    return _result;
   }
 
   Future<bool> getSwapToyListFromFirestore() async {

@@ -30,6 +30,7 @@ class RoutePaths {
   static const listMyEvents = '/list_my_events_screen';
   static const uploadEvents = '/upload_events_screen';
   static const homeFilterResultScreen = '/home_filter_result_screen';
+  static const requestScreen = '/request_screen';
 
   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
