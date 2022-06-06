@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:toy_exchange_application_toydee/core/services/converter.dart';
 import 'package:toy_exchange_application_toydee/modules/home/view_models/home_view_model.dart';
+import 'package:toy_exchange_application_toydee/modules/request/viewmodels/request_view_model.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -217,10 +218,10 @@ class HomeToyDetailScreen extends ConsumerWidget {
                               child: CustomButton(
                                 text: "Request swap",
                                 onPressed: () {
-                                  NavigationService.push(
-                                    page: RoutePaths.swapScreenDone,
-                                    isNamed: true,
-                                  );
+                                  log(data.userId);
+                                  ref
+                                      .watch(requestSettingNotifier.notifier)
+                                      .checkSwapToyOfUser(data.id, context);
                                 },
                               ),
                             ),

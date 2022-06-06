@@ -232,10 +232,20 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
       final List<String> firebaseImagesPath =
           await _swapRepo.uploadImageToStorage(images, swapToyId);
       if (firebaseImagesPath.isNotEmpty) {
-        _swapRepo.updateSwapToyImages(swapToyId, firebaseImagesPath);
+        _swapRepo
+            .updateSwapToyImages(swapToyId, firebaseImagesPath)
+            .then((value) {
+          if (value) {
+            NavigationService.push(
+              page: RoutePaths.swapScreenDone,
+              isNamed: true,
+            );
+          } else {}
+        });
       }
     } else {}
   }
+
 }
 
 final uploadSwapSettingNotifierProvider =
