@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +15,7 @@ import 'package:toy_exchange_application_toydee/modules/profile/configuration_sc
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_password_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/changing_text_view_models.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/viewmodels/configuration_view_models.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/screens/viewmodels/profile_view_models.dart';
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/styles/styles.dart';
 import '../../../../core/styles/text.dart';
@@ -27,8 +29,28 @@ class ProfileConfigurationScreen extends ConsumerWidget {
   String _datetime = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime dateTime = DateTime.now();
   String showPassword = '******';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (FirebaseAuth.instance.currentUser != null) {
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getFirstNameFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getLastNameFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getBirthDateFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getAddressFromFireStore();
+      ref
+          .watch(configurationNotifierProvider.notifier)
+          .getGenderFromFireStore();
+      ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
+      ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
+    }
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,

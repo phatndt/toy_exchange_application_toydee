@@ -46,6 +46,7 @@ class T {
 
   static const eventListTitle = "Events";
   static const eventMyListTitle = "Your Events";
+  static const uploadEventsTitle = "Make your own event";
 
   static const imageProfilePath =
       'https://firebasestorage.googleapis.com/v0/b/toyexchangeapplication.appspot.com/o/avatarURL%2Fdefault%2F1.png?alt=media&token=c7989660-75d5-4c0b-8141-93938a299d8e';
