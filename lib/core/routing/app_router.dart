@@ -18,6 +18,7 @@ import 'package:toy_exchange_application_toydee/modules/profile/events_screens/s
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_my_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/request/screens/request_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/request/screens/request_toy_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_done.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_upload.dart';
@@ -239,6 +240,11 @@ class AppRouter {
       case RoutePaths.requestScreen:
         return MaterialPageRoute(
           builder: (_) => const RequestScreen(),
+          settings: settings,
+        );
+      case RoutePaths.requestToyScreen:
+        return MaterialPageRoute(
+          builder: (_) => const RequestToyScreen(),
           settings: settings,
         );
       //Map

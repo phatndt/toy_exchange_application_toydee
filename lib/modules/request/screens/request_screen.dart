@@ -32,7 +32,43 @@ class RequestScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeaderScreen(title: ""),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: S.dimens.defaultPaddingVertical_8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: S.dimens.defaultPadding_48,
+                      child: Center(
+                        child: Text(
+                          "",
+                          style: S.textStyles.h2Primary,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomIconButton(
+                          text: FontAwesomeIcons.angleLeft,
+                          backgroundColor: S.colors.background_2,
+                          color: S.colors.primary,
+                          onPressed: () {
+                            NavigationService.goBack();
+                          },
+                        ),
+                        CustomIconButton(
+                          text: FontAwesomeIcons.message,
+                          backgroundColor: S.colors.background_2,
+                          color: S.colors.primary,
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: S.dimens.defaultPaddingVertical_16,
               ),
@@ -41,7 +77,7 @@ class RequestScreen extends ConsumerWidget {
                       FirebaseAuth.instance.currentUser!.uid))
                   .when(
                     data: (data) {
-                      return Container(
+                      return SizedBox(
                         height: 500,
                         child: ListView.builder(
                             itemCount: data.size,
