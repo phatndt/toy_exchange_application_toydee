@@ -49,7 +49,6 @@ class ProfileConfigurationScreen extends ConsumerWidget {
           .watch(configurationNotifierProvider.notifier)
           .getGenderFromFireStore();
       ref.watch(configurationNotifierProvider.notifier).getPhoneFromFireStore();
-      ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
     }
     return SafeArea(
       child: Scaffold(

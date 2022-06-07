@@ -29,6 +29,7 @@ class UploadToyEventsSetting {
   int gendertype;
   int agegroup;
 
+  String eventId;
   final TextEditingController titleController;
   final TextEditingController descriptionController;
   final TextEditingController locationController;
@@ -61,7 +62,8 @@ class UploadToyEventsSetting {
       required this.groupButtonControllerGenderType,
       required this.groupButtonControllerAgeGroup,
       required this.phoneLocation,
-      required this.swapAvailable});
+      required this.swapAvailable,
+      required this.eventId});
 
   UploadToyEventsSetting copy({
     String? imagePathOne,
@@ -80,6 +82,7 @@ class UploadToyEventsSetting {
     GroupButtonController? groupButtonControllerAgeGroup,
     bool? phoneLocation,
     bool? swapAvailable,
+    String? eventId,
   }) =>
       UploadToyEventsSetting(
         imagePathOne: imagePathOne ?? this.imagePathOne,
@@ -92,6 +95,7 @@ class UploadToyEventsSetting {
         categories: categories ?? this.categories,
         condition: condition ?? this.condition,
         gendertype: gendertype ?? this.gendertype,
+        eventId: eventId ?? this.eventId,
         agegroup: agegroup ?? this.agegroup,
         groupButtonControllerCategories: groupButtonControllerCategories ??
             this.groupButtonControllerCategories,
@@ -174,6 +178,7 @@ class UploadToyEventsSettingNotifier
             groupButtonControllerAgeGroup: GroupButtonController(),
             phoneLocation: false,
             swapAvailable: false,
+            eventId: '',
           ),
         ) {
     _eventsRepo = ref.watch(eventsRepoProvider);
@@ -183,6 +188,10 @@ class UploadToyEventsSettingNotifier
   final Ref ref;
   late EventsRepo _eventsRepo;
   late UserRepo _userRepo;
+
+  void updateEventId(String a) {
+    state.eventId = a;
+  }
 
   uploadToyEventsToFirebase({
     required String imagePathOne,
@@ -194,6 +203,7 @@ class UploadToyEventsSettingNotifier
     required int condition,
     required int genderType,
     required int ageGroup,
+    required String eventId,
     // required Address address,
   }) async {
     Address address = Address(
@@ -215,7 +225,7 @@ class UploadToyEventsSettingNotifier
     EventsToy toyEvents = EventsToy(
       id: "",
       userId: _userRepo.userModel!.id,
-      eventId: '',
+      eventId: eventId,
       name: title,
       description: description,
       location: address,

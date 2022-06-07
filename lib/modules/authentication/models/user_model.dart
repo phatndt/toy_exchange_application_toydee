@@ -47,8 +47,10 @@ class UserModel {
       'lastName': lastName,
       'birthday': birthday ?? '',
       'gender': gender ?? '',
-      'address': address ?? '',
-      'imageUrl': imageUrl ?? 'T.imageProfilePath',
+      'address': address ??
+          Address(address: "", detailAddress: "", latitude: "", longitude: "")
+              .toMap(),
+      'imageUrl': imageUrl ?? T.imageProfilePath,
       'createDate': createDate ?? '',
       'lastUpdateDate': lastUpdateDate ?? '',
       'isActived': isActived ?? '',

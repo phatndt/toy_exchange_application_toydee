@@ -103,6 +103,10 @@ class UploadEventsNotifier extends StateNotifier<UploadEventsSetting> {
     state = newState;
   }
 
+  Future checkFinished() async {
+    _eventsRepo.checkEventFinished();
+  }
+
   bool compareDateAfter(DateTime a) {
     bool result = false;
     if (a.isAfter(state.dateTime)) {

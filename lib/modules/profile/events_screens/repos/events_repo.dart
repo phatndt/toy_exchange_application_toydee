@@ -57,6 +57,47 @@ class EventsRepo {
       Fluttertoast.showToast(msg: _errorMessage);
     }
   }
+
+  Future<void> updateEventFinished(String id, bool a) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('events')
+          .doc(id)
+          .update({
+            "finished": a,
+          })
+          .then((value) => log("Event successfully updated!"))
+          .onError((error, stackTrace) =>
+              log("Event failed updated: " + error.toString()));
+    } catch (e) {
+      log("upload Event To FireStore" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+  }
+
+  Future<void> checkEventFinished() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('events')
+          .where("finished")
+          .get()
+          .then((value) {
+        for (var doc in value.docs) {
+          final date = DateTime.parse(doc["endDate"].toString());
+          if (date.isBefore(DateTime.now())) {
+            updateEventFinished(doc.id, true);
+          } else {
+            updateEventFinished(doc.id, false);
+          }
+        }
+      });
+    } catch (e) {
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+  }
+
   //============================================================================
 
   Future<String> uploadToyEventsToFireStore({

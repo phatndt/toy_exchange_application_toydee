@@ -165,7 +165,9 @@ class AppRouter {
         );
       case RoutePaths.eventToyList:
         return MaterialPageRoute(
-          builder: (_) => ListToyEvents(),
+          builder: (_) => ListToyEvents(
+            eventId: '',
+          ),
           settings: settings,
         );
       case RoutePaths.uploadToyEvents:

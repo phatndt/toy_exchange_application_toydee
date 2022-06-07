@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
@@ -152,7 +153,8 @@ class UploadEvents extends ConsumerWidget {
                   vertical: S.dimens.defaultPadding_8,
                 ),
                 child: CustomTextOuntlineButton(
-                  text: ref.watch(uploadEventsNotifierProvider).startDate,
+                  text: reFormatDate(
+                      ref.watch(uploadEventsNotifierProvider).startDate),
                   onPressed: () {
                     showDatePicker(
                       context: context,
@@ -162,11 +164,11 @@ class UploadEvents extends ConsumerWidget {
                     ).then((value) {
                       if (value != null) {
                         ref.watch(uploadEventsNotifierProvider).startDate =
-                            DateFormat('dd/MM/yyyy').format(value);
+                            DateFormat('yyyy-MM-dd').format(value);
                         ref
                             .watch(uploadEventsNotifierProvider.notifier)
                             .updateStartDate(
-                                DateFormat('dd/MM/yyyy').format(value));
+                                DateFormat('yyyy-MM-dd').format(value));
                         ref
                             .watch(uploadEventsNotifierProvider.notifier)
                             .updateDateTime(value);
@@ -193,7 +195,8 @@ class UploadEvents extends ConsumerWidget {
                   vertical: S.dimens.defaultPadding_8,
                 ),
                 child: CustomTextOuntlineButton(
-                  text: ref.watch(uploadEventsNotifierProvider).endDate,
+                  text: reFormatDate(
+                      ref.watch(uploadEventsNotifierProvider).endDate),
                   onPressed: () {
                     showDatePicker(
                       context: context,
@@ -206,11 +209,11 @@ class UploadEvents extends ConsumerWidget {
                             .watch(uploadEventsNotifierProvider.notifier)
                             .compareDate(value)) {
                           ref.watch(uploadEventsNotifierProvider).endDate =
-                              DateFormat('dd/MM/yyyy').format(value);
+                              DateFormat('yyyy-MM-dd').format(value);
                           ref
                               .watch(uploadEventsNotifierProvider.notifier)
                               .updateEndDate(
-                                  DateFormat('dd/MM/yyyy').format(value));
+                                  DateFormat('yyyy-MM-dd').format(value));
                           ref
                               .watch(uploadEventsNotifierProvider.notifier)
                               .updateDateTime2(value);
@@ -250,5 +253,13 @@ class UploadEvents extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+String reFormatDate(String date) {
+  if (date == '') {
+    return '';
+  } else {
+    return DateFormat('dd/MM/yyyy').format(DateTime.parse(date));
   }
 }

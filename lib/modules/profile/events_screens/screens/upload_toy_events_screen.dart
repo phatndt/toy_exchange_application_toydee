@@ -220,6 +220,9 @@ class UploadToyEvents extends ConsumerWidget {
                     ref
                         .watch(uploadToyEventsSettingNotifierProvider.notifier)
                         .uploadToyEventsToFirebase(
+                            eventId: ref
+                                .watch(uploadToyEventsSettingNotifierProvider)
+                                .eventId,
                             imagePathOne: ref
                                 .watch(mainToyEventSettingNotifierProvider)
                                 .imagePathOne,

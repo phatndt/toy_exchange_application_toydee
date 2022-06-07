@@ -166,7 +166,6 @@ class UserRepo {
     try {
       await _firebaseAuth.currentUser!.reauthenticateWithCredential(credential);
       await _firebaseAuth.currentUser!.updatePassword(newPass);
-      log('===================');
       return '';
     } on FirebaseAuthException catch (e) {
       switch (e.code) {

@@ -9,7 +9,7 @@ class EventModel {
   final String? description;
   final String startDate;
   final String endDate;
-  final bool finished;
+  bool finished;
 
   EventModel({
     required this.id,

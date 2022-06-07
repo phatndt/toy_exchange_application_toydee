@@ -6,7 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
+import 'package:toy_exchange_application_toydee/core/styles/text.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/Toast.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
 import '../../../core/errors/exceptions.dart';
 import '../../../core/routing/route_paths.dart';
@@ -109,8 +111,10 @@ class AuthRepo {
           'lastName': "",
           'birthday': "",
           'gender': "",
-          'address': "",
-          'imageUrl': "",
+          'address': Address(
+                  address: "", detailAddress: "", latitude: "", longitude: "")
+              .toMap(),
+          'imageUrl': T.imageProfilePath,
           'createDate':
               DateFormat("dd-MM-yyyy HH:mm:ss").format(DateTime.now()),
           'lastUpdateDate': "",
