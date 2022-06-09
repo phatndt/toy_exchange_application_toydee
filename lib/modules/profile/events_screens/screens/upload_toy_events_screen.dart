@@ -5,20 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/services/converter.dart';
+import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/components/swap_profile_card.dart';
-import 'package:toy_exchange_application_toydee/modules/swap/viewmodels/swap_main_view_model.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/upload_toy_events_main_view_model.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/upload_toy_events_view_model.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/styles/resources.dart';
-import '../../../core/styles/styles.dart';
-import '../../../core/widgets/custom_icon_button.dart';
-import '../viewmodels/swap_upload_view_model.dart';
+import '../../../../core/styles/styles.dart';
 
-class SwapScreenTwo extends ConsumerWidget {
-  const SwapScreenTwo({Key? key}) : super(key: key);
+class UploadToyEvents extends ConsumerWidget {
+  const UploadToyEvents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,7 +32,7 @@ class SwapScreenTwo extends ConsumerWidget {
                   return Padding(
                     padding: EdgeInsets.all(S.dimens.defaultPaddingVertical_4),
                     child: Image.file(File(ref
-                        .watch(mainSwapSettingNotifierProvider.notifier)
+                        .watch(mainToyEventSettingNotifierProvider.notifier)
                         .getList()[index])),
                   );
                 },
@@ -72,7 +70,7 @@ class SwapScreenTwo extends ConsumerWidget {
                       ),
                       Text(
                         ref
-                            .watch(mainSwapSettingNotifierProvider)
+                            .watch(mainToyEventSettingNotifierProvider)
                             .titleController
                             .text,
                         style: S.textStyles.h3,
@@ -82,7 +80,7 @@ class SwapScreenTwo extends ConsumerWidget {
                       ),
                       Text(
                         ref
-                            .watch(mainSwapSettingNotifierProvider)
+                            .watch(mainToyEventSettingNotifierProvider)
                             .descriptionController
                             .text,
                         style: S.textStyles.titleLight,
@@ -94,7 +92,7 @@ class SwapScreenTwo extends ConsumerWidget {
                       SizedBox(
                         height: S.dimens.defaultPaddingVertical_16,
                       ),
-                      toyInfo(ref, uploadSwapSettingNotifierProvider),
+                      toyInfo(ref, uploadToyEventsSettingNotifierProvider),
                       SizedBox(
                         height: S.dimens.defaultPaddingVertical_16,
                       ),
@@ -110,7 +108,7 @@ class SwapScreenTwo extends ConsumerWidget {
                           Expanded(
                             child: Text(
                               Converter.convertCategories(ref
-                                  .watch(mainSwapSettingNotifierProvider)
+                                  .watch(mainToyEventSettingNotifierProvider)
                                   .groupButtonControllerCategories
                                   .selectedIndexes),
                               style: S.textStyles.titleLight,
@@ -127,8 +125,8 @@ class SwapScreenTwo extends ConsumerWidget {
                       // ),
                       bottomButton(
                         ref,
-                        uploadSwapSettingNotifierProvider,
-                        mainSwapSettingNotifierProvider,
+                        uploadToyEventsSettingNotifierProvider,
+                        mainToyEventSettingNotifierProvider,
                       ),
                     ],
                   ),
@@ -155,7 +153,7 @@ class SwapScreenTwo extends ConsumerWidget {
               ),
               Text(
                 Converter.convertCondition(ref
-                    .watch(mainSwapSettingNotifierProvider)
+                    .watch(mainToyEventSettingNotifierProvider)
                     .groupButtonControllerCondition
                     .selectedIndex!),
                 style: S.textStyles.titleLight,
@@ -173,7 +171,7 @@ class SwapScreenTwo extends ConsumerWidget {
               ),
               Text(
                 Converter.convertGenderType(ref
-                    .watch(mainSwapSettingNotifierProvider)
+                    .watch(mainToyEventSettingNotifierProvider)
                     .groupButtonControllerGenderType
                     .selectedIndex!),
                 style: S.textStyles.titleLight,
@@ -191,7 +189,7 @@ class SwapScreenTwo extends ConsumerWidget {
               ),
               Text(
                 Converter.convertAgeGroup(ref
-                    .watch(mainSwapSettingNotifierProvider)
+                    .watch(mainToyEventSettingNotifierProvider)
                     .groupButtonControllerAgeGroup
                     .selectedIndex!),
                 style: S.textStyles.titleLight,
@@ -203,10 +201,11 @@ class SwapScreenTwo extends ConsumerWidget {
 
   Widget bottomButton(
     WidgetRef ref,
-    StateNotifierProvider<UploadSwapSettingNotifier, UploadSwapSetting>
-        uploadSwapSettingNotifierProvider,
-    StateNotifierProvider<MainSwapSettingNotifier, MainSwapSetting>
-        mainSwapSettingNotifierProvider,
+    StateNotifierProvider<UploadToyEventsSettingNotifier,
+            UploadToyEventsSetting>
+        uploadToyEventsSettingNotifierProvider,
+    StateNotifierProvider<MainToyEventSettingNotifier, MainToyEventSetting>
+        mainToyEventSettingNotifierProvider,
   ) =>
       SizedBox(
         height: S.dimens.defaultPaddingVertical_88,
@@ -219,39 +218,42 @@ class SwapScreenTwo extends ConsumerWidget {
                   text: "Upload",
                   onPressed: () {
                     ref
-                        .watch(uploadSwapSettingNotifierProvider.notifier)
-                        .uploadToyToFirebase(
+                        .watch(uploadToyEventsSettingNotifierProvider.notifier)
+                        .uploadToyEventsToFirebase(
+                            eventId: ref
+                                .watch(uploadToyEventsSettingNotifierProvider)
+                                .eventId,
                             imagePathOne: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .imagePathOne,
                             imagePathTwo: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .imagePathTwo,
                             imagePathThree: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .imagePathThree,
                             title: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .titleController
                                 .text,
                             description: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .descriptionController
                                 .text,
                             categories: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .groupButtonControllerCategories
                                 .selectedIndexes,
                             condition: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .groupButtonControllerCondition
                                 .selectedIndex!,
                             genderType: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .groupButtonControllerGenderType
                                 .selectedIndex!,
                             ageGroup: ref
-                                .watch(mainSwapSettingNotifierProvider)
+                                .watch(mainToyEventSettingNotifierProvider)
                                 .groupButtonControllerAgeGroup
                                 .selectedIndex!);
                     // NavigationService.push(

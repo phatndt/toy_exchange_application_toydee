@@ -103,6 +103,10 @@ class UploadEventsNotifier extends StateNotifier<UploadEventsSetting> {
     state = newState;
   }
 
+  Future checkFinished() async {
+    _eventsRepo.checkEventFinished();
+  }
+
   bool compareDateAfter(DateTime a) {
     bool result = false;
     if (a.isAfter(state.dateTime)) {
@@ -152,7 +156,7 @@ class UploadEventsNotifier extends StateNotifier<UploadEventsSetting> {
       if (eventNameChecked != null) {
         {
           if (!eventNameChecked) {
-            uploadToyToFirebase(
+            uploadEventToFirebase(
                 name: name,
                 description: description,
                 startDate: startDate,
@@ -170,7 +174,7 @@ class UploadEventsNotifier extends StateNotifier<UploadEventsSetting> {
     }
   }
 
-  Future uploadToyToFirebase({
+  Future uploadEventToFirebase({
     required String name,
     String? description,
     required String startDate,

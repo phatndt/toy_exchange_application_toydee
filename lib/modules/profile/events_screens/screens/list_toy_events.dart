@@ -4,12 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/events_item.dart';
-import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_toy_events.dart';
+import 'package:toy_exchange_application_toydee/modules/home/components/swap_top_item.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/events_toy_item.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/list_events_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/upload_events_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/upload_toy_events_view_model.dart';
@@ -17,14 +16,18 @@ import 'package:toy_exchange_application_toydee/modules/profile/events_screens/v
 import '../../../../core/routing/route_paths.dart';
 import '../../../../core/styles/styles.dart';
 import '../../../../core/styles/text.dart';
+import '../../../swap/models/toy_type.dart';
 
-class ListEvents extends ConsumerWidget {
-  const ListEvents({Key? key}) : super(key: key);
+class ListToyEvents extends ConsumerWidget {
+  const ListToyEvents({
+    Key? key,
+    required this.eventId,
+  }) : super(key: key);
+
+  final String eventId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(uploadEventsNotifierProvider.notifier).checkFinished();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.background_1,
@@ -38,7 +41,7 @@ class ListEvents extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    T.eventListTitle,
+                    T.eventToyListTitle,
                     style: S.textStyles.h3,
                   )
                 ],
@@ -63,67 +66,64 @@ class ListEvents extends ConsumerWidget {
                   CustomIconButton(
                     color: S.colors.primary,
                     backgroundColor: S.colors.accent_5,
-                    text: FontAwesomeIcons.calendar,
+                    text: FontAwesomeIcons.circleDollarToSlot,
                     onPressed: () {
                       NavigationService.push(
-                          isNamed: true, page: RoutePaths.listMyEvents);
+                        page: RoutePaths.uploadToyEventsMain,
+                        isNamed: true,
+                      );
                     },
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: ref.watch(listEventProvider).when(
-                    data: (data) {
-                      return SizedBox(
-                        height: 100,
-                        child: ListView.builder(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: S.dimens.defaultPadding_8,
+                  horizontal: S.dimens.defaultPadding_8,
+                ),
+                child: ref
+                    .watch(listToyEventProvider(ref
+                        .watch(uploadToyEventsSettingNotifierProvider)
+                        .eventId))
+                    .when(
+                      data: (data) {
+                        return GridView.builder(
                           itemCount: data.size,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: S.dimens.defaultPadding_4,
+                            mainAxisSpacing: S.dimens.defaultPadding_4,
+                            childAspectRatio: 0.725,
+                          ),
                           itemBuilder: (context, index) {
-                            var doc = data.docs[index];
-
-                            return EventsItem(
-                              eventName: doc.data()['name'],
-                              startDate: reFormatDate(doc.data()['startDate']),
-                              endDate: reFormatDate(doc.data()['endDate']),
-                              description: doc.data()['description'],
-                              onPress: () {
-                                ref
-                                    .watch(
-                                        uploadToyEventsSettingNotifierProvider
-                                            .notifier)
-                                    .updateEventId(doc.data()['id']);
-                                NavigationService.push(
-                                  page: RoutePaths.eventToyList,
-                                  isNamed: true,
-                                );
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (context) => ListToyEvents(
-                                //         eventId: doc.data()['id'])));
-                              },
-                              userId: doc.data()['userId'],
-                              eventId: doc.data()['id'],
+                            DocumentSnapshot doc = data.docs[index];
+                            return EventsToyItem(
+                              name: doc['name'],
+                              condition:
+                                  ToyType.fromMap(doc['toyType']).condition,
+                              showingImage:
+                                  List<String>.from(doc['image']).first,
+                              uid: doc['id'],
                             );
                           },
-                        ),
-                      );
-                    },
-                    error: (error, stack) => Center(
-                      child: Lottie.network(
-                          'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                        );
+                      },
+                      error: (error, stack) => Center(
+                        child: Lottie.network(
+                            'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                      ),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
-                    loading: () => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-            )
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-String reFormatDate(String date) {
-  return DateFormat('dd/MM/yyyy').format(DateTime.parse(date));
 }

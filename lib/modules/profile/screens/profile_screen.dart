@@ -24,6 +24,7 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(profileNotifierProvider.notifier).getImageFromStorage();
     return SafeArea(
         child: Scaffold(
       backgroundColor: S.colors.background_2,

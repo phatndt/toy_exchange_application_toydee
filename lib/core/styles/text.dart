@@ -45,6 +45,7 @@ class T {
   ];
 
   static const eventListTitle = "Events";
+  static const eventToyListTitle = "Toys Donated";
   static const eventMyListTitle = "Your Events";
   static const uploadEventsTitle = "Make your own event";
 
