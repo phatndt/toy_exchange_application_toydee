@@ -185,7 +185,7 @@ class UploadEvents extends ConsumerWidget {
                   horizontal: S.dimens.defaultPadding_16,
                 ),
                 child: Text(
-                  'Pick Start Date',
+                  'Pick End Date',
                   style: S.textStyles.titleHeavy,
                 ),
               ),
