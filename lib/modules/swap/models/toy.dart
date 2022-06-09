@@ -3,16 +3,16 @@ import 'package:toy_exchange_application_toydee/modules/authentication/models/ad
 import 'package:toy_exchange_application_toydee/modules/swap/models/toy_type.dart';
 
 class Toy {
-  final String id;
-  final String userId;
-  final String name;
-  final String description;
-  final Address location;
-  final ToyType toyType;
+   String id;
+   String userId;
+   String name;
+   String description;
+   Address location;
+   ToyType toyType;
   List<String> image;
-  final DateTime createDate;
-  final bool isSwapped;
-  final bool isValid;
+   DateTime createDate;
+   bool isSwapped;
+   bool isValid;
 
   Toy({
     required this.id,

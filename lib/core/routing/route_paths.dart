@@ -31,6 +31,9 @@ class RoutePaths {
   static const uploadEvents = '/upload_events_screen';
   static const homeFilterResultScreen = '/home_filter_result_screen';
   static const requestScreen = '/request_screen';
+  static const requestToyScreen = '/request_toy_screen';
+  static const chattingScreen = '/chatting_screen';
+  static const chattingMessageScreen = '/chatting_message_screen';
 
   static const eventToyList = '/list_toy_events';
   static const uploadToyEvents = '/upload_toy_events_screen';

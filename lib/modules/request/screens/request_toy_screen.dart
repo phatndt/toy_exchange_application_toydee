@@ -1,32 +1,18 @@
-import 'dart:developer';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:toy_exchange_application_toydee/core/services/converter.dart';
-import 'package:toy_exchange_application_toydee/modules/home/view_models/home_view_model.dart';
-import 'package:toy_exchange_application_toydee/modules/request/viewmodels/request_view_model.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/styles/resources.dart';
+import '../../../core/services/converter.dart';
 import '../../../core/styles/styles.dart';
-import '../../../core/widgets/Toast.dart';
 import '../../../core/widgets/custom_icon_button.dart';
-import '../../../core/widgets/custom_text_elevated_button.dart';
+import '../../home/view_models/home_view_model.dart';
 import '../../profile/components/swap_profile_card.dart';
-import '../../request/components/request_swap_toy_card.dart';
-import '../../request/model/request.dart';
-import '../../swap/models/swap_toy.dart';
 
-class HomeToyDetailScreen extends ConsumerWidget {
-  const HomeToyDetailScreen({Key? key}) : super(key: key);
+class RequestToyScreen extends ConsumerWidget {
+  const RequestToyScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -219,34 +205,6 @@ class HomeToyDetailScreen extends ConsumerWidget {
                                 )
                               ],
                             ),
-                            const Expanded(
-                              child: SizedBox(),
-                            ),
-                            SizedBox(
-                              height: S.dimens.defaultPadding_88,
-                              child: Align(
-                                alignment: Alignment.topCenter,
-                                child: CustomButton(
-                                  text: "Request swap",
-                                  onPressed: () async {
-                                    final result = await ref
-                                        .watch(requestSettingNotifier.notifier)
-                                        .checkSwapToyOfUser(data.id, context);
-                                    if (result) {
-                                      CustomToast.fToast.init(context);
-                                      CustomToast.fToast.showToast(
-                                          gravity: ToastGravity.TOP,
-                                          child: const CustomToastBuilder(
-                                              msg: "It is your toy!",
-                                              icon: FontAwesomeIcons
-                                                  .exclamation));
-                                    } else {
-                                      showRequest(context, ref, data);
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -258,82 +216,6 @@ class HomeToyDetailScreen extends ConsumerWidget {
             error: (error, stack) => Text(""),
             loading: () => Text("")),
       ),
-    );
-  }
-
-  void showRequest(BuildContext buildContext, WidgetRef ref, SwapToy? swapToy) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(S.dimens.defaultBorderRadius),
-        ),
-      ),
-      context: buildContext,
-      builder: (context) {
-        return SingleChildScrollView(
-          controller: ModalScrollController.of(context),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 400.h,
-                child: ref.watch(requestSwapToyListProvider).when(
-                    data: (data) {
-                      log("ssss");
-                      return ListView.builder(
-                        itemCount: data.docs.length,
-                        itemBuilder: (context, index) {
-                          SwapToy swapToy =
-                              SwapToy.fromMap(data.docs[index].data());
-                          return RequestSwapToyCard(
-                            press: () {
-                              ref
-                                  .watch(requestSettingNotifier.notifier)
-                                  .updateSelectedSwapToy(swapToy.id);
-
-                              ref
-                                  .watch(requestSettingNotifier.notifier)
-                                  .updateSwapToyUser(swapToy.userId);
-                            },
-                            itemName: swapToy.name,
-                            itemPrice: "",
-                            itemDistance: "",
-                            itemImagePath: swapToy.image.first,
-                            index: swapToy.id,
-                          );
-                        },
-                      );
-                    },
-                    error: (error, stack) => Center(
-                        child: Lottie.network(
-                            'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json')),
-                    loading: () {
-                      log("loading");
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }),
-              ),
-              Padding(
-                padding: EdgeInsets.all(S.dimens.defaultPaddingVertical_16),
-                child: CustomButton(
-                    text: "Swap",
-                    onPressed: () {
-                      ref
-                          .watch(requestSettingNotifier.notifier)
-                          .addRequestToFirestore(
-                            swapToy!.id,
-                            swapToy.userId,
-                            ref.watch(requestSettingNotifier).selectedSwapToy,
-                            ref.watch(requestSettingNotifier).swapToyUser,
-                            buildContext,
-                          );
-                      NavigationService.goBack();
-                    }),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

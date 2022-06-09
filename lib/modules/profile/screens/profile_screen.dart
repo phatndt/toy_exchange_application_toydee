@@ -2,20 +2,21 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:badges/badges.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/components/profile_swap_toy_card.dart';
+import 'package:toy_exchange_application_toydee/modules/swap/models/swap_toy.dart';
 
 import '../../../core/styles/styles.dart';
 import '../../../core/styles/text.dart';
 
 import '../components/profile_widget.dart';
-import '../configuration_screen/viewmodels/configuration_view_models.dart';
 import 'profile_tab_1.dart';
 import 'viewmodels/profile_view_models.dart';
 
@@ -128,40 +129,100 @@ class ProfileScreen extends ConsumerWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      ReviewWidget(
-                        name: T.profileSwap,
-                        point: '18',
-                      ),
-                      ReviewWidget(
-                        name: T.profileDonated,
-                        point: '22',
-                      ),
+                      ref.watch(profieSwapAcceptProvider).when(
+                            data: (data) {
+                              return ReviewWidget(
+                                name: T.profileSwap,
+                                point: data.docs.length.toString(),
+                              );
+                            },
+                            error: (error, stack) => Center(
+                              child: Lottie.network(
+                                  'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                            ),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                      ref.watch(profieDonatiedAcceptProvider).when(
+                            data: (data) {
+                              return ReviewWidget(
+                                name: T.profileDonated,
+                                point: data.docs.length.toString(),
+                              );
+                            },
+                            error: (error, stack) => Center(
+                              child: Lottie.network(
+                                  'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                            ),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
                       const SizedBox(
                         width: 10,
                       ),
                     ],
                   ),
                 ),
-                CustomBadgeIconButton(
-                  text: FontAwesomeIcons.solidBell,
-                  onPressed: () {
-                    NavigationService.push(
-                      page: RoutePaths.requestScreen,
-                      isNamed: true,
-                    );
-                  },
-                  color: S.colors.primary,
-                  backgroundColor: S.colors.accent_5,
-                  counter: 11,
-                ),
+                ref.watch(profieNotificationProvider).when(
+                      data: (data) {
+                        return CustomBadgeIconButton(
+                          text: FontAwesomeIcons.solidBell,
+                          onPressed: () {
+                            NavigationService.push(
+                              page: RoutePaths.requestScreen,
+                              isNamed: true,
+                            );
+                          },
+                          color: S.colors.primary,
+                          backgroundColor: S.colors.accent_5,
+                          counter: data.docs.length,
+                        );
+                      },
+                      error: (error, stack) => Center(
+                        child: Lottie.network(
+                            'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                      ),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
               ],
             ),
           ),
           SizedBox(
             height: S.dimens.defaultPaddingVertical_16,
           ),
-          const Expanded(
-            child: ProfileTab1(),
+          Expanded(
+            child: ref.watch(getSwapToyByUserProvider).when(
+                  data: (data) {
+                    return ListView.builder(
+                      itemCount: data.size,
+                      itemBuilder: (itemBuilder, index) {
+                        SwapToy swapToy =
+                            SwapToy.fromMap(data.docs[index].data());
+                        return ProfileSwapToyCard(
+                            press: () {
+                              NavigationService.push(
+                                  page: RoutePaths.requestToyScreen,
+                                  isNamed: true,
+                                  arguments: swapToy.id);
+                            },
+                            itemImagePath: swapToy.image.first,
+                            itemName: swapToy.name,
+                            uuid: swapToy.id);
+                      },
+                    );
+                  },
+                  error: (error, stack) => Center(
+                    child: Lottie.network(
+                        'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
+                  ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
           ),
         ],
       ),
@@ -237,36 +298,60 @@ class CustomBadgeIconButton extends StatelessWidget {
       height: (3850 / 69).h,
       width: width ?? (1265 / 24).w,
       child: Center(
-        child: Badge(
-          badgeContent: Text(
-            counter.toString(),
-            style: TextStyle(color: S.colors.textColor_1),
-          ),
-          badgeColor: S.colors.primary,
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(S.dimens.defaultBorderRadius),
+        child: counter != 0
+            ? Badge(
+                badgeContent: Text(
+                  counter.toString(),
+                  style: TextStyle(color: S.colors.textColor_1),
+                ),
+                badgeColor: S.colors.primary,
+                child: ElevatedButton(
+                  onPressed: onPressed,
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(S.dimens.defaultBorderRadius),
+                      ),
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.zero),
+                    elevation: MaterialStateProperty.all<double>(elevation),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(backgroundColor),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      text,
+                      color: color,
+                      size: (1.h / 1.w) * 24,
+                    ),
+                  ),
+                ),
+              )
+            : ElevatedButton(
+                onPressed: onPressed,
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(S.dimens.defaultBorderRadius),
+                    ),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      EdgeInsets.zero),
+                  elevation: MaterialStateProperty.all<double>(elevation),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(backgroundColor),
+                ),
+                child: Center(
+                  child: Icon(
+                    text,
+                    color: color,
+                    size: (1.h / 1.w) * 24,
+                  ),
                 ),
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.zero),
-              elevation: MaterialStateProperty.all<double>(elevation),
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(backgroundColor),
-            ),
-            child: Center(
-              child: Icon(
-                text,
-                color: color,
-                size: (1.h / 1.w) * 24,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'package:toy_exchange_application_toydee/modules/authentication/screens/l
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/reset_password_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/sign_up_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/screens/welcome_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/chatting/screens/chatting_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_all_toy_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_filter_result_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/home/screens/home_search_screen.dart';
@@ -22,12 +23,14 @@ import 'package:toy_exchange_application_toydee/modules/profile/events_screens/s
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_main_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/request/screens/request_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/request/screens/request_toy_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_done.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_upload.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_welcome_screen.dart';
 
 import '../../modules/authentication/screens/reset_password_done_screen.dart';
+import '../../modules/chatting/screens/chatting_message_screen.dart';
 import '../../modules/home/screens/home_filter_screen.dart';
 import '../../modules/home/screens/home_screen.dart';
 import '../../modules/main_screen.dart';
@@ -271,6 +274,22 @@ class AppRouter {
       case RoutePaths.requestScreen:
         return MaterialPageRoute(
           builder: (_) => const RequestScreen(),
+          settings: settings,
+        );
+      case RoutePaths.requestToyScreen:
+        return MaterialPageRoute(
+          builder: (_) => const RequestToyScreen(),
+          settings: settings,
+        );
+      case RoutePaths.chattingScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ChattingScreen(),
+          settings: settings,
+        );
+
+      case RoutePaths.chattingMessageScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ChattingMessageScreen(),
           settings: settings,
         );
       //Map

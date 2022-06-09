@@ -201,32 +201,32 @@ class LoginScreen extends ConsumerWidget {
                             style: S.textStyles.titleHeavy,
                           ),
                         ),
-                        SizedBox(
-                          height: S.dimens.defaultPadding_16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AnotherLoginButton(
-                              text: R.images.ggLogin,
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              width: S.dimens.defaultPadding_16,
-                            ),
-                            AnotherLoginButton(
-                              text: R.images.fbLogin,
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              width: S.dimens.defaultPadding_16,
-                            ),
-                            AnotherLoginButton(
-                              text: R.images.appleLogin,
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
+                        // SizedBox(
+                        //   height: S.dimens.defaultPadding_16,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     AnotherLoginButton(
+                        //       text: R.images.ggLogin,
+                        //       onPressed: () {},
+                        //     ),
+                        //     SizedBox(
+                        //       width: S.dimens.defaultPadding_16,
+                        //     ),
+                        //     AnotherLoginButton(
+                        //       text: R.images.fbLogin,
+                        //       onPressed: () {},
+                        //     ),
+                        //     SizedBox(
+                        //       width: S.dimens.defaultPadding_16,
+                        //     ),
+                        //     AnotherLoginButton(
+                        //       text: R.images.appleLogin,
+                        //       onPressed: () {},
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(
                           height: S.dimens.defaultPadding_16,
                         ),
