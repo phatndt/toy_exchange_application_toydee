@@ -31,11 +31,11 @@ class EventsToyItem extends StatelessWidget {
       color: S.colors.background_1,
       child: InkWell(
         onTap: () {
-          // NavigationService.push(
-          //   page: RoutePaths.toyDetailScreen,
-          //   isNamed: true,
-          //   arguments: uid,
-          // );
+          NavigationService.push(
+            page: RoutePaths.eventsToyDetail,
+            isNamed: true,
+            arguments: uid,
+          );
         },
         child: Column(
           children: [

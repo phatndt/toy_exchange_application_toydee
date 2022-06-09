@@ -15,6 +15,7 @@ import 'package:toy_exchange_application_toydee/modules/home/screens/home_toy_de
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_gender.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_text.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/events_toy_detail.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_my_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_events_screen.dart';
@@ -201,6 +202,11 @@ class AppRouter {
       case RoutePaths.uploadEvents:
         return MaterialPageRoute(
           builder: (_) => UploadEvents(),
+          settings: settings,
+        );
+      case RoutePaths.eventsToyDetail:
+        return MaterialPageRoute(
+          builder: (_) => EventsToyDetail(),
           settings: settings,
         );
 

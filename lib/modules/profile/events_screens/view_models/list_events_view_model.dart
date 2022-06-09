@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/models/events.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/models/events_toy.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/repos/events_repo.dart';
 
 class ListEventSetting {
@@ -57,3 +58,6 @@ final listToyEventProvider =
       .where('eventId', isEqualTo: eventId)
       .snapshots();
 });
+
+final eventToyProvider = FutureProvider.family<EventsToy?, String>(
+    (ref, uid) => ref.watch(eventsRepoProvider).getEventsToyByUid(uid));

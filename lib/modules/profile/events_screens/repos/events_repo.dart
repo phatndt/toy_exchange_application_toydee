@@ -209,4 +209,24 @@ class EventsRepo {
     }
     return true;
   }
+
+  Future<EventsToy?> getEventsToyByUid(String uid) async {
+    EventsToy? eventsToy;
+    try {
+      await FirebaseFirestore.instance
+          .collection('toyEvents')
+          .doc(uid)
+          .get()
+          .then(
+        (value) {
+          eventsToy = EventsToy.fromMap(value.data()!);
+        },
+      );
+    } catch (e) {
+      log("getSwapToyByUid" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return eventsToy;
+  }
 }
