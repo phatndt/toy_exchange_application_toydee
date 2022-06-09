@@ -58,20 +58,16 @@ class RequestRepo {
     return _result;
   }
 
-  Future<bool> addRequestToFirestore(String swapToyId) async {
+  Future<bool> addRequestToFirestore(Request request) async {
     bool _result = false;
     try {
       await FirebaseFirestore.instance
-          .collection('request')
-          .doc()
-          .get()
-          .then(
-        (value) {
-          _result = value
-              .data()!
-              .containsValue(FirebaseAuth.instance.currentUser!.uid);
-        },
-      );
+          .collection('swap')
+          .add(request.toMap())
+          .then((value) {
+        updateRequestId(value.id);
+        _result = true;
+      });
     } catch (e) {
       log("checkSwapToyOfUser " + e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
@@ -80,26 +76,85 @@ class RequestRepo {
     return _result;
   }
 
-    Future<List<SwapToy>> getSwapToyListByUserFromFirestore() async {
+  Future<void> updateRequestId(String requestId) async {
+    await FirebaseFirestore.instance.collection('swap').doc(requestId).update({
+      "id": requestId,
+    }).then((value) => log("ToyId successfully updated!"));
+  }
+
+  Future<bool> checkExistRequest(Request request) async {
+    bool _result = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('swap')
+          .where('requestedSwapToyId', isEqualTo: request.requestedSwapToyId)
+          .where('requestedUserId', isEqualTo: request.requestedUserId)
+          .where('requestingSwapToyId', isEqualTo: request.requestingSwapToyId)
+          .where('requestingUserId', isEqualTo: request.requestingUserId)
+          .get()
+          .then((value) {
+        if (value.docs.isNotEmpty) {
+          _result = true;
+        }
+      });
+    } catch (e) {
+      log("checkSwapToyOfUser " + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
+  }
+
+  Future<List<SwapToy>> getSwapToyListByUserFromFirestore() async {
     List<SwapToy> swapToys = [];
     try {
       await FirebaseFirestore.instance
           .collection('swapToy')
-          .where('userId' , isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get()
           .then(
         (value) {
           for (var doc in value.docs) {
-            log("getSwapToyListFromFirestore" + doc.id);
+            log("getSwapToyListByUserFromFirestore" + doc.id);
             swapToys.add(SwapToy.fromMap(doc.data()));
           }
         },
       );
     } catch (e) {
-      log("getSwapToyListFromFirestore" + e.toString());
+      log("getSwapToyListByUserFromFirestore" + e.toString());
       final _errorMessage = Exceptions.errorMessage(e);
       Fluttertoast.showToast(msg: _errorMessage);
     }
     return swapToys;
+  }
+
+  Future<bool> updateDeclineRequest(String uid) async {
+    bool _result = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('swap')
+          .doc(uid)
+          .update({'status': 'decline'});
+    } catch (e) {
+      log("getSwapToyListByUserFromFirestore" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
+  }
+
+  Future<bool> updateAcceptRequest(String uid) async {
+    bool _result = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('swap')
+          .doc(uid)
+          .update({'status': 'accept'});
+    } catch (e) {
+      log("getSwapToyListByUserFromFirestore" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
   }
 }

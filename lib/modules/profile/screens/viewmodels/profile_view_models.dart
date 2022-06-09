@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -145,3 +147,42 @@ class ProfileNotifier extends StateNotifier<ProfileSetting> {
 final profileNotifierProvider =
     StateNotifierProvider<ProfileNotifier, ProfileSetting>(
         ((ref) => ProfileNotifier(ref)));
+
+final getSwapToyByUserProvider = StreamProvider(
+  (ref) {
+    log("getChattingMessageProvider");
+    return FirebaseFirestore.instance
+        .collection('swapToy')
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
+  },
+);
+
+final profieNotificationProvider =
+    StreamProvider(
+        (ref) {
+  return FirebaseFirestore.instance
+      .collection('swap')
+      .where('requestedUserId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('status', isEqualTo: 'waiting')
+      .snapshots();
+});
+
+final profieSwapAcceptProvider =
+    StreamProvider(
+        (ref) {
+  return FirebaseFirestore.instance
+      .collection('swap')
+      .where('requestedUserId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('status', isEqualTo: 'accept')
+      .snapshots();
+});
+
+final profieDonatiedAcceptProvider =
+    StreamProvider(
+        (ref) {
+  return FirebaseFirestore.instance
+      .collection('events')
+      .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .snapshots();
+});

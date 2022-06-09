@@ -206,7 +206,7 @@ class SwapScreenTwo extends ConsumerWidget {
 
   Widget bottomButton(
     WidgetRef ref,
-        uploadSwapSettingNotifierProvider,
+         uploadSwapSettingNotifierProvider,
         mainSwapSettingNotifierProvider,
   ) =>
       SizedBox(

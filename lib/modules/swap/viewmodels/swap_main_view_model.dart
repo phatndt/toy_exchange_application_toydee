@@ -354,7 +354,7 @@ class MainSwapSettingNotifier extends StateNotifier<MainSwapSetting> {
   }
 
   void previewToy(BuildContext context) {
-    if (checkFilters() && checkFilters() && checkRestOfCondition()) {
+    if (checkFilters() && checkFilters() && checkRestOfCondition() && checkimagePath()){
       log("message");
       NavigationService.push(
         page: RoutePaths.swapScreenUpload,
