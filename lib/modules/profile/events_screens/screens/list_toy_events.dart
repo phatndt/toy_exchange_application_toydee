@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 import 'package:toy_exchange_application_toydee/modules/home/components/swap_top_item.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/events_toy_item.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/list_events_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/upload_events_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/view_models/upload_toy_events_view_model.dart';
@@ -99,7 +100,7 @@ class ListToyEvents extends ConsumerWidget {
                           ),
                           itemBuilder: (context, index) {
                             DocumentSnapshot doc = data.docs[index];
-                            return SwapToyCard(
+                            return EventsToyItem(
                               name: doc['name'],
                               condition:
                                   ToyType.fromMap(doc['toyType']).condition,
