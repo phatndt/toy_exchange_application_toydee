@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:toy_exchange_application_toydee/modules/chatting/repos/chatting_repo.dart';
+import 'package:toy_exchange_application_toydee/modules/chatting/viewmodels/chatting_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/request/repos/request_repo.dart';
 import 'package:toy_exchange_application_toydee/modules/request/viewmodels/request_view_model.dart';
 
@@ -98,6 +100,9 @@ class RequestNotificationCard extends ConsumerWidget {
                               ref
                                   .watch(requestSettingNotifier.notifier)
                                   .updateAcceptRequest(request.id);
+                              ref
+                                  .watch(chattingSettingNotifier.notifier)
+                                  .createChatting(request);
                             },
                             child: const Icon(FontAwesomeIcons.check),
                           )

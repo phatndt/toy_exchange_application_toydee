@@ -307,14 +307,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                   style: S.textStyles.h4,
                                                 ),
                                               ),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Text(
-                                                  "Learn more",
-                                                  style: S.textStyles
-                                                      .titleLightUnderline,
-                                                ),
-                                              ),
+                                              // InkWell(
+                                              //   onTap: () {},
+                                              //   child: Text(
+                                              //     "Learn more",
+                                              //     style: S.textStyles
+                                              //         .titleLightUnderline,
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                         ),

@@ -62,7 +62,12 @@ class RequestScreen extends ConsumerWidget {
                           text: FontAwesomeIcons.message,
                           backgroundColor: S.colors.background_2,
                           color: S.colors.primary,
-                          onPressed: () {},
+                          onPressed: () {
+                            NavigationService.push(
+                              page: RoutePaths.chattingScreen,
+                              isNamed: true,
+                            );
+                          },
                         )
                       ],
                     ),

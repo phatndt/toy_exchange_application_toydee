@@ -32,6 +32,8 @@ class RoutePaths {
   static const homeFilterResultScreen = '/home_filter_result_screen';
   static const requestScreen = '/request_screen';
   static const requestToyScreen = '/request_toy_screen';
+  static const chattingScreen = '/chatting_screen';
+  static const chattingMessageScreen = '/chatting_message_screen';
 
   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =
