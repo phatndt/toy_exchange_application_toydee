@@ -26,6 +26,48 @@ class ChattingRepo {
     }
   }
 
+  Future<bool> checkExistChatting(Request request) async {
+    bool _result = true;
+    try {
+      await FirebaseFirestore.instance
+          .collection('perChatting')
+          .where('requestedUserId', isEqualTo: request.requestedUserId)
+          .where('requestingUserId', isEqualTo: request.requestingUserId)
+          .get()
+          .then((value) {
+        if (value.docs.isNotEmpty) {
+          _result = false;
+        }
+      });
+    } catch (e) {
+      log("createChatting" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
+  }
+
+  Future<bool> checkExistSecondChatting(Request request) async {
+    bool _result = true;
+    try {
+      await FirebaseFirestore.instance
+          .collection('perChatting')
+          .where('requestedUserId', isEqualTo: request.requestingUserId)
+          .where('requestingUserId', isEqualTo: request.requestedUserId)
+          .get()
+          .then((value) {
+        if (value.docs.isNotEmpty) {
+          _result = false;
+        }
+      });
+    } catch (e) {
+      log("createChatting" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
+  }
+
   Future<void> addChattingMessage(
       String userId, String uid, String message) async {
     try {

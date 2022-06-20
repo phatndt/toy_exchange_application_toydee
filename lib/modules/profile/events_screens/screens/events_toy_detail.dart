@@ -57,7 +57,7 @@ class EventsToyDetail extends ConsumerWidget {
                                         S.dimens.defaultBorderRadius),
                                   ),
                                   image: DecorationImage(
-                                      image: NetworkImage(data!.image[index]),
+                                      image: NetworkImage(data.image[index]),
                                       fit: BoxFit.fill),
                                 ),
                               ),
@@ -114,7 +114,7 @@ class EventsToyDetail extends ConsumerWidget {
                               height: S.dimens.defaultPadding_16,
                             ),
                             Text(
-                              data!.name,
+                              data.name,
                               style: S.textStyles.h3,
                             ),
                             SizedBox(
