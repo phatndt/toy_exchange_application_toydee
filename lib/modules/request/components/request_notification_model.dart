@@ -99,7 +99,11 @@ class RequestNotificationCard extends ConsumerWidget {
                             onPressed: () {
                               ref
                                   .watch(requestSettingNotifier.notifier)
-                                  .updateAcceptRequest(request.id);
+                                  .updateAcceptRequest(
+                                    request.id,
+                                    request.requestingSwapToyId,
+                                    request.requestedSwapToyId,
+                                  );
                               ref
                                   .watch(chattingSettingNotifier.notifier)
                                   .createChatting(request);

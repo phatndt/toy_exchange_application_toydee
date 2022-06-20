@@ -39,7 +39,9 @@ class ChattingScreen extends ConsumerWidget {
                             itemCount: data.size,
                             itemBuilder: (itemBuilder, index) {
                               if (data.docs[index]['requestingUserId'] !=
-                                  FirebaseAuth.instance.currentUser!.uid) {
+                                      FirebaseAuth.instance.currentUser!.uid &&
+                                  data.docs[index]['requestedUserId'] ==
+                                      FirebaseAuth.instance.currentUser!.uid) {
                                 return ref
                                     .watch(
                                       getRequestingUserProvider(
@@ -72,7 +74,10 @@ class ChattingScreen extends ConsumerWidget {
                                         child: CircularProgressIndicator(),
                                       ),
                                     );
-                              } else {
+                              } else if (data.docs[index]['requestedUserId'] !=
+                                      FirebaseAuth.instance.currentUser!.uid &&
+                                  data.docs[index]['requestingUserId'] ==
+                                      FirebaseAuth.instance.currentUser!.uid) {
                                 return ref
                                     .watch(
                                       getRequestingUserProvider(
@@ -105,6 +110,8 @@ class ChattingScreen extends ConsumerWidget {
                                         child: CircularProgressIndicator(),
                                       ),
                                     );
+                              } else {
+                                return Container();
                               }
                             },
                           ),

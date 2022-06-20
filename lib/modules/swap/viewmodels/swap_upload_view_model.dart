@@ -46,6 +46,8 @@ class UploadSwapSetting {
   bool phoneLocation;
   bool swapAvailable;
 
+  bool isLoading;
+
   UploadSwapSetting(
       {required this.imagePathOne,
       required this.imagePathTwo,
@@ -62,7 +64,8 @@ class UploadSwapSetting {
       required this.groupButtonControllerGenderType,
       required this.groupButtonControllerAgeGroup,
       required this.phoneLocation,
-      required this.swapAvailable});
+      required this.swapAvailable,
+      required this.isLoading});
 
   UploadSwapSetting copy({
     String? imagePathOne,
@@ -81,6 +84,7 @@ class UploadSwapSetting {
     GroupButtonController? groupButtonControllerAgeGroup,
     bool? phoneLocation,
     bool? swapAvailable,
+    bool? isLoading,
   }) =>
       UploadSwapSetting(
         imagePathOne: imagePathOne ?? this.imagePathOne,
@@ -104,6 +108,7 @@ class UploadSwapSetting {
             groupButtonControllerAgeGroup ?? this.groupButtonControllerAgeGroup,
         phoneLocation: phoneLocation ?? this.phoneLocation,
         swapAvailable: swapAvailable ?? this.swapAvailable,
+        isLoading: isLoading ?? this.isLoading,
       );
 
   void clearTitle() {
@@ -174,6 +179,7 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
             groupButtonControllerAgeGroup: GroupButtonController(),
             phoneLocation: false,
             swapAvailable: false,
+            isLoading: false,
           ),
         ) {
     _swapRepo = ref.watch(swapRepoRepoProvider);
@@ -183,6 +189,11 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
   final Ref ref;
   late SwapRepo _swapRepo;
   late UserRepo _userRepo;
+
+  updateIsLoading() {
+    final newState = state.copy(isLoading: !state.isLoading);
+    state = newState;
+  }
 
   uploadToyToFirebase({
     required String imagePathOne,
@@ -196,6 +207,7 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
     required int ageGroup,
     // required Address address,
   }) async {
+    updateIsLoading();
     Address address = Address(
       address: "1",
       detailAddress: "2",
@@ -236,16 +248,17 @@ class UploadSwapSettingNotifier extends StateNotifier<UploadSwapSetting> {
             .updateSwapToyImages(swapToyId, firebaseImagesPath)
             .then((value) {
           if (value) {
+            updateIsLoading();
             NavigationService.push(
               page: RoutePaths.swapScreenDone,
               isNamed: true,
             );
-          } else {}
+          } else {
+            updateIsLoading();}
         });
       }
     } else {}
   }
-
 }
 
 final uploadSwapSettingNotifierProvider =

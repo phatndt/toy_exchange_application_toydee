@@ -44,7 +44,7 @@ final chattingSettingNotifier =
     StateNotifierProvider<ChattingSettingNotifier, ChattingSetting>(
         (ref) => ChattingSettingNotifier(ref));
 
-final getChattingProvider = StreamProvider(
+final getChattingProvider = StreamProvider.autoDispose(
   (ref) => FirebaseFirestore.instance
       .collection('perChatting')
       .snapshots(),

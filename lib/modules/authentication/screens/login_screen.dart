@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -201,9 +202,17 @@ class LoginScreen extends ConsumerWidget {
                             style: S.textStyles.titleHeavy,
                           ),
                         ),
-                        // SizedBox(
-                        //   height: S.dimens.defaultPadding_16,
-                        // ),
+                        SizedBox(
+                          height: S.dimens.defaultPadding_16,
+                        ),
+                        LoginGoogleButton(
+                          text: "Google",
+                          onPressed: () {
+                            ref
+                                .watch(loginSettingNotifierProvider.notifier)
+                                .loginWithGoogle(context);
+                          },
+                        ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,
                         //   children: [
@@ -254,6 +263,53 @@ class LoginScreen extends ConsumerWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginGoogleButton extends StatelessWidget {
+  const LoginGoogleButton({
+    Key? key,
+    this.width = double.infinity,
+    required this.text,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final double width;
+  final String text;
+  final VoidCallback onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: (3850 / 69).h,
+      width: width,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(S.colors.primary),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              FontAwesomeIcons.google,
+              color: S.colors.textColor_1,
+            ),
+            SizedBox(
+              width: S.dimens.defaultPaddingVertical_16,
+            ),
+            Text(
+              text,
+              style: S.textStyles.h4,
+            ),
+          ],
         ),
       ),
     );

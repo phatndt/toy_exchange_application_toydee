@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toy_exchange_application_toydee/core/routing/route_paths.dart';
 import 'package:toy_exchange_application_toydee/core/styles/styles.dart';
+import 'package:toy_exchange_application_toydee/modules/authentication/models/user_model.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/repos/user_repo.dart';
 
 import '../../../core/routing/navigation_service.dart';
@@ -160,6 +161,67 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
       isNamed: true,
       page: RoutePaths.mainScreen,
     );
+  }
+
+  loginWithGoogle(context) {
+    _authRepo.loginWithGoogle().then(
+      (value) {
+        updateLoadingLogin();
+        NavigationService.removeAllFocus();
+        if (value != null && value.user != null) {
+          _authRepo.checkExistEmailGoogle(value.user!.email!).then(
+            (check) {
+              if (check != null) {
+                if (check) {
+                  submitSignUp(
+                    context,
+                    UserModel.fromUserCredential(value.user!),
+                    value.user!.email!,
+                    value.user!.displayName!,
+                  );
+                } else {
+                  _userRepo.getUserProfileToFireStore().then((value) {
+                    if (value) {
+                      updateLoadingLogin();
+                      navigationToMainScreen(context);
+                      log(_userRepo.userModel.toString());
+                    } else {
+                      updateLoadingLogin();
+                      Fluttertoast.showToast(msg: "Please try later!");
+                    }
+                  });
+                }
+              }
+            },
+          );
+        } else {
+          updateLoadingLogin();
+        }
+      },
+    );
+  }
+
+  submitSignUp(
+    BuildContext context,
+    UserModel userModel,
+    String email,
+    String userName,
+  ) async {
+    _authRepo
+        .uploadUserProfileToFirestore(
+      email: email,
+      userName: userName,
+      uuid: userModel.id,
+    )
+        .then(((value) {
+      if (value) {
+        updateLoadingLogin();
+        navigationToMainScreen(context);
+      } else {
+        updateLoadingLogin();
+        Fluttertoast.showToast(msg: "Please try later!");
+      }
+    }));
   }
 }
 

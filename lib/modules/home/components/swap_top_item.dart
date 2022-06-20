@@ -90,32 +90,32 @@ class SwapToyCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: S.dimens.defaultPadding_4,
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(
-                    condition == 0
-                        ? FontAwesomeIcons.faceGrin
-                        : FontAwesomeIcons.faceFrown,
-                    size: 20.w,
-                  ),
-                  Text(
-                    "15 Km",
-                    overflow: TextOverflow.ellipsis,
-                    style: S.textStyles.titleHeavyPrimary,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: S.dimens.defaultPadding_4,
-            ),
+            // SizedBox(
+            //   height: S.dimens.defaultPadding_4,
+            // ),
+            // Padding(
+            //   padding:
+            //       EdgeInsets.symmetric(horizontal: S.dimens.defaultPadding_4),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Icon(
+            //         condition == 0
+            //             ? FontAwesomeIcons.faceGrin
+            //             : FontAwesomeIcons.faceFrown,
+            //         size: 20.w,
+            //       ),
+            //       // Text(
+            //       //   "15 Km",
+            //       //   overflow: TextOverflow.ellipsis,
+            //       //   style: S.textStyles.titleHeavyPrimary,
+            //       // ),
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: S.dimens.defaultPadding_4,
+            // ),
           ],
         ),
       ),

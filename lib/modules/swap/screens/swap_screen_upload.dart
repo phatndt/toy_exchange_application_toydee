@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:toy_exchange_application_toydee/core/services/converter.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_text_elevated_button.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/components/swap_profile_card.dart';
@@ -23,119 +24,123 @@ class SwapScreenTwo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: S.colors.background_2,
-        body: Column(
-          children: [
-            SizedBox(
-              height: ScreenUtil().screenHeight / 2.2,
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.all(S.dimens.defaultPaddingVertical_4),
-                    child: Image.file(File(ref
-                        .watch(mainSwapSettingNotifierProvider.notifier)
-                        .getList()[index])),
-                  );
-                },
-                itemCount: 3,
-                pagination: SwiperPagination(
-                  alignment: Alignment.bottomCenter,
-                  builder: DotSwiperPaginationBuilder(
-                    activeColor: S.colors.primary,
-                    color: S.colors.accent_5,
+      child: ModalProgressHUD(
+        inAsyncCall: ref.watch(uploadSwapSettingNotifierProvider).isLoading,
+        child: Scaffold(
+          backgroundColor: S.colors.background_2,
+          body: Column(
+            children: [
+              SizedBox(
+                height: ScreenUtil().screenHeight / 2.2,
+                child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding:
+                          EdgeInsets.all(S.dimens.defaultPaddingVertical_4),
+                      child: Image.file(File(ref
+                          .watch(mainSwapSettingNotifierProvider.notifier)
+                          .getList()[index])),
+                    );
+                  },
+                  itemCount: 3,
+                  pagination: SwiperPagination(
+                    alignment: Alignment.bottomCenter,
+                    builder: DotSwiperPaginationBuilder(
+                      activeColor: S.colors.primary,
+                      color: S.colors.accent_5,
+                    ),
                   ),
                 ),
               ),
-            ),
-            // SizedBox(
-            //   height: ScreenUtil().screenHeight / 2.2,
-            //   child: Image.asset(R.images.homeToy_1),
-            // ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: S.colors.background_1,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(S.dimens.defaultBorderRadius),
-                    topRight: Radius.circular(S.dimens.defaultBorderRadius),
+              // SizedBox(
+              //   height: ScreenUtil().screenHeight / 2.2,
+              //   child: Image.asset(R.images.homeToy_1),
+              // ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: S.colors.background_1,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(S.dimens.defaultBorderRadius),
+                      topRight: Radius.circular(S.dimens.defaultBorderRadius),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: S.dimens.defaultPadding_32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: S.dimens.defaultPaddingVertical_24,
-                      ),
-                      Text(
-                        ref
-                            .watch(mainSwapSettingNotifierProvider)
-                            .titleController
-                            .text,
-                        style: S.textStyles.h3,
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPaddingVertical_16,
-                      ),
-                      Text(
-                        ref
-                            .watch(mainSwapSettingNotifierProvider)
-                            .descriptionController
-                            .text,
-                        style: S.textStyles.titleLight,
-                      ),
-                      SizedBox(
-                        height: S.dimens.defaultPaddingVertical_16,
-                      ),
-                      const SwapProductCard(),
-                      SizedBox(
-                        height: S.dimens.defaultPaddingVertical_16,
-                      ),
-                      toyInfo(ref, uploadSwapSettingNotifierProvider),
-                      SizedBox(
-                        height: S.dimens.defaultPaddingVertical_16,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            FontAwesomeIcons.typo3,
-                            color: S.colors.primary,
-                          ),
-                          SizedBox(
-                            width: S.dimens.defaultPadding_8,
-                          ),
-                          Expanded(
-                            child: Text(
-                              Converter.convertCategories(ref
-                                  .watch(mainSwapSettingNotifierProvider)
-                                  .groupButtonControllerCategories
-                                  .selectedIndexes),
-                              style: S.textStyles.titleLight,
-                              overflow: TextOverflow.ellipsis,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: S.dimens.defaultPadding_32),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: S.dimens.defaultPaddingVertical_24,
+                        ),
+                        Text(
+                          ref
+                              .watch(mainSwapSettingNotifierProvider)
+                              .titleController
+                              .text,
+                          style: S.textStyles.h3,
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPaddingVertical_16,
+                        ),
+                        Text(
+                          ref
+                              .watch(mainSwapSettingNotifierProvider)
+                              .descriptionController
+                              .text,
+                          style: S.textStyles.titleLight,
+                        ),
+                        SizedBox(
+                          height: S.dimens.defaultPaddingVertical_16,
+                        ),
+                        const SwapProductCard(),
+                        SizedBox(
+                          height: S.dimens.defaultPaddingVertical_16,
+                        ),
+                        toyInfo(ref, uploadSwapSettingNotifierProvider),
+                        SizedBox(
+                          height: S.dimens.defaultPaddingVertical_16,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.typo3,
+                              color: S.colors.primary,
                             ),
-                          )
-                        ],
-                      ),
-                      const Expanded(
-                        child: SizedBox(),
-                      ),
-                      // SizedBox(
-                      //   height: S.dimens.defaultPadding_16,
-                      // ),
-                      bottomButton(
-                        ref,
-                        uploadSwapSettingNotifierProvider,
-                        mainSwapSettingNotifierProvider,
-                      ),
-                    ],
+                            SizedBox(
+                              width: S.dimens.defaultPadding_8,
+                            ),
+                            Expanded(
+                              child: Text(
+                                Converter.convertCategories(ref
+                                    .watch(mainSwapSettingNotifierProvider)
+                                    .groupButtonControllerCategories
+                                    .selectedIndexes),
+                                style: S.textStyles.titleLight,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        // SizedBox(
+                        //   height: S.dimens.defaultPadding_16,
+                        // ),
+                        bottomButton(
+                          ref,
+                          uploadSwapSettingNotifierProvider,
+                          mainSwapSettingNotifierProvider,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

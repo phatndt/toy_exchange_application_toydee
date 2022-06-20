@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:toy_exchange_application_toydee/core/viewmodels/main_view_model.dart';
 import 'package:toy_exchange_application_toydee/core/widgets/custom_icon_button.dart';
 
 import 'package:intl/intl.dart';
@@ -308,6 +309,9 @@ class ProfileConfigurationScreen extends ConsumerWidget {
                 label: T.proConLabelLogOut,
                 information: T.proConLabelLogOutDetail,
                 press: () {
+                  ref
+                      .watch(mainSettingNotifierProvider.notifier)
+                      .updateCurrentIndex(0);
                   ref.watch(configurationNotifierProvider.notifier).logOut();
                   // NavigationService.pushReplacement(
                   //     isNamed: true, page: RoutePaths.login);
