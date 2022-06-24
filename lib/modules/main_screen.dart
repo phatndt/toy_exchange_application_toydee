@@ -121,6 +121,7 @@ class MainScreen extends ConsumerWidget {
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: CustomBottomAppBar(
             onItemPressed: (int m) {
+              log(m.toString());
               ref
                   .watch(mainSettingNotifierProvider.notifier)
                   .updateCurrentIndex(m);

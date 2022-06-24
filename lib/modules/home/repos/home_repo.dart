@@ -17,6 +17,8 @@ class HomeRepo {
     try {
       await FirebaseFirestore.instance
           .collection('swapToy')
+          .where('isSwapped', isEqualTo: false)
+          .where('isValid', isEqualTo: true)
           .orderBy('createDate', descending: false)
           .limit(4)
           .get()
@@ -41,6 +43,8 @@ class HomeRepo {
     try {
       await FirebaseFirestore.instance
           .collection('swapToy')
+          .where('isSwapped', isEqualTo: false)
+          .where('isValid', isEqualTo: true)
           .limit(4)
           .get()
           .then(
@@ -62,7 +66,12 @@ class HomeRepo {
   Future<List<SwapToy>> getSwapToyListFromFirestore() async {
     List<SwapToy> swapToys = [];
     try {
-      await FirebaseFirestore.instance.collection('swapToy').get().then(
+      await FirebaseFirestore.instance
+          .collection('swapToy')
+          .where('isSwapped', isEqualTo: false)
+          .where('isValid', isEqualTo: true)
+          .get()
+          .then(
         (value) {
           for (var doc in value.docs) {
             log("getSwapToyListFromFirestore" + doc.id);
@@ -97,6 +106,8 @@ class HomeRepo {
           await FirebaseFirestore.instance
               .collection('swapToy')
               .where('toyType.categories', arrayContainsAny: toyType.categories)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -114,6 +125,8 @@ class HomeRepo {
               .collection('swapToy')
               .where('toyType.categories', arrayContainsAny: toyType.categories)
               .where('toyType.condition', isEqualTo: toyType.condition)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -130,6 +143,8 @@ class HomeRepo {
               .collection('swapToy')
               .where('toyType.categories', arrayContainsAny: toyType.categories)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -147,6 +162,8 @@ class HomeRepo {
               .where('toyType.categories', arrayContainsAny: toyType.categories)
               .where('toyType.condition', isEqualTo: toyType.condition)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -163,6 +180,8 @@ class HomeRepo {
               .collection('swapToy')
               .where('toyType.categories', arrayContainsAny: toyType.categories)
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -180,6 +199,8 @@ class HomeRepo {
               .where('toyType.categories', arrayContainsAny: toyType.categories)
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
               .where('toyType.condition', isEqualTo: toyType.condition)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -197,6 +218,8 @@ class HomeRepo {
               .where('toyType.categories', arrayContainsAny: toyType.categories)
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -215,6 +238,8 @@ class HomeRepo {
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
               .where('toyType.condition', isEqualTo: toyType.condition)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -229,7 +254,12 @@ class HomeRepo {
         if (toyType.ageGroup == -1 &&
             toyType.condition == -1 &&
             toyType.genderType == -1) {
-          await FirebaseFirestore.instance.collection('swapToy').get().then(
+          await FirebaseFirestore.instance
+              .collection('swapToy')
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
+              .get()
+              .then(
             (value) {
               for (var doc in value.docs) {
                 log("getSwapToyListFromFirestore" + doc.id);
@@ -243,6 +273,8 @@ class HomeRepo {
           await FirebaseFirestore.instance
               .collection('swapToy')
               .where('toyType.condition', isEqualTo: toyType.condition)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -258,6 +290,8 @@ class HomeRepo {
           await FirebaseFirestore.instance
               .collection('swapToy')
               .where('toyType.genderType', isEqualTo: toyType.genderType)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -274,6 +308,8 @@ class HomeRepo {
               .collection('swapToy')
               .where('toyType.condition', isEqualTo: toyType.condition)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -289,6 +325,8 @@ class HomeRepo {
           await FirebaseFirestore.instance
               .collection('swapToy')
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -305,6 +343,8 @@ class HomeRepo {
               .collection('swapToy')
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
               .where('toyType.condition', isEqualTo: toyType.condition)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -321,6 +361,8 @@ class HomeRepo {
               .collection('swapToy')
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {
@@ -338,6 +380,8 @@ class HomeRepo {
               .where('toyType.ageGroup', isEqualTo: toyType.ageGroup)
               .where('toyType.genderType', isEqualTo: toyType.genderType)
               .where('toyType.condition', isEqualTo: toyType.condition)
+              .where('isSwapped', isEqualTo: false)
+              .where('isValid', isEqualTo: true)
               .get()
               .then(
             (value) {

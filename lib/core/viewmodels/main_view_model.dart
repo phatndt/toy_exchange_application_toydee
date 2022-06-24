@@ -85,7 +85,7 @@ final mainProvider = FutureProvider<bool>((ref) async {
   if (ref.watch(userRepoProvider).userModel == null) {
     final _result =
         await ref.watch(userRepoProvider).getUserProfileToFireStore();
-     ref.watch(mainSettingNotifierProvider.notifier).updateLoadingMain();
+    ref.watch(mainSettingNotifierProvider.notifier).updateLoadingMain();
     return _result;
   } else {
     ref.watch(mainSettingNotifierProvider.notifier).updateLoadingMain();

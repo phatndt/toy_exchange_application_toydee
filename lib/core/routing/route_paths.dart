@@ -36,10 +36,12 @@ class RoutePaths {
   static const chattingMessageScreen = '/chatting_message_screen';
 
   static const eventToyList = '/list_toy_events';
+  static const eventsToyDetail = 'events_toy_detail';
   static const uploadToyEvents = '/upload_toy_events_screen';
   static const uploadToyEventsMain = '/upload_toy_events_main_screen';
   static const uploadToyEventsFilter = 'upload_toy_events_filter';
   static const uploadToyEventsDone = '/upload_toy_events_done';
+  static const profileToyScreen = '/profile_toy_screen';
 
   static const profileconfiguration = '/profile_configuration_screen';
   static const profileconfigurationchangingtext =

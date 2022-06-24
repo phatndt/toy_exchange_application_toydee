@@ -313,13 +313,13 @@ class SignUpScreen extends HookConsumerWidget {
                           SizedBox(
                             height: S.dimens.defaultPadding_16,
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              T.wcOrConnectWith,
-                              style: S.textStyles.titleHeavy,
-                            ),
-                          ),
+                          // Align(
+                          //   alignment: Alignment.center,
+                          //   child: Text(
+                          //     T.wcOrConnectWith,
+                          //     style: S.textStyles.titleHeavy,
+                          //   ),
+                          // ),
                           // SizedBox(
                           //   height: S.dimens.defaultPadding_16,
                           // ),

@@ -30,6 +30,7 @@ class SwapProductCard extends ConsumerWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 ref.watch(userRepoProvider).userModel!.lastName! +
@@ -37,16 +38,17 @@ class SwapProductCard extends ConsumerWidget {
                     ref.watch(userRepoProvider).userModel!.lastName!,
                 style: S.textStyles.titleHeavy,
               ),
-              RatingBarIndicator(
-                rating: 2.5,
-                itemBuilder: (context, index) => const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                itemCount: 5,
-                itemSize: 24.0,
-                direction: Axis.horizontal,
-              ),
+              const Text(""),
+              // RatingBarIndicator(
+              //   rating: 2.5,
+              //   itemBuilder: (context, index) => const Icon(
+              //     Icons.star,
+              //     color: Colors.amber,
+              //   ),
+              //   itemCount: 5,
+              //   itemSize: 24.0,
+              //   direction: Axis.horizontal,
+              // ),
             ],
           )
         ],

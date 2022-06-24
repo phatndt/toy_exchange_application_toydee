@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 
 import '../../../authentication/repos/user_repo.dart';
 
@@ -142,45 +146,76 @@ class ProfileNotifier extends StateNotifier<ProfileSetting> {
       }
     });
   }
+
+  deleteToy(BuildContext context, String uuid) {
+    Dialogs.materialDialog(
+        msg: 'Are you sure ? you can\'t undo this',
+        title: "Delete",
+        color: Colors.white,
+        context: context,
+        actions: [
+          IconsOutlineButton(
+            onPressed: () {
+              NavigationService.goBack();
+            },
+            text: 'Cancel',
+            iconData: Icons.cancel_outlined,
+            textStyle: const TextStyle(color: Colors.grey),
+            iconColor: Colors.grey,
+          ),
+          IconsButton(
+            onPressed: () {
+              FirebaseFirestore.instance
+                  .collection('swapToy')
+                  .doc(uuid)
+                  .update({'isValid': false});
+              NavigationService.goBack();
+              NavigationService.goBack();
+            },
+            text: 'Delete',
+            iconData: Icons.delete,
+            color: Colors.red,
+            textStyle: const TextStyle(color: Colors.white),
+            iconColor: Colors.white,
+          ),
+        ]);
+  }
 }
 
 final profileNotifierProvider =
     StateNotifierProvider<ProfileNotifier, ProfileSetting>(
         ((ref) => ProfileNotifier(ref)));
 
-final getSwapToyByUserProvider = StreamProvider(
+final getSwapToyByUserProvider = StreamProvider.autoDispose(
   (ref) {
     log("getChattingMessageProvider");
     return FirebaseFirestore.instance
         .collection('swapToy')
         .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where('isValid', isEqualTo: true)
         .snapshots();
   },
 );
 
-final profieNotificationProvider =
-    StreamProvider(
-        (ref) {
+final profieNotificationProvider = StreamProvider((ref) {
   return FirebaseFirestore.instance
       .collection('swap')
-      .where('requestedUserId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('requestedUserId',
+          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .where('status', isEqualTo: 'waiting')
       .snapshots();
 });
 
-final profieSwapAcceptProvider =
-    StreamProvider(
-        (ref) {
+final profieSwapAcceptProvider = StreamProvider.autoDispose((ref) {
   return FirebaseFirestore.instance
       .collection('swap')
-      .where('requestedUserId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('requestedUserId',
+          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .where('status', isEqualTo: 'accept')
       .snapshots();
 });
 
-final profieDonatiedAcceptProvider =
-    StreamProvider(
-        (ref) {
+final profieDonatiedAcceptProvider = StreamProvider.autoDispose((ref) {
   return FirebaseFirestore.instance
       .collection('events')
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)

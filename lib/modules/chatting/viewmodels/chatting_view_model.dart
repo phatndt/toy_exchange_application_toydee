@@ -30,8 +30,13 @@ class ChattingSettingNotifier extends StateNotifier<ChattingSetting> {
   final Ref ref;
   late ChattingRepo _chattingRepo;
 
-  createChatting(Request request) {
-    _chattingRepo.createChatting(request);
+  createChatting(Request request) async {
+    final _result1 = await _chattingRepo.checkExistChatting(request);
+    final _result2 = await _chattingRepo.checkExistSecondChatting(request);
+
+    log(_result1.toString() + _result2.toString());
+
+    if (_result1 && _result2) _chattingRepo.createChatting(request);
   }
 
   addChattingMessage(String uid, String message) {
@@ -44,10 +49,8 @@ final chattingSettingNotifier =
     StateNotifierProvider<ChattingSettingNotifier, ChattingSetting>(
         (ref) => ChattingSettingNotifier(ref));
 
-final getChattingProvider = StreamProvider(
-  (ref) => FirebaseFirestore.instance
-      .collection('perChatting')
-      .snapshots(),
+final getChattingProvider = StreamProvider.autoDispose(
+  (ref) => FirebaseFirestore.instance.collection('perChatting').snapshots(),
 );
 
 final getRequestingUserProvider =

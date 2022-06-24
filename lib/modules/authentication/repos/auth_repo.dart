@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:toy_exchange_application_toydee/core/routing/navigation_service.dart';
 import 'package:toy_exchange_application_toydee/core/styles/text.dart';
@@ -255,6 +256,59 @@ class AuthRepo {
               msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
     }
     return _result;
+  }
+
+  Future<UserCredential?> loginWithGoogle() async {
+    UserCredential? userCredential;
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      log(e.toString());
+      Fluttertoast.showToast(msg: "Google login error. Try later!");
+    }
+    return userCredential;
+  }
+
+  Future<bool?> checkExistEmailGoogle(String email) async {
+    bool? _result;
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get()
+          .then(
+        (value) {
+          if (value.docs.isEmpty) {
+            _result = true;
+          } else {
+            _result = false;
+          }
+        },
+      );
+      return _result;
+    } catch (e) {
+      final _errorMessage = Exceptions.errorMessage(e);
+      CustomToast.fToast.showToast(
+          gravity: ToastGravity.TOP,
+          child: CustomToastBuilder(
+              msg: _errorMessage, icon: FontAwesomeIcons.exclamation));
+    }
+    return null;
   }
 
   Future signOut() async {

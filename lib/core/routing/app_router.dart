@@ -15,6 +15,7 @@ import 'package:toy_exchange_application_toydee/modules/home/screens/home_toy_de
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_gender.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_changing_text.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/configuration_screen/screens/profile_configuration_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/events_toy_detail.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/list_my_events_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_events_screen.dart';
@@ -22,6 +23,7 @@ import 'package:toy_exchange_application_toydee/modules/profile/events_screens/s
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_filter.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_main_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/profile/events_screens/screens/upload_toy_events_screen.dart';
+import 'package:toy_exchange_application_toydee/modules/profile/screens/profile_toy_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/request/screens/request_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/request/screens/request_toy_screen.dart';
 import 'package:toy_exchange_application_toydee/modules/swap/screens/swap_screen_main.dart';
@@ -163,44 +165,49 @@ class AppRouter {
         );
       case RoutePaths.listEvents:
         return MaterialPageRoute(
-          builder: (_) => ListEvents(),
+          builder: (_) => const ListEvents(),
           settings: settings,
         );
       case RoutePaths.eventToyList:
         return MaterialPageRoute(
-          builder: (_) => ListToyEvents(
+          builder: (_) => const ListToyEvents(
             eventId: '',
           ),
           settings: settings,
         );
       case RoutePaths.uploadToyEvents:
         return MaterialPageRoute(
-          builder: (_) => UploadToyEvents(),
+          builder: (_) => const UploadToyEvents(),
           settings: settings,
         );
       case RoutePaths.uploadToyEventsFilter:
         return MaterialPageRoute(
-          builder: (_) => UploadToyEventsFilter(),
+          builder: (_) => const UploadToyEventsFilter(),
           settings: settings,
         );
       case RoutePaths.uploadToyEventsMain:
         return MaterialPageRoute(
-          builder: (_) => UploadToyEventsMain(),
+          builder: (_) => const UploadToyEventsMain(),
           settings: settings,
         );
       case RoutePaths.uploadToyEventsDone:
         return MaterialPageRoute(
-          builder: (_) => UploadToyEventsDone(),
+          builder: (_) => const UploadToyEventsDone(),
           settings: settings,
         );
       case RoutePaths.listMyEvents:
         return MaterialPageRoute(
-          builder: (_) => ListMyEvents(),
+          builder: (_) => const ListMyEvents(),
           settings: settings,
         );
       case RoutePaths.uploadEvents:
         return MaterialPageRoute(
-          builder: (_) => UploadEvents(),
+          builder: (_) => const UploadEvents(),
+          settings: settings,
+        );
+      case RoutePaths.eventsToyDetail:
+        return MaterialPageRoute(
+          builder: (_) => EventsToyDetail(),
           settings: settings,
         );
 
@@ -286,10 +293,14 @@ class AppRouter {
           builder: (_) => const ChattingScreen(),
           settings: settings,
         );
-
       case RoutePaths.chattingMessageScreen:
         return MaterialPageRoute(
           builder: (_) => const ChattingMessageScreen(),
+          settings: settings,
+        );
+      case RoutePaths.profileToyScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileToyScreen(),
           settings: settings,
         );
       //Map

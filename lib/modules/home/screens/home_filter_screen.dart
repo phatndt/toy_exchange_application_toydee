@@ -58,32 +58,32 @@ class HomeFilterScreen extends ConsumerWidget {
                     SizedBox(
                       width: S.dimens.defaultPadding_8,
                     ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 55.79710144927537.h,
-                        child: TextFormField(
-                          style: S.textStyles.titleLight,
-                          textAlignVertical: TextAlignVertical.bottom,
-                          textAlign: TextAlign.start,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: S.colors.background_2,
-                            hintText: T.filterSearch,
-                            hintStyle: S.textStyles.titleLight,
-                            prefixIcon: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: S.dimens.defaultPadding_8,
-                                    vertical: S.dimens.defaultPadding_8),
-                                child: const Icon(Icons.search)),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(S.dimens.defaultPadding_8)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: SizedBox(
+                    //     height: 55.79710144927537.h,
+                    //     child: TextFormField(
+                    //       style: S.textStyles.titleLight,
+                    //       textAlignVertical: TextAlignVertical.bottom,
+                    //       textAlign: TextAlign.start,
+                    //       decoration: InputDecoration(
+                    //         filled: true,
+                    //         fillColor: S.colors.background_2,
+                    //         hintText: T.filterSearch,
+                    //         hintStyle: S.textStyles.titleLight,
+                    //         prefixIcon: Padding(
+                    //             padding: EdgeInsets.symmetric(
+                    //                 horizontal: S.dimens.defaultPadding_8,
+                    //                 vertical: S.dimens.defaultPadding_8),
+                    //             child: const Icon(Icons.search)),
+                    //         border: OutlineInputBorder(
+                    //           borderSide: BorderSide.none,
+                    //           borderRadius: BorderRadius.all(
+                    //               Radius.circular(S.dimens.defaultPadding_8)),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -249,17 +249,20 @@ class HomeFilterScreen extends ConsumerWidget {
                                     .selectedIndexes
                                     .toList(),
                                 condition: ref
-                                    .watch(homeFilterNotifierProvider)
-                                    .groupButtonControllerCondition
-                                    .selectedIndex ?? -1,
+                                        .watch(homeFilterNotifierProvider)
+                                        .groupButtonControllerCondition
+                                        .selectedIndex ??
+                                    -1,
                                 genderType: ref
-                                    .watch(homeFilterNotifierProvider)
-                                    .groupButtonControllerGenderType
-                                    .selectedIndex?? -1,
+                                        .watch(homeFilterNotifierProvider)
+                                        .groupButtonControllerGenderType
+                                        .selectedIndex ??
+                                    -1,
                                 ageGroup: ref
-                                    .watch(homeFilterNotifierProvider)
-                                    .groupButtonControllerAgeGroup
-                                    .selectedIndex?? -1,
+                                        .watch(homeFilterNotifierProvider)
+                                        .groupButtonControllerAgeGroup
+                                        .selectedIndex ??
+                                    -1,
                               ),
                             ),
                           ),

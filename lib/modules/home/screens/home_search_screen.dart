@@ -47,14 +47,15 @@ class HomeSearchScreen extends ConsumerWidget {
                     Expanded(
                       child: CustomTextFormField(
                         hintText: "Search",
-                        obscureText: true,
+                        obscureText: false,
                         controller: ref
                             .watch(homeSearchSettingNotifier)
                             .searchController,
                         width: ScreenUtil().setWidth(320),
                         autofocus: true,
                         focusNode: Tesst.myFocusNode,
-                        onChanged: (value) {
+                        onChanged: (value) {},
+                        onFieldSubmitted: (value) {
                           ref
                               .watch(homeSettingNotifier.notifier)
                               .updateSearch(value);

@@ -91,8 +91,10 @@ class RequestSettingNotifier extends StateNotifier<RequestSetting> {
     _requestRepo.updateDeclineRequest(uid);
   }
 
-  updateAcceptRequest(String uid) {
+  updateAcceptRequest(String uid, String requestingToy, String requestedToy) {
     _requestRepo.updateAcceptRequest(uid);
+    _requestRepo.updateIsSwappedRequestedSwapToy(requestedToy);
+    _requestRepo.updateIsSwappedRequestingSwapToy(requestingToy);
   }
 }
 
@@ -115,6 +117,8 @@ final requestSwapToyListProvider =
   return FirebaseFirestore.instance
       .collection('swapToy')
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('isSwapped', isEqualTo: false)
+      .where('isValid', isEqualTo: true)
       .snapshots();
 });
 

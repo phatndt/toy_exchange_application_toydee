@@ -205,7 +205,7 @@ class ProfileScreen extends ConsumerWidget {
                         return ProfileSwapToyCard(
                             press: () {
                               NavigationService.push(
-                                  page: RoutePaths.requestToyScreen,
+                                  page: RoutePaths.profileToyScreen,
                                   isNamed: true,
                                   arguments: swapToy.id);
                             },

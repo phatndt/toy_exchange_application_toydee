@@ -65,10 +65,7 @@ class HomeFilterSettingNotifier extends StateNotifier<HomeFilterSetting> {
 
   navigationBack(BuildContext context) {
     clearFilter();
-    NavigationService.push(
-      page: RoutePaths.home,
-      isNamed: true,
-    );
+    NavigationService.goBack();
   }
 
   navigationApplyFilter(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,13 @@ Future<void> main() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   initScreen = preferences.getInt('initScreen');
   await preferences.setInt('initScreen', 1);
-  runApp(const ProviderScope(child: Toydee()));
+  runApp(DevicePreview(
+      tools: const [
+        ...DevicePreview.defaultTools,
+        DevicePreviewScreenshot(),
+      ],
+      enabled: false,
+      builder: (context) => const ProviderScope(child: Toydee())));
 }
 
 // void main() async {
@@ -52,6 +59,9 @@ class Toydee extends ConsumerWidget {
       minTextAdapt: false,
       splitScreenMode: true,
       builder: () => MaterialApp(
+        // useInheritedMediaQuery: true,
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: S.colors.primary,

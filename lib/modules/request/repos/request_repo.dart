@@ -157,4 +157,34 @@ class RequestRepo {
     }
     return _result;
   }
+
+  Future<bool> updateIsSwappedRequestingSwapToy(String uid) async {
+    bool _result = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('swapToy')
+          .doc(uid)
+          .update({'isSwapped': true});
+    } catch (e) {
+      log("getSwapToyListByUserFromFirestore" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
+  }
+
+  Future<bool> updateIsSwappedRequestedSwapToy(String uid) async {
+    bool _result = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('swapToy')
+          .doc(uid)
+          .update({'isSwapped': true});
+    } catch (e) {
+      log("getSwapToyListByUserFromFirestore" + e.toString());
+      final _errorMessage = Exceptions.errorMessage(e);
+      Fluttertoast.showToast(msg: _errorMessage);
+    }
+    return _result;
+  }
 }

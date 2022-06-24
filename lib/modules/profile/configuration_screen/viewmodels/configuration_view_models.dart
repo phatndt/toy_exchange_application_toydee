@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:group_button/group_button.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:toy_exchange_application_toydee/core/viewmodels/main_view_model.dart';
 import 'package:toy_exchange_application_toydee/modules/authentication/models/address.dart';
 
 import '../../../../core/routing/navigation_service.dart';
