@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:toy_exchange_application_toydee/core/viewmodels/main_view_model.dart';
 
 import '../styles/styles.dart';
 
@@ -134,7 +135,7 @@ class BottomAppBarItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(stateProvider);
+    final provider = ref.watch(mainSettingNotifierProvider).currentIndex;
     return MaterialButton(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
